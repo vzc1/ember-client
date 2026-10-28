@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "ember_bake",
+  "version": "1.0.0",
+  "name": "Ember bake step",
+  "description": "Build-time only: dumps mixin-applied classes for the browser build.",
+  "environment": "*",
+  "entrypoints": { "preLaunch": ["net.emberclient.bake.BakeEntry"] },
+  "depends": { "fabricloader": "*" }
+}
