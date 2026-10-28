@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   SETUP_JAR_URL: https://github.com/melonman106/Eagler-26.2-Client/releases/download/Cleit/Eaglercraft-26.2-u2-Setup.jar
@@ -27,6 +27,9 @@ env:
 jobs:
   kit:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
@@ -73,8 +76,12 @@ jobs:
           done
           du -sh "$K"/*
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: fabric-dev-kit
-          path: ${{ runner.temp }}/kit
-          retention-days: 1
+      - name: Publish kit as a draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          zip -q -r dev-kit.zip kit
+          ls -la dev-kit.zip
+          bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" dev-kit "Fabric dev kit" dev-kit.zip

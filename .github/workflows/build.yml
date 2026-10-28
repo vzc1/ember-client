@@ -8,7 +8,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 env:
   # Patcher kit (o_xer's Eaglercraft 26.2 u2 setup), pinned by hash.
@@ -21,6 +21,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
@@ -42,13 +45,13 @@ jobs:
           node-version: 24
 
       - name: Fetch and verify inputs
-        run: bash scripts/fetch-inputs.sh
+        run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/fetch-inputs.sh 2>&1 | tee "$RUNNER_TEMP/logs/fetch-inputs.log"
 
       - name: Create source project
-        run: bash scripts/create-project.sh
+        run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/create-project.sh 2>&1 | tee "$RUNNER_TEMP/logs/create-project.log"
 
       - name: Apply Ember overlay
-        run: bash scripts/apply-overlay.sh
+        run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/apply-overlay.sh 2>&1 | tee "$RUNNER_TEMP/logs/apply-overlay.log"
 
       - name: Build standalone HTML
         env:
@@ -57,22 +60,17 @@ jobs:
           EAGLER_SERVER_LINK_CAP_MIB: "13312"
           EAGLER_SERVER_LINK_HEAP_MIB: "11264"
           EAGLER_BUILD_CAP_MIB: "13312"
-        run: bash scripts/build-html.sh
+        run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/build-html.sh 2>&1 | tee "$RUNNER_TEMP/logs/build-html.log"
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ember-client-html
-          path: out/*.html
-          retention-days: 1
-          compression-level: 0
-
-      - name: Upload build logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: |
-            ${{ runner.temp }}/ws/**/*.log
-            ${{ runner.temp }}/ws/**/build/reports/**
-          retention-days: 3
-          if-no-files-found: ignore
+      - name: Publish result and logs as a draft release
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          cd "$RUNNER_TEMP"
+          mkdir -p logs
+          find ws -name '*.log' -newer inputs/setup.jar -size -20M -exec cp --parents {} logs/ \; 2>/dev/null || true
+          (cd logs && zip -q -r ../logs.zip .) || true
+          bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "build-latest" "Latest build" \
+            "$RUNNER_TEMP/logs.zip" "$GITHUB_WORKSPACE"/out/*.html
