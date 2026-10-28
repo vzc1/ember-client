@@ -1,0 +1,31 @@
+/* Edit this file to change the site. No build step needed. */
+window.SITE = {
+  name: "Ember Client",          // your client's name
+  tagline: "Minecraft 26.2 with Fabric mods, right in your browser.",
+  version: "26.2",
+  gameFile: "play.html",         // the built game HTML, renamed and placed next to index.html
+  credits: [
+    "26.2 browser port by o_xer",
+    "Eaglercraft runtime by lax1dude and contributors",
+    "Mods belong to their respective authors"
+  ],
+  // status: "included" = in the current build, "next" = being ported, "planned" = on the list
+  mods: [
+    { name: "Fabric API", author: "FabricMC", category: "Library", status: "next",
+      description: "The base library almost every Fabric mod needs." },
+    { name: "Mod Menu", author: "TerraformersMC", category: "Utility", status: "planned",
+      description: "Lists installed mods and opens their settings." },
+    { name: "AppleSkin", author: "squeek502", category: "HUD", status: "planned",
+      description: "Shows hunger, saturation and food values." },
+    { name: "Zoomify", author: "isXander", category: "Utility", status: "planned",
+      description: "Smooth, configurable zoom." },
+    { name: "BetterF3", author: "cominixo", category: "HUD", status: "planned",
+      description: "A cleaner, customizable F3 debug screen." },
+    { name: "Shulker Box Tooltip", author: "MisterPeModder", category: "HUD", status: "planned",
+      description: "Preview what's inside shulker boxes." },
+    { name: "Sodium", author: "CaffeineMC", category: "Performance", status: "planned",
+      description: "Faster rendering. Big port, comes later." },
+    { name: "Iris Shaders", author: "IrisShaders", category: "Visuals", status: "planned",
+      description: "Shader pack support. Biggest port, comes last." }
+  ]
+};

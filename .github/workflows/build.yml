@@ -1,0 +1,85 @@
+name: Build Ember Client
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build.yml"
+      - "scripts/**"
+      - "overlay/**"
+      - "fabric/**"
+
+concurrency:
+  group: build
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # Patcher kit (o_xer's Eaglercraft 26.2 u2 setup), pinned by hash.
+  SETUP_JAR_URL: https://github.com/melonman106/Eagler-26.2-Client/releases/download/Cleit/Eaglercraft-26.2-u2-Setup.jar
+  SETUP_JAR_SHA256: d8e7240fba804249eae5706a6641b3fbd783a4c09923d31d4ee4c6386a273587
+  # Official Minecraft 26.2 client jar from Mojang, pinned by SHA-1.
+  CLIENT_JAR_URL: https://piston-data.mojang.com/v1/objects/2dc72797acbc1b63fc16a11c4ac393605f453754/client.jar
+  CLIENT_JAR_SHA1: 2dc72797acbc1b63fc16a11c4ac393605f453754
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          df -h /
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            25
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Fetch and verify inputs
+        run: bash scripts/fetch-inputs.sh
+
+      - name: Create source project
+        run: bash scripts/create-project.sh
+
+      - name: Apply Ember overlay
+        run: bash scripts/apply-overlay.sh
+
+      - name: Build standalone HTML
+        env:
+          EAGLER_LINK_CAP_MIB: "13312"
+          EAGLER_LINK_HEAP_MIB: "11264"
+          EAGLER_SERVER_LINK_CAP_MIB: "13312"
+          EAGLER_SERVER_LINK_HEAP_MIB: "11264"
+          EAGLER_BUILD_CAP_MIB: "13312"
+        run: bash scripts/build-html.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ember-client-html
+          path: out/*.html
+          retention-days: 1
+          compression-level: 0
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            ${{ runner.temp }}/ws/**/*.log
+            ${{ runner.temp }}/ws/**/build/reports/**
+          retention-days: 3
+          if-no-files-found: ignore
