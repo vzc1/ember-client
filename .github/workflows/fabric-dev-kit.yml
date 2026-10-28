@@ -1,0 +1,80 @@
+name: Fabric dev kit
+
+# Collects everything needed to develop the Fabric layer offline:
+# Fabric Loader + libraries, the mods in fabric/mods.txt, and the compiled
+# 26.2 game classes + its library jars. Artifact expires after one day.
+on:
+  workflow_dispatch:
+    inputs:
+      with_game:
+        description: "Also compile and include the 26.2 game classes"
+        type: boolean
+        default: true
+
+concurrency:
+  group: fabric-dev-kit
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  SETUP_JAR_URL: https://github.com/melonman106/Eagler-26.2-Client/releases/download/Cleit/Eaglercraft-26.2-u2-Setup.jar
+  SETUP_JAR_SHA256: d8e7240fba804249eae5706a6641b3fbd783a4c09923d31d4ee4c6386a273587
+  CLIENT_JAR_URL: https://piston-data.mojang.com/v1/objects/2dc72797acbc1b63fc16a11c4ac393605f453754/client.jar
+  CLIENT_JAR_SHA1: 2dc72797acbc1b63fc16a11c4ac393605f453754
+
+jobs:
+  kit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            25
+
+      - name: Fetch Fabric loader, libraries and mods
+        run: bash scripts/fetch-fabric.sh "$RUNNER_TEMP/kit/fabric"
+
+      - name: Fetch inputs
+        if: inputs.with_game
+        run: bash scripts/fetch-inputs.sh
+
+      - name: Create source project
+        if: inputs.with_game
+        run: bash scripts/create-project.sh
+
+      - name: Compile game and collect classpath
+        if: inputs.with_game
+        run: |
+          set -euo pipefail
+          WS="$RUNNER_TEMP/ws"; K="$RUNNER_TEMP/kit"
+          cd "$WS"
+          ./gradlew :game:compileJava :game:processResources --console=plain --no-daemon \
+            --init-script "$GITHUB_WORKSPACE/scripts/print-game-classpath.gradle" emberPrintClasspath | tee "$RUNNER_TEMP/gradle.log"
+          cp_line="$(grep '^EMBER_GAME_CP=' "$RUNNER_TEMP/gradle.log" | head -1 | cut -d= -f2-)"
+          mkdir -p "$K/game/libs"
+          IFS=: read -ra entries <<<"$cp_line"
+          for e in "${entries[@]}"; do
+            case "$e" in
+              *.jar) cp "$e" "$K/game/libs/" ;;
+              *) echo "dir on classpath: $e" ;;
+            esac
+          done
+          (cd game/build/classes/java/main && zip -qr "$K/game/game-classes.zip" .)
+          cp game/src/main/resources/version.json "$K/game/" 2>/dev/null || true
+          for p in platform; do
+            ./gradlew ":$p:jar" --console=plain --no-daemon -q
+            cp $p/build/libs/*.jar "$K/game/libs/" || true
+          done
+          du -sh "$K"/*
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fabric-dev-kit
+          path: ${{ runner.temp }}/kit
+          retention-days: 1

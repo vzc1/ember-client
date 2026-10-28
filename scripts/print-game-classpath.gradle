@@ -1,0 +1,11 @@
+// Gradle init script: prints the :game runtime classpath for the Fabric bake step.
+allprojects {
+    if (path == ":game") {
+        plugins.withId("java") {
+            tasks.register("emberPrintClasspath") {
+                def cp = project.extensions.getByType(SourceSetContainer).getByName("main").runtimeClasspath
+                doLast { println("EMBER_GAME_CP=" + cp.files.collect { it.absolutePath }.join(File.pathSeparator)) }
+            }
+        }
+    }
+}

@@ -1,0 +1,3 @@
+# Modrinth project slugs to bundle (Fabric, Minecraft 26.2). One per line.
+# Order doesn't matter; dependencies listed here are not auto-added yet.
+fabric-api
