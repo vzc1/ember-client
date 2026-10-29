@@ -19,6 +19,9 @@ cd "$WS"
 if [ "${EMBER_OBFUSCATE:-0}" != "1" ]; then
   sed -i 's/obfuscated: !diagnostic,/obfuscated: false,/' wasm-toolchain/link-web-target-standalone.js
   grep -n 'obfuscated: false' wasm-toolchain/link-web-target-standalone.js
+  # The single-file builder refuses a client with names left in; allow it.
+  sed -i 's/if (wasm.length > 130_000_000 \&\& !diagnosticBuild)/if (wasm.length > 400_000_000 \&\& !diagnosticBuild)/' wasm-toolchain/build-single-html.js
+  grep -n '400_000_000' wasm-toolchain/build-single-html.js
 fi
 npm ci --ignore-scripts --no-audit --no-fund
 free -m
