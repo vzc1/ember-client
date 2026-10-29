@@ -6,3 +6,7 @@ fabric-crash-report-info-v1.mixins.json:*
 
 # Its item-model hook keeps a local in a try block that the browser compiler can't handle, which breaks item models. Few mods use this API.
 fabric-model-loading-api-v1.mixins.json:*
+
+# Yumi (used by LambDynamicLights) adds a crash-report hook that throws in the
+# browser while Minecraft prepares its crash reporter, so the game never starts.
+@yumi_mc_core:net.minecraft.CrashReport
