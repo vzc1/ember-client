@@ -70,7 +70,7 @@ echo "== mixins switched off for Eaglercraft compatibility:"; cat "$DISABLED"
 #    browser-side loader shim + generated entrypoints on top.
 ROOT="$F/jar-root"
 rm -rf "$ROOT"; mkdir -p "$ROOT"
-for lib in "$F"/libs/fabric-loader-*.jar "$F"/libs/sponge-mixin-*.jar "$F"/libs/mixinextras-*.jar; do
+for lib in "$F"/libs/fabric-loader-*.jar "$F"/libs/sponge-mixin-*.jar "$F"/libs/mixinextras-*.jar "$F"/libs/asm-*.jar; do
   [ -f "$lib" ] && (cd "$ROOT" && unzip -q -o "$lib" -x 'META-INF/*' 'module-info.class' 'LICENSE*' 'fabric.mod.json')
 done
 # MixinExtras ships inside the loader jar (jar-in-jar).
@@ -78,6 +78,23 @@ unzip -p "$F"/libs/fabric-loader-*.jar 'META-INF/jars/mixinextras-fabric-*.jar' 
 [ -s "$F/mixinextras.jar" ] && (cd "$ROOT" && unzip -q -o "$F/mixinextras.jar" -x 'META-INF/*' 'module-info.class' 'fabric.mod.json')
 find "$ROOT" -name module-info.class -delete
 cp -a "$F/baked/classes/." "$ROOT/"
+# Eaglercraft swaps some game classes for browser versions with the same name
+# (platform-teavm, teavm-compat). Never ship a copy that would cover those.
+python3 - "$ROOT" "$WS" <<'PY'
+import os, sys
+root, ws = sys.argv[1], sys.argv[2]
+srcs = [os.path.join(ws, d, "src/main/java") for d in ("platform-teavm", "teavm-compat")]
+dropped = []
+for dirpath, _, files in os.walk(root):
+    for f in files:
+        if not f.endswith(".class"): continue
+        rel = os.path.relpath(os.path.join(dirpath, f), root)
+        top = rel[:-6].split("$", 1)[0]
+        if any(os.path.exists(os.path.join(s, top + ".java")) for s in srcs):
+            os.remove(os.path.join(dirpath, f)); dropped.append(rel)
+print(f"left out {len(dropped)} classes that Eaglercraft replaces for the browser")
+for d in sorted(dropped)[:40]: print("  -", d)
+PY
 "$JAVAC" -nowarn -proc:none --release 21 -encoding UTF-8 -d "$ROOT" \
   -cp "$ROOT$SEP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
   $(find "$REPO/fabric/runtime/src" -name '*.java') "$F/baked/gen/net/emberclient/fabric/EmberGenerated.java"

@@ -3,6 +3,7 @@
 
 Usage: disable-mixins.py <list-file> <mod jar or dir>...
 The list holds lines like  fabric-message-api-v1.client.mixins.json:ChatListenerMixin
+("config.json:*" switches off every mixin in that config).
 Each matching entry is removed from that mixin config's mixins/client/server arrays.
 """
 import io, json, os, sys, zipfile
@@ -20,10 +21,11 @@ def load_list(path):
 def patch_config(data, names):
     cfg = json.loads(data)
     removed = []
+    everything = "*" in names
     for key in ("mixins", "client", "server"):
         if isinstance(cfg.get(key), list):
-            keep = [m for m in cfg[key] if m not in names]
-            removed += [m for m in cfg[key] if m in names]
+            keep = [m for m in cfg[key] if not everything and m not in names]
+            removed += [m for m in cfg[key] if everything or m in names]
             cfg[key] = keep
     return json.dumps(cfg, indent=2).encode(), removed
 

@@ -101,8 +101,9 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			String name = rel.substring(0, rel.length() - 6).replace('/', '.');
 			byte[] raw = Files.readAllBytes(f);
 			byte[] b = transform(launcher, name, raw);
-			if (b == null) { failed++; b = raw; }
-			else if (!Arrays.equals(raw, b)) changed++;
+			if (b == null) { failed++; continue; }        // the browser build keeps its own copy
+			if (Arrays.equals(raw, b)) continue;           // unchanged: no need to ship it again
+			changed++;
 			collectSynthetic(b, synthetic);
 			write(classesOut.resolve(rel), b);
 		}
