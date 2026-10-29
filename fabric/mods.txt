@@ -43,3 +43,4 @@ enchantment-descriptions
 logical-zoom
 gamma-utils
 nicer-skies
+sodium
