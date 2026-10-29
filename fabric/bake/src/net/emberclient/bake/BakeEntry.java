@@ -426,6 +426,10 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				sb.append("C\t").append(name).append('\n');
 				classes++;
 			}
+			// Field/constructor reflection is expensive for the browser compiler (every
+			// reflective field widens what it must track), so only config classes get it.
+			if (!name.toLowerCase(java.util.Locale.ROOT).contains("config") || name.contains(".gui.")
+					|| name.startsWith("me.shedaniel.") || name.startsWith("com.electronwill.") || name.contains(".shadowed.") || name.contains(".libs.")) continue;
 			for (org.objectweb.asm.tree.FieldNode fn : cn.fields) {
 				if ((fn.access & Opcodes.ACC_SYNTHETIC) != 0) continue;
 				sb.append("F\t").append(name).append('\t').append(fn.name).append('\n');
