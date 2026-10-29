@@ -134,6 +134,17 @@
   .mod h3 { font-size: 16px; font-weight: 700; }
   .mod .by { font-size: 13px; color: var(--ash-3); margin: 1px 0 8px; }
   .mod p { margin: 0; font-size: 14px; color: var(--ash-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mod.off { opacity: .55; }
+  .mod-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .mod h3 a { text-decoration: none; } .mod h3 a:hover { text-decoration: underline; }
+  .switch { flex: none; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--edge-2); background: var(--stone-2);
+    border-radius: 999px; padding: 4px 10px 4px 4px; font-weight: 700; font-size: 13px; cursor: pointer; color: var(--ash-2); }
+  .switch i { width: 30px; height: 18px; border-radius: 999px; background: var(--edge-2); position: relative; transition: background .15s; }
+  .switch i::after { content: ""; position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; border-radius: 3px; background: var(--ash-3); transition: left .15s, background .15s; }
+  .switch[aria-checked="true"] { color: var(--ash); }
+  .switch[aria-checked="true"] i { background: var(--magma); }
+  .switch[aria-checked="true"] i::after { left: 15px; background: #fff1c9; }
+  .locked { font-size: 12px; color: var(--ash-3); white-space: nowrap; }
   .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
   .tag { font-size: 12px; font-weight: 600; color: var(--ash-2); background: var(--stone-2); border-radius: 5px; padding: 2px 8px; }
   .tag.dep { color: var(--soul); background: #0f2c2a; }
@@ -261,7 +272,7 @@
     <section class="view" id="view-mods" aria-label="Mods" hidden>
       <div class="mods-top">
         <div><span class="count" id="modCount">0</span></div>
-        <div><h2>Mods</h2><p class="sub" style="margin:0">Everything below is built into the game.</p></div>
+        <div><h2>Mods</h2><p class="sub" style="margin:0">Turn mods on or off. Changes apply the next time you press Play.</p></div>
       </div>
       <div class="filters">
         <label class="search"><svg><use href="#i-search"/></svg><input id="q" type="search" placeholder="Search mods" aria-label="Search mods"></label>
@@ -386,8 +397,20 @@
       wrap.appendChild(b);
     });
   }
+  // Switched-off mods are saved where the game reads them at start:
+  // localStorage "_eaglercraftX.ember_disabled_mods", base64 of one mod id per line.
+  var OFF_KEY = "_eaglercraftX.ember_disabled_mods";
+  function readOff() {
+    try { var v = localStorage.getItem(OFF_KEY); if (!v) return [];
+      return decodeURIComponent(escape(atob(v))).split("\n").filter(Boolean); } catch (e) { return []; }
+  }
+  function writeOff(list) {
+    try { if (list.length) localStorage.setItem(OFF_KEY, btoa(unescape(encodeURIComponent(list.join("\n"))))); else localStorage.removeItem(OFF_KEY); } catch (e) {}
+  }
+  function canSwitch(m) { return m.id && m.listed !== false && !/^fabric(-api)?$/.test(m.id); }
   function renderMods() {
     var q = $("q").value.trim().toLowerCase();
+    var off = readOff();
     var list = mods.filter(function (m) {
       return (activeCat === "All" || catOf(m).indexOf(activeCat) >= 0) &&
         (!q || (m.name + " " + (m.author || "") + " " + (m.description || "")).toLowerCase().indexOf(q) >= 0);
@@ -395,23 +418,36 @@
     var g = $("modGrid"); g.innerHTML = "";
     if (!list.length) { g.innerHTML = '<div class="empty">No mods match "' + esc(q) + '".</div>'; return; }
     list.forEach(function (m) {
-      var tag = m.url ? "a" : "div";
+      var isOff = m.id && off.indexOf(m.id) >= 0;
       var tags = catOf(m).slice(0, 3).map(function (c) { return '<span class="tag">' + esc(c) + '</span>'; }).join("");
       if (m.listed === false) tags += '<span class="tag dep" title="Added because another mod needs it">Needed by another mod</span>';
+      var title = m.url ? '<a href="' + esc(m.url) + '" target="_blank" rel="noopener">' + esc(m.name) + '</a>' : esc(m.name);
+      var control = canSwitch(m)
+        ? '<button class="switch" role="switch" aria-checked="' + !isOff + '" data-id="' + esc(m.id) + '" aria-label="' + esc(m.name) + '"><i></i>' + (isOff ? "Off" : "On") + '</button>'
+        : (m.listed === false ? '<span class="locked">Always on</span>' : "");
       g.insertAdjacentHTML("beforeend",
-        '<' + tag + ' class="mod"' + (m.url ? ' href="' + esc(m.url) + '" target="_blank" rel="noopener"' : "") + '>' +
-        iconHTML(m, 64) + '<div style="min-width:0"><h3>' + esc(m.name) + '</h3>' +
+        '<div class="mod' + (isOff ? " off" : "") + '">' + iconHTML(m, 64) + '<div style="min-width:0">' +
+        '<div class="mod-head"><h3>' + title + '</h3>' + control + '</div>' +
         '<div class="by">' + (m.author ? "by " + esc(m.author) : "&nbsp;") + (m.version ? ", version " + esc(m.version) : "") + '</div>' +
-        '<p>' + esc(m.description) + '</p>' + (tags ? '<div class="tags">' + tags + '</div>' : "") + '</div></' + tag + '>');
+        '<p>' + esc(m.description) + '</p>' + (tags ? '<div class="tags">' + tags + '</div>' : "") + '</div></div>');
+    });
+    g.querySelectorAll(".switch").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var id = b.dataset.id, list = readOff(), i = list.indexOf(id);
+        if (i >= 0) list.splice(i, 1); else list.push(id);
+        writeOff(list); renderMods(); renderModSummary();
+        toast((i >= 0 ? "Turned on " : "Turned off ") + b.getAttribute("aria-label") + ". Applies next time you press Play.");
+      });
     });
   }
   function renderModSummary() {
-    var n = mods.length;
+    var offList = readOff();
+    var n = mods.filter(function (m) { return !(m.id && offList.indexOf(m.id) >= 0); }).length;
     $("modCount").textContent = n;
     $("modsHead").textContent = "Your mods (" + n + ")";
     $("forgeMeta").textContent = "Minecraft " + (S.version || "") + " with Fabric and " + n + " mod" + (n === 1 ? "" : "s");
     var row = $("homeIcons"); row.innerHTML = "";
-    mods.filter(function (m) { return m.listed !== false; }).slice(0, 14).forEach(function (m) {
+    mods.filter(function (m) { return m.listed !== false && !(m.id && offList.indexOf(m.id) >= 0); }).slice(0, 14).forEach(function (m) {
       row.insertAdjacentHTML("beforeend", '<div>' + iconHTML(m, 56) + '<span>' + esc(m.name) + '</span></div>');
     });
   }
