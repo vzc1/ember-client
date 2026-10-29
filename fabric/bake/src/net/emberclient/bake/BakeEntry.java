@@ -235,6 +235,18 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 		log("mixin handlers that can be switched off per mod: " + guarded);
 
+		// 4b2. A few mod hooks assume vanilla's code around them; Eaglercraft's differs
+		//      (e.g. its singleplayer loading screen). Make those hooks give up quietly.
+		int safe = 0;
+		try (Stream<Path> st = Files.walk(classesOut)) {
+			for (Path f : st.filter(p -> p.toString().endsWith(".class")).toList()) {
+				int[] n = {0};
+				byte[] outBytes = safeHandlers(Files.readAllBytes(f), n);
+				if (outBytes != null && n[0] > 0) { Files.write(f, outBytes); safe += n[0]; }
+			}
+		}
+		log("mod hooks made failure-safe: " + safe);
+
 		// 4c. Reroute calls to Java library methods the browser lacks to Ember's stand-ins.
 		int rerouted = 0;
 		try (Stream<Path> st = Files.walk(classesOut)) {
@@ -569,6 +581,57 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			return w.toByteArray();
 		} catch (Throwable t) {
 			problems.add("could not add switch-off checks: " + describe(t));
+			return null;
+		}
+	}
+
+	/** Merged mixin handlers (by name) that should catch their own errors instead of crashing the game. */
+	private static final List<String> SAFE_HANDLERS = List.of(
+			"$fabric-screen-api-v1$beforeLoadingScreenTick",
+			"$fabric-screen-api-v1$afterLoadingScreenTick");
+
+	private byte[] safeHandlers(byte[] b, int[] count) {
+		String s = new String(b, StandardCharsets.ISO_8859_1);
+		if (SAFE_HANDLERS.stream().noneMatch(s::contains)) return null;
+		try {
+			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+			new ClassReader(b).accept(cn, 0);
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				if (SAFE_HANDLERS.stream().noneMatch(mn.name::endsWith) || !mn.desc.endsWith(")V")) continue;
+				if (mn.instructions.size() == 0) continue;
+				org.objectweb.asm.tree.LabelNode start = new org.objectweb.asm.tree.LabelNode();
+				org.objectweb.asm.tree.LabelNode end = new org.objectweb.asm.tree.LabelNode();
+				org.objectweb.asm.tree.LabelNode handler = new org.objectweb.asm.tree.LabelNode();
+				mn.instructions.insert(start);
+				mn.instructions.add(end);
+				mn.instructions.add(handler);
+				// Frame at the handler: the method's own parameters, and the caught Throwable on the stack.
+				List<Object> locals = new ArrayList<>();
+				if ((mn.access & Opcodes.ACC_STATIC) == 0) locals.add(cn.name);
+				for (org.objectweb.asm.Type t : org.objectweb.asm.Type.getArgumentTypes(mn.desc)) {
+					switch (t.getSort()) {
+						case org.objectweb.asm.Type.BOOLEAN, org.objectweb.asm.Type.BYTE, org.objectweb.asm.Type.CHAR,
+								org.objectweb.asm.Type.SHORT, org.objectweb.asm.Type.INT -> locals.add(Opcodes.INTEGER);
+						case org.objectweb.asm.Type.FLOAT -> locals.add(Opcodes.FLOAT);
+						case org.objectweb.asm.Type.LONG -> locals.add(Opcodes.LONG);
+						case org.objectweb.asm.Type.DOUBLE -> locals.add(Opcodes.DOUBLE);
+						default -> locals.add(t.getInternalName());
+					}
+				}
+				mn.instructions.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_FULL, locals.size(), locals.toArray(),
+						1, new Object[] {"java/lang/Throwable"}));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.POP));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN));
+				mn.tryCatchBlocks.add(new org.objectweb.asm.tree.TryCatchBlockNode(start, end, handler, "java/lang/Throwable"));
+				mn.maxStack = Math.max(mn.maxStack, 1);
+				count[0]++;
+			}
+			if (count[0] == 0) return null;
+			org.objectweb.asm.ClassWriter w = new org.objectweb.asm.ClassWriter(0);
+			cn.accept(w);
+			return w.toByteArray();
+		} catch (Throwable t) {
+			problems.add("could not make hooks failure-safe: " + describe(t));
 			return null;
 		}
 	}
