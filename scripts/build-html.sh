@@ -38,6 +38,13 @@ free -m
   done
 ) &
 WATCH=$!
-timeout 150m npm run build:single -- --output "$OUT/ember-client-26.2.html"
+FLAGS=()
+if [ "${EMBER_REUSE_WORKERS:-}" = "true" ]; then
+  # Restored files keep their old dates; mark them newer than this run's sources.
+  find target_teavm_wasm_gc_server/build/generated/teavm/wasm-gc target_teavm_wasm_gc_mesh/build/generated/teavm/wasm-gc -type f -exec touch {} +
+  FLAGS+=(--reuse-server --reuse-mesh)
+  echo "reusing cached server and mesh workers"
+fi
+timeout 150m npm run build:single -- --output "$OUT/ember-client-26.2.html" "${FLAGS[@]}"
 kill $WATCH 2>/dev/null || true
 ls -la "$OUT"

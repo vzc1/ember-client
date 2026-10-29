@@ -63,8 +63,20 @@ jobs:
           mkdir -p "$RUNNER_TEMP/logs"
           { bash scripts/fetch-fabric.sh "$RUNNER_TEMP/fabric" && bash scripts/fabric-bake.sh "$RUNNER_TEMP/ws" "$RUNNER_TEMP/fabric"; } 2>&1 | tee "$RUNNER_TEMP/logs/fabric.log"
 
+      # The singleplayer server and the chunk-mesh worker don't contain mods, so a
+      # copy from an earlier build is reused instead of recompiling them (~15 min).
+      - name: Restore cached server and mesh workers
+        id: workers
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ${{ runner.temp }}/ws/target_teavm_wasm_gc_server/build/generated/teavm/wasm-gc
+            ${{ runner.temp }}/ws/target_teavm_wasm_gc_mesh/build/generated/teavm/wasm-gc
+          key: workers-v1-${{ hashFiles('scripts/fetch-inputs.sh', 'scripts/create-project.sh', 'fabric/tools/**', 'scripts/fabric-bake.sh') }}
+
       - name: Build standalone HTML
         env:
+          EMBER_REUSE_WORKERS: ${{ steps.workers.outputs.cache-hit }}
           EAGLER_LINK_CAP_MIB: "13312"
           EAGLER_LINK_HEAP_MIB: "11264"
           EAGLER_SERVER_LINK_CAP_MIB: "13312"
@@ -72,6 +84,15 @@ jobs:
           EAGLER_BUILD_CAP_MIB: "13312"
           EMBER_ALLOW_MISSING: "1"
         run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/build-html.sh 2>&1 | tee "$RUNNER_TEMP/logs/build-html.log"
+
+      - name: Save server and mesh workers for later builds
+        if: success() && steps.workers.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ${{ runner.temp }}/ws/target_teavm_wasm_gc_server/build/generated/teavm/wasm-gc
+            ${{ runner.temp }}/ws/target_teavm_wasm_gc_mesh/build/generated/teavm/wasm-gc
+          key: workers-v1-${{ hashFiles('scripts/fetch-inputs.sh', 'scripts/create-project.sh', 'fabric/tools/**', 'scripts/fabric-bake.sh') }}
 
       - name: Push logs to the ci-logs branch
         if: always()
