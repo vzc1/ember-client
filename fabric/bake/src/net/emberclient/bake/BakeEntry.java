@@ -170,6 +170,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 						}
 						collectSynthetic(b, synthetic);
 						write(classesOut.resolve(rel), b);
+						modClassFiles.add(rel);
 						classes++;
 					} else if (rel.equals("fabric.mod.json")) {
 						modJson.put(id, Files.readString(f, StandardCharsets.UTF_8));
@@ -249,6 +250,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		Path gen = out.resolve("gen/net/emberclient/fabric/EmberGenerated.java");
 		write(gen, generate(mods, modJson).getBytes(StandardCharsets.UTF_8));
 
+		writeReflection(classesOut, out.resolve("reflection.tsv"));
 		writeFailedMixins(out);
 		log("problems: " + problems.size());
 		for (String p : problems) log("  ! " + p);
@@ -360,6 +362,72 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 
 	/** Finds classes referenced by shipped code that are not shipped and not on the classpath, and asks Mixin for them. */
 	private int accessorsFixed;
+	private final Set<String> modClassFiles = new java.util.TreeSet<>();
+
+	/**
+	 * The browser build only allows reflection on what it is told about. Mods read
+	 * and write their config classes by reflection (Gson, Cloth Config, Jankson) and
+	 * look up their own classes by name, so list every mod class with its fields,
+	 * constructors and record accessors for Ember's TeaVM ReflectionSupplier.
+	 */
+	private void writeReflection(Path classesOut, Path tsv) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		int classes = 0, fields = 0, methods = 0;
+		// Loader internals, Fabric API and MixinExtras don't load configs by reflection;
+		// leaving them out keeps the browser build small.
+		List<String> skip = List.of("net/fabricmc/", "com/llamalad7/", "org/spongepowered/", "org/objectweb/");
+		// Class names that appear as text in mod code: what Class.forName might be asked for.
+		Set<String> named = new java.util.HashSet<>();
+		for (String rel : modClassFiles) {
+			Path f = classesOut.resolve(rel);
+			if (!Files.exists(f)) continue;
+			try {
+				new ClassReader(Files.readAllBytes(f)).accept(new ClassVisitor(Opcodes.ASM9) {
+					@Override public org.objectweb.asm.MethodVisitor visitMethod(int a, String n, String d, String sg, String[] e) {
+						return new org.objectweb.asm.MethodVisitor(Opcodes.ASM9) {
+							@Override public void visitLdcInsn(Object v) { if (v instanceof String str && str.indexOf('.') > 0) named.add(str); }
+						};
+					}
+				}, ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
+			} catch (Throwable t) { /* ignore */ }
+		}
+		for (String rel : modClassFiles) {
+			if (skip.stream().anyMatch(rel::startsWith)) continue;
+			Path f = classesOut.resolve(rel);
+			if (!Files.exists(f)) continue;
+			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+			try {
+				new ClassReader(Files.readAllBytes(f)).accept(cn, ClassReader.SKIP_CODE);
+			} catch (Throwable t) {
+				continue;
+			}
+			String name = cn.name.replace('/', '.');
+			if (name.endsWith("package-info") || name.equals("module-info")) continue;
+			// Architectury-style mods find their platform code as "<pkg>.fabric.<Name>Impl".
+			boolean byName = named.contains(name) || (name.endsWith("Impl") && name.contains(".fabric."));
+			if (byName) {
+				sb.append("C\t").append(name).append('\n');
+				classes++;
+			}
+			for (org.objectweb.asm.tree.FieldNode fn : cn.fields) {
+				if ((fn.access & Opcodes.ACC_SYNTHETIC) != 0) continue;
+				sb.append("F\t").append(name).append('\t').append(fn.name).append('\n');
+				fields++;
+			}
+			Set<String> accessors = new java.util.HashSet<>();
+			if (cn.recordComponents != null) {
+				for (org.objectweb.asm.tree.RecordComponentNode rc : cn.recordComponents) accessors.add(rc.name + "()" + rc.descriptor);
+			}
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				boolean ctor = mn.name.equals("<init>");
+				if (!ctor && !accessors.contains(mn.name + mn.desc)) continue;
+				sb.append("M\t").append(name).append('\t').append(mn.name).append(mn.desc).append('\n');
+				methods++;
+			}
+		}
+		write(tsv, sb.toString().getBytes(StandardCharsets.UTF_8));
+		log("reflection allowed for mods: " + classes + " classes by name, " + fields + " fields, " + methods + " constructors/record accessors");
+	}
 
 	private void resolveMissing(FabricLauncher launcher, Path classesOut) throws IOException {
 		ClassLoader cl = launcher.getTargetClassLoader();

@@ -22,7 +22,7 @@ chat-heads
 
 # Zoom and visuals
 # ok-zoomer  (off for now: uses Java features the browser lacks at startup)
-lambdynamiclights
+# lambdynamiclights  (off: its Yumi library builds Java classes at runtime, which the browser cannot do)
 visuality
 dark-loading-screen
 # not-enough-animations  (off for now: uses Java features the browser lacks at startup)

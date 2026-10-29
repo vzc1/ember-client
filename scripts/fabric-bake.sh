@@ -109,6 +109,18 @@ fi
 "$JAVAC" -nowarn -proc:none --release 21 -encoding UTF-8 -d "$ROOT" \
   -cp "$ROOT$SEP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
   $(find "$REPO/fabric/runtime/src" -name '*.java') "${LOG4J_SRC[@]}" "$F/baked/gen/net/emberclient/fabric/EmberGenerated.java"
+# Reflection list for mods (config loading, Class.forName) + the TeaVM plugin that reads it.
+TEAVM_CORE="$WS/wasm-toolchain/teavm-eagler-patch/teavm-core-0.13.1-eagler.jar"
+if [ -f "$TEAVM_CORE" ] && [ -f "$F/baked/reflection.tsv" ]; then
+  mkdir -p "$ROOT/META-INF/ember" "$ROOT/META-INF/services"
+  cp "$F/baked/reflection.tsv" "$ROOT/META-INF/ember/reflection.tsv"
+  "$JAVAC" -nowarn -proc:none --release 17 -encoding UTF-8 -d "$ROOT" -cp "$TEAVM_CORE" \
+    $(find "$REPO/fabric/teavm-plugin" -name '*.java')
+  echo "net.emberclient.teavm.EmberReflectionSupplier" > "$ROOT/META-INF/services/org.teavm.classlib.ReflectionSupplier"
+  echo "reflection list: $(grep -c '^C' "$ROOT/META-INF/ember/reflection.tsv") classes"
+else
+  echo "::warning::no TeaVM core jar or reflection list; mod configs may fail to load"
+fi
 mkdir -p "$WS/ember"
 rm -f "$WS/ember/ember-baked.jar"
 (cd "$ROOT" && zip -q -r -X "$WS/ember/ember-baked.jar" .)
