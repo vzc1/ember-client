@@ -39,12 +39,12 @@ final class EmberModsButton {
 				}
 			}
 			if (rowY < 0) return;
+			// Span the Options/Credits row exactly.
+			int right = left;
 			for (AbstractWidget w : widgets) {
-				if (w.getY() >= rowY && w.getX() >= left - 4) {
-					int right = w.getX() + w.getWidth();
-					rowWidth = Math.max(rowWidth, right - left);
-				}
+				if (w.getY() == rowY) right = Math.max(right, w.getX() + w.getWidth());
 			}
+			if (right > left) rowWidth = right - left;
 			for (AbstractWidget w : widgets) {
 				if (w.getY() >= rowY) w.setY(w.getY() + 24);
 			}

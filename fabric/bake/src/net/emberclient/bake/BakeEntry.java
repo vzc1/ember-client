@@ -190,6 +190,18 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 					}
 				}
 			}
+			// Mod Menu shows each mod's icon; give every icon a fixed place in the game's assets.
+			try {
+				String icon = mod.getMetadata().getIconPath(64).orElse(null);
+				if (icon != null) {
+					java.util.Optional<Path> ip = mod.findPath(icon);
+					if (ip.isPresent() && Files.isRegularFile(ip.get())) {
+						write(resourcesOut.resolve("assets/ember_icons/" + id.toLowerCase(java.util.Locale.ROOT) + ".png"), Files.readAllBytes(ip.get()));
+					}
+				}
+			} catch (Throwable t) {
+				problems.add("icon of " + id + ": " + describe(t));
+			}
 			log("mod " + id + " " + mod.getMetadata().getVersion().getFriendlyString()
 					+ ": " + classes + " classes, " + mixins + " mixin classes (applied, not shipped), " + resources + " resources");
 		}
@@ -752,7 +764,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"},
 			"java/util/concurrent/Executors.newThreadPerTaskExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;", new String[] {"newThreadPerTaskExecutor", "(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;"},
 			"java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"},
-			"java/nio/file/Files.createDirectories(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;", new String[] {"createDirectories", "(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;"});
+			"java/nio/file/Files.createDirectories(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;", new String[] {"createDirectories", "(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;"},
+			"com/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler.createIcon(Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", new String[] {"createIcon", "(Lcom/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler;Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", "net/emberclient/fabric/EmberModIcons"});
 
 	private static boolean classExists(String name) {
 		String res = name.replace('.', '/') + ".class";
@@ -834,7 +847,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			String s = new String(b, StandardCharsets.ISO_8859_1);
 			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
 					&& !s.contains("findFirst") && !s.contains("delayedExecutor") && !s.contains("PerTaskExecutor")
-					&& !s.contains("forName") && !s.contains("createDirectories")) return null;
+					&& !s.contains("forName") && !s.contains("createDirectories") && !s.contains("createIcon")) return null;
 			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
@@ -856,7 +869,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 					String[] r = POLYFILLS.get(m.owner + "." + m.name + m.desc);
 					if (r == null) continue;
 					mn.instructions.set(m, new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC,
-							"net/emberclient/fabric/EmberCompat", r[0], r[1], false));
+							r.length > 2 ? r[2] : "net/emberclient/fabric/EmberCompat", r[0], r[1], false));
 					count[0]++;
 				}
 			}
