@@ -119,3 +119,32 @@ open(p, 'w').write(s)
 PY
   grep -n 'ember-baked' "$f"
 done
+
+# 7. Let the client link finish when the only problems are Java features a mod
+#    mentions but the browser lacks: those now fail only if that code runs.
+L="$WS/wasm-toolchain/StandaloneTeaVMLinker.java"
+if [ -f "$L" ] && ! grep -q EMBER_ALLOW_MISSING "$L"; then
+python3 - "$L" <<'PY'
+import sys
+p = sys.argv[1]; s = open(p).read()
+old = """        if (!result.getProblems().getSevereProblems().isEmpty()) {
+            throw new IllegalStateException("TeaVM reported severe problems");
+        }"""
+new = """        var severe = result.getProblems().getSevereProblems();
+        int missing = 0, other = 0;
+        for (var p : severe) {
+            String t = p.getText();
+            if (t != null && t.endsWith("was not found")) missing++; else other++;
+        }
+        boolean allowMissing = "1".equals(System.getenv("EMBER_ALLOW_MISSING"));
+        if (other > 0 || (missing > 0 && !allowMissing)) {
+            throw new IllegalStateException("TeaVM reported severe problems");
+        }
+        if (missing > 0) {
+            System.out.println("[ember] linked with " + missing + " missing Java features; mods hit them only if that code runs");
+        }"""
+assert old in s, "linker check not found"
+open(p, "w").write(s.replace(old, new))
+print("patched StandaloneTeaVMLinker to allow missing Java features in mods")
+PY
+fi

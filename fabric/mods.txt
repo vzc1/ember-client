@@ -9,8 +9,8 @@ fabric-api
 # HUD and info
 appleskin
 betterf3
-jade
-better-ping-display-fabric
+# jade  (off for now: uses Java features the browser lacks at startup)
+# better-ping-display-fabric  (no 26.2 version yet)
 
 # Menus and inventory
 modmenu
@@ -21,10 +21,10 @@ mouse-tweaks
 chat-heads
 
 # Zoom and visuals
-ok-zoomer
+# ok-zoomer  (off for now: uses Java features the browser lacks at startup)
 lambdynamiclights
 visuality
 dark-loading-screen
-not-enough-animations
-3dskinlayers
+# not-enough-animations  (off for now: uses Java features the browser lacks at startup)
+# 3dskinlayers  (off for now: uses Java features the browser lacks at startup)
 boat-item-view

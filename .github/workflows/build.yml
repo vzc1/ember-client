@@ -70,6 +70,7 @@ jobs:
           EAGLER_SERVER_LINK_CAP_MIB: "13312"
           EAGLER_SERVER_LINK_HEAP_MIB: "11264"
           EAGLER_BUILD_CAP_MIB: "13312"
+          EMBER_ALLOW_MISSING: "1"
         run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/build-html.sh 2>&1 | tee "$RUNNER_TEMP/logs/build-html.log"
 
       - name: Push logs to the ci-logs branch

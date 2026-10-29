@@ -224,6 +224,17 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 		log("mixin handlers that can be switched off per mod: " + guarded);
 
+		// 4c. Reroute calls to Java library methods the browser lacks to Ember's stand-ins.
+		int rerouted = 0;
+		try (Stream<Path> st = Files.walk(classesOut)) {
+			for (Path f : st.filter(p -> p.toString().endsWith(".class")).toList()) {
+				int[] n = {0};
+				byte[] outBytes = polyfill(Files.readAllBytes(f), n);
+				if (outBytes != null && n[0] > 0) { Files.write(f, outBytes); rerouted += n[0]; }
+			}
+		}
+		log("library calls rerouted to browser stand-ins: " + rerouted);
+
 		// 5. Entrypoints and mod list as plain Java.
 		Path gen = out.resolve("gen/net/emberclient/fabric/EmberGenerated.java");
 		write(gen, generate(mods, modJson).getBytes(StandardCharsets.UTF_8));
@@ -479,6 +490,43 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			}
 		}
 		return null;
+	}
+
+	/** owner.name+desc of a missing library method -> static replacement (receiver becomes the first argument). */
+	private static final Map<String, String[]> POLYFILLS = Map.of(
+			"java/lang/Class.getPackageName()Ljava/lang/String;", new String[] {"getPackageName", "(Ljava/lang/Class;)Ljava/lang/String;"},
+			"java/lang/Class.componentType()Ljava/lang/Class;", new String[] {"componentType", "(Ljava/lang/Class;)Ljava/lang/Class;"},
+			"java/util/stream/Stream.ofNullable(Ljava/lang/Object;)Ljava/util/stream/Stream;", new String[] {"streamOfNullable", "(Ljava/lang/Object;)Ljava/util/stream/Stream;"},
+			"java/util/ServiceLoader.findFirst()Ljava/util/Optional;", new String[] {"serviceFindFirst", "(Ljava/util/ServiceLoader;)Ljava/util/Optional;"},
+			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;"},
+			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"});
+
+	private byte[] polyfill(byte[] b, int[] count) {
+		try {
+			String s = new String(b, StandardCharsets.ISO_8859_1);
+			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
+					&& !s.contains("findFirst") && !s.contains("delayedExecutor")) return null;
+			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+			new ClassReader(b).accept(cn, 0);
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				if (mn.instructions == null) continue;
+				for (org.objectweb.asm.tree.AbstractInsnNode in : mn.instructions.toArray()) {
+					if (!(in instanceof org.objectweb.asm.tree.MethodInsnNode m)) continue;
+					String[] r = POLYFILLS.get(m.owner + "." + m.name + m.desc);
+					if (r == null) continue;
+					mn.instructions.set(m, new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC,
+							"net/emberclient/fabric/EmberCompat", r[0], r[1], false));
+					count[0]++;
+				}
+			}
+			if (count[0] == 0) return null;
+			org.objectweb.asm.ClassWriter w = new org.objectweb.asm.ClassWriter(0);
+			cn.accept(w);
+			return w.toByteArray();
+		} catch (Throwable t) {
+			problems.add("could not reroute library calls: " + describe(t));
+			return null;
+		}
 	}
 
 	private static void collectRefs(byte[] b, Set<String> into) {
