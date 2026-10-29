@@ -1,0 +1,500 @@
+Fabric Loader 0.20.1
+  lib fabric-loader-0.20.1.jar
+  lib asm-9.10.1.jar
+  lib asm-analysis-9.10.1.jar
+  lib asm-commons-9.10.1.jar
+  lib asm-tree-9.10.1.jar
+  lib asm-util-9.10.1.jar
+  lib sponge-mixin-0.17.5+mixin.0.8.7.jar
+total 3852
+drwxr-xr-x 2 runner runner    4096 Oct 29 19:08 .
+drwxr-xr-x 4 runner runner    4096 Oct 29 19:08 ..
+-rw-r--r-- 1 runner runner  126151 Oct 29 19:08 asm-9.10.1.jar
+-rw-r--r-- 1 runner runner   35140 Oct 29 19:08 asm-analysis-9.10.1.jar
+-rw-r--r-- 1 runner runner   74840 Oct 29 19:08 asm-commons-9.10.1.jar
+-rw-r--r-- 1 runner runner   51958 Oct 29 19:08 asm-tree-9.10.1.jar
+-rw-r--r-- 1 runner runner   95628 Oct 29 19:08 asm-util-9.10.1.jar
+-rw-r--r-- 1 runner runner 1988880 Oct 29 19:08 fabric-loader-0.20.1.jar
+-rw-r--r-- 1 runner runner 1551593 Oct 29 19:08 sponge-mixin-0.17.5+mixin.0.8.7.jar
+  modrinth: fabric-api 0.161.0+26.2 -> fabric-api-0.161.0+26.2.jar
+  modrinth: appleskin 3.0.10+mc26.2 -> appleskin-fabric-mc26.2-3.0.10.jar
+  modrinth: betterf3 19.0.1 -> BetterF3-19.0.1-Fabric-26.2.jar
+  modrinth: modmenu 20.0.3 -> modmenu-20.0.3.jar
+  modrinth: shulkerboxtooltip 5.4.3+26.2-fabric -> shulkerboxtooltip-fabric-5.4.3+26.2.jar
+  modrinth: mouse-tweaks 26.2-2.31-fabric -> MouseTweaks-fabric-mc26.2-2.31.jar
+  modrinth: chat-heads 1.3.2 -> chat_heads-1.3.2-fabric-26.1.jar
+  modrinth: visuality 0.7.15+26.3 -> visuality-0.7.15+26.3.jar
+  modrinth: dark-loading-screen 1.6.19 -> dark-loading-screen-1.6.19.jar
+  modrinth: boat-item-view 26.2-0.0.9-fabric -> boatiview-fabric-0.0.9-26.2.jar
+  modrinth: armor-hud 3.5.0+26.2-fabric -> armor_hud-fabric-3.5.0+26.2.jar
+  modrinth: toggle-sprint-display 2.0.2 -> toggle-sprint-display-2.0.2.jar
+  modrinth: held-item-info 1.9.2 -> held-item-info-1.9.2.jar
+  modrinth: durability-tooltip 1.2.0a-fabric-mc26.2 -> durabilitytooltip-1.2.0a-fabric-mc26.2.jar
+  modrinth: cleancut 8.1.0+26.2-fabric -> cleancut-fabric-26.2-8.1.0+26.2.jar
+  modrinth: item-borders 1.3.2 -> ItemBorders-26.2-fabric-1.3.2.jar
+  modrinth: enchantment-descriptions 26.2.0.2 -> EnchantmentDescriptions-fabric-MC26.2-26.2.0.2.jar
+  modrinth: logical-zoom 0.0.36 -> logical_zoom-0.0.36.jar
+  modrinth: gamma-utils 3.1.3+Fabric -> Gamma-Utils-Fabric-3.1.3+mc26.2.jar
+  modrinth: nicer-skies 1.5.0+26.2 -> nicer-skies-1.5.0+26.2.jar
+  modrinth: fabric-api 0.161.0+26.2 -> fabric-api-0.161.0+26.2.jar
+  modrinth: cloth-config 26.2.155+fabric -> cloth-config-26.2.155.jar
+  modrinth: placeholder-api 3.1.0-beta.1+26.2 -> placeholder-api-3.1.0-beta.1+26.2.jar
+  modrinth: supermartijn642s-config-lib 1.1.8a-fabric-mc26.2 -> supermartijn642configlib-1.1.8a-fabric-mc26.2.jar
+  modrinth: prism-lib 1.1.2 -> Prism-26.2-fabric-1.1.2.jar
+  modrinth: iceberg 1.4.2.2 -> Iceberg-26.2-fabric-1.4.2.2.jar
+  modrinth: prickle 26.2.0.3 -> PrickleMC-fabric-MC26.2-26.2.0.3.jar
+26 mods ready; manifest -> /home/runner/work/_temp/fabric/mods.json
+total 8736
+drwxr-xr-x 2 runner runner    4096 Oct 29 19:09 .
+drwxr-xr-x 4 runner runner    4096 Oct 29 19:09 ..
+-rw-r--r-- 1 runner runner  719166 Oct 29 19:08 BetterF3-19.0.1-Fabric-26.2.jar
+-rw-r--r-- 1 runner runner   81821 Oct 29 19:09 EnchantmentDescriptions-fabric-MC26.2-26.2.0.2.jar
+-rw-r--r-- 1 runner runner  103072 Oct 29 19:09 Gamma-Utils-Fabric-3.1.3+mc26.2.jar
+-rw-r--r-- 1 runner runner  360922 Oct 29 19:09 Iceberg-26.2-fabric-1.4.2.2.jar
+-rw-r--r-- 1 runner runner   23009 Oct 29 19:09 ItemBorders-26.2-fabric-1.3.2.jar
+-rw-r--r-- 1 runner runner   75872 Oct 29 19:08 MouseTweaks-fabric-mc26.2-2.31.jar
+-rw-r--r-- 1 runner runner   84889 Oct 29 19:09 PrickleMC-fabric-MC26.2-26.2.0.3.jar
+-rw-r--r-- 1 runner runner   60462 Oct 29 19:09 Prism-26.2-fabric-1.1.2.jar
+-rw-r--r-- 1 runner runner  181627 Oct 29 19:08 appleskin-fabric-mc26.2-3.0.10.jar
+-rw-r--r-- 1 runner runner  257538 Oct 29 19:09 armor_hud-fabric-3.5.0+26.2.jar
+-rw-r--r-- 1 runner runner 1040760 Oct 29 19:09 boatiview-fabric-0.0.9-26.2.jar
+-rw-r--r-- 1 runner runner   98554 Oct 29 19:08 chat_heads-1.3.2-fabric-26.1.jar
+-rw-r--r-- 1 runner runner   17720 Oct 29 19:09 cleancut-fabric-26.2-8.1.0+26.2.jar
+-rw-r--r-- 1 runner runner 1135186 Oct 29 19:09 cloth-config-26.2.155.jar
+-rw-r--r-- 1 runner runner   47732 Oct 29 19:08 dark-loading-screen-1.6.19.jar
+-rw-r--r-- 1 runner runner   21024 Oct 29 19:09 durabilitytooltip-1.2.0a-fabric-mc26.2.jar
+-rw-r--r-- 1 runner runner 2566123 Oct 29 19:09 fabric-api-0.161.0+26.2.jar
+-rw-r--r-- 1 runner runner   87345 Oct 29 19:09 held-item-info-1.9.2.jar
+-rw-r--r-- 1 runner runner  119573 Oct 29 19:09 logical_zoom-0.0.36.jar
+-rw-r--r-- 1 runner runner  616919 Oct 29 19:08 modmenu-20.0.3.jar
+-rw-r--r-- 1 runner runner  183344 Oct 29 19:09 nicer-skies-1.5.0+26.2.jar
+-rw-r--r-- 1 runner runner  254973 Oct 29 19:09 placeholder-api-3.1.0-beta.1+26.2.jar
+-rw-r--r-- 1 runner runner  424763 Oct 29 19:08 shulkerboxtooltip-fabric-5.4.3+26.2.jar
+-rw-r--r-- 1 runner runner  206152 Oct 29 19:09 supermartijn642configlib-1.1.8a-fabric-mc26.2.jar
+-rw-r--r-- 1 runner runner   27341 Oct 29 19:09 toggle-sprint-display-2.0.2.jar
+-rw-r--r-- 1 runner runner   81970 Oct 29 19:08 visuality-0.7.15+26.3.jar
+Downloading https://services.gradle.org/distributions/gradle-9.6.1-bin.zip
+.............10%.............20%..............30%.............40%..............50%.............60%.............70%..............80%.............90%..............100%
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/home/runner/.gradle/wrapper/dists/gradle-9.6.1-bin/4ticwg1pgcbps2hj28r8so764/gradle-9.6.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+
+Welcome to Gradle 9.6.1!
+
+Here are the highlights of this release:
+ - Improved Configuration Cache hit rates
+ - Additional CLI rendering options
+ - Important project hierarchy lookup deprecations
+
+For more details see https://docs.gradle.org/9.6.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :platform:compileJava
+> Task :platform:processResources NO-SOURCE
+> Task :platform:classes
+> Task :platform:jar
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/world/level/levelgen/Heightmap.java:48: warning: [removal] getHighestSectionPosition() in ChunkAccess has been deprecated and marked for removal
+
+> Task :game:compileJava
+         int highestSectionPosition = chunk.getHighestSectionPosition() + 16;
+                                           ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/world/level/levelgen/placement/NoiseBasedCountPlacement.java:35: warning: [removal] BIOME_INFO_NOISE in Biome has been deprecated and marked for removal
+      double flowerNoise = Biome.BIOME_INFO_NOISE.getValue(origin.getX() / this.noiseFactor, origin.getZ() / this.noiseFactor, false);
+                                ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/world/level/levelgen/placement/NoiseThresholdCountPlacement.java:35: warning: [removal] BIOME_INFO_NOISE in Biome has been deprecated and marked for removal
+      double flowerNoise = Biome.BIOME_INFO_NOISE.getValue(origin.getX() / 200.0, origin.getZ() / 200.0, false);
+                                ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/world/level/biome/BiomeSpecialEffects.java:90: warning: [removal] BIOME_INFO_NOISE in Biome has been deprecated and marked for removal
+            double groundValue = Biome.BIOME_INFO_NOISE.getValue(x * 0.0225, z * 0.0225, false);
+                                      ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/world/level/block/entity/TheEndGatewayBlockEntity.java:230: warning: [removal] getHighestSectionPosition() in ChunkAccess has been deprecated and marked for removal
+      int maxY = chunk.getHighestSectionPosition() + 16 - 1;
+                      ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/data/recipes/RecipeProvider.java:1035: warning: [removal] parent(Identifier) in Builder has been deprecated and marked for removal
+                        return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
+                                                                      ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/server/packs/resources/FallbackResourceManager.java:341: warning: [removal] finalize() in Object has been deprecated and marked for removal
+      protected void finalize() throws Throwable {
+                     ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/server/packs/resources/FallbackResourceManager.java:346: warning: [removal] finalize() in Object has been deprecated and marked for removal
+         super.finalize();
+              ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/server/packs/FilePackResources.java:204: warning: [removal] finalize() in Object has been deprecated and marked for removal
+      protected void finalize() throws Throwable {
+                     ^
+/home/runner/work/_temp/ws/game/src/main/java/net/minecraft/server/packs/FilePackResources.java:206: warning: [removal] finalize() in Object has been deprecated and marked for removal
+         super.finalize();
+              ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+10 warnings
+
+> Task :game:processResources
+
+> Task :game:emberPrintClasspath
+EMBER_GAME_CP=/home/runner/work/_temp/ws/game/build/classes/java/main:/home/runner/work/_temp/ws/game/build/resources/main:/home/runner/work/_temp/ws/platform/build/libs/platform.jar:/home/runner/.gradle/caches/modules-2/files-2.1/at.yawk.lz4/lz4-java/1.10.1/f541d7f910fe3d76f38f799c507c48cc81b12ecb/lz4-java-1.10.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.microsoft.azure/msal4j/1.24.1/c233f2d047b9755f7041adf21a858c680e4c9242/msal4j-1.24.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.azure/azure-json/1.4.0/fcc1d354dbc3e0300e5276b1bf124d0247799cd8/azure-json-1.4.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.github.oshi/oshi-core/6.9.0/3224870731860cfcd7744581a05b559e94291e7/oshi-core-6.9.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/9.0.75/d61056a234d5e4b272e09d59b0713f80d6c0b6af/authlib-9.0.75.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/10.0.21/b6b2ae770c02e0c1eb90f9985b151e9085a38d0b/datafixerupper-10.0.21.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.14.0/efc0e34ede4e3204eaefb84a00e55e8c86634382/gson-2.14.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/2.2.10/da05971b07cbb379d002cf7eaec6a2048211fefc/patchy-2.2.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/text2speech/1.19.12/2e517a75c79d34d32de2b5d68422150836c2133e/text2speech-1.19.12.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/33.6.0-jre/c376b13067cc99a5774403530953f7b05a91e218/guava-33.6.0-jre.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.3/aeaffd00d57023a2c947393ed251f0354f0985fc/failureaccess-1.0.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.ibm.icu/icu4j/78.3/6a851a53bb1f25689fc418dcc8935b0d93580adf/icu4j-78.3.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/blocklist/1.0.10/5c685c5ffa94c4cd39496c7184c1d122e515ecef/blocklist-1.0.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.3.10/d15b53a14cf20fdcaa98f731af5dda654452c010/brigadier-1.3.10.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/jtracy/1.0.37/a3fb649b2e2b2288d2978f0b0bc3d83f62809d1e/jtracy-1.0.37.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/jtracy/1.0.37/e1b4395227af41195da9e2ead13c48ee0b7d31cd/jtracy-1.0.37-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.mojang/logging/1.7.12/351cea64a5233361327d8d54c44277041beed97f/logging-1.7.12.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.28.0/e482f2c7a88dac3c497e96aa420b6a769f59c8d7/commons-compress-1.28.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.22.0/6b3eb4beb7058c2a638f5f17bcb388649fd339dd/commons-codec-1.22.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.20.0/36f3474daec2849c149e877614e7f979b2082cd2/commons-io-2.20.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.2.15.Final/e611826aa054371bb9a17f27bdb05755a4cac5f0/netty-codec-http-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-compression/4.2.15.Final/89fc4a20b7ae6af974304b1695405e62c4f9b16d/netty-codec-compression-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.2.15.Final/d5344afd1148e3b9927a74be019605ebb0937a93/netty-handler-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-base/4.2.15.Final/e97149fdd5fb04858efa90e314651c8d700dc68b/netty-codec-base-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-epoll/4.2.15.Final/ce256127f8ed3f076756f1f4dcb5877d65d1f1c2/netty-transport-native-epoll-4.2.15.Final-linux-x86_64.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-classes-epoll/4.2.15.Final/44bafba9c9993800e955b365bba4981326f3f3b1/netty-transport-classes-epoll-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-classes-kqueue/4.2.15.Final/f248656bb907607c5a41c7b61fd918a97db79250/netty-transport-classes-kqueue-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport-native-unix-common/4.2.15.Final/efb6943b4de9e0226a5ac35330f232605424af02/netty-transport-native-unix-common-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.2.15.Final/a000c3a6196ee40207b73ac619dcb339409dd62f/netty-transport-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.2.15.Final/2beb620803bf871cda2dd5d46b8f831e8015dd34/netty-buffer-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.2.15.Final/b961a16d379b508b473e064ba06842bba280f4e3/netty-resolver-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.2.15.Final/7222492c1af9c2d4d78d521eea340a619e242fda/netty-common-4.2.15.Final.jar:/home/runner/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/8.5.18/a6cff377eecc19c2037bf31568a6d7106b50ba1f/fastutil-8.5.18.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna-platform/5.17.0/a4934c44d25a9d8c2ddf4203affd20330cb3426f/jna-platform-5.17.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/ca.weblite/java-objc-bridge/1.1/1227f9e0666314f9de41477e3ec277e542ed7f7b/java-objc-bridge-1.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.17.0/33d12735bef894440780fce64f9758d420c7bae2/jna-5.17.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/5.0.4/4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c/jopt-simple-5.0.4.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.20.0/65897b3e5731220962e659e001904af3c3cbeba9/commons-lang3-3.20.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-slf4j2-impl/2.26.0/668c0f0e813d83f00a7182533aa658ec7e7a0a0d/log4j-slf4j2-impl-2.26.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.26.0/d267ca60b27ddb075e0b4e75e7875859717bf85f/log4j-core-2.26.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.26.0/ad52af0ecf054a7e3f275a2e180ee06d9c490951/log4j-api-2.26.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.10.8/fc0a71dad90a2cf41d82a76156a0e700af8e4f8d/joml-1.10.8.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.jspecify/jspecify/1.0.0/7425a601c1c7ec76645a78d22b8c6a627edee507/jspecify-1.0.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.17/d9e58ac9c7779ba3bf8142aff6c830617a7fe60f/slf4j-api-2.0.17.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.4.1/caa75a37e857efc9b0686e434d708d6420c5b6ea/lwjgl-freetype-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-freetype/3.4.1/40a29a29b1549c4cad073ccd682e3776ffb454fa/lwjgl-freetype-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.4.1/a782b1ddd175c9107bf300fd92920579ea65e2a4/lwjgl-glfw-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-glfw/3.4.1/23cdf7655ce9f3b27ad90f08e73345e0d5b46362/lwjgl-glfw-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.4.1/16b663092854fc6adfe0a941e61cae2bb2e437b6/lwjgl-jemalloc-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-jemalloc/3.4.1/b83c82d941f2e624d150d6d1e2efcf4ea49ff8ea/lwjgl-jemalloc-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.4.1/8508bd60589de0539aa465b78fcf838efd07ae9a/lwjgl-openal-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-openal/3.4.1/dbff577119266cd4312e4eb9cc2b171407c56360/lwjgl-openal-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.4.1/830412cab823c029cda6b9729f9d2ed36cf79959/lwjgl-opengl-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-opengl/3.4.1/b750599f0e75ddb19f1d0fe993f3011334b710ae/lwjgl-opengl-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-shaderc/3.4.1/5c02c88f0d879529014c78463b76f43fdecfd272/lwjgl-shaderc-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-shaderc/3.4.1/4289bdfa998c4afcdfa7c6925baf50e938113188/lwjgl-shaderc-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-spvc/3.4.1/188553592e97b5ab2dba54a1b403ee80b48dad4c/lwjgl-spvc-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-spvc/3.4.1/6ea8d9edcfcc5664d14e11b9a37a1a900783584a/lwjgl-spvc-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.4.1/f077c3dafc31924fbe8acb0b913f08977ba27f8e/lwjgl-stb-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-stb/3.4.1/7e1cfae909da6c68f3cb6073a9bfeb6c90e82a57/lwjgl-stb-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.4.1/562697d40dbd2ed0424bf24dcf65d51170f81adf/lwjgl-tinyfd-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-tinyfd/3.4.1/fc6a72690afc8defb60d82ad1de64dd8f537154c/lwjgl-tinyfd-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-vma/3.4.1/2c54ce10154feb1ede4d23c5947438cdbfdcc003/lwjgl-vma-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-vma/3.4.1/1d5d00e4abed992e0850aa970d338453ebbd3e0c/lwjgl-vma-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl-vulkan/3.4.1/d0601fdc38890755e5638048c14cc0f7b990964b/lwjgl-vulkan-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.4.1/6105690714874b995aa7812e4f7732a21109276c/lwjgl-3.4.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/org.lwjgl/lwjgl/3.4.1/2734e106bd95db49fe0da8cf8bf7fd96475c436c/lwjgl-3.4.1-natives-linux.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.48.0/bbe30942a31d1778c74cb272321267eca82dc708/error_prone_annotations-2.48.0.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/3.1/a892ca9507839bbdb900d64310ac98256cab992f/j2objc-annotations-3.1.jar:/home/runner/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar
+
+[Incubating] Problems report is available at: file:///home/runner/work/_temp/ws/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 30s
+5 actionable tasks: 5 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html
+  fabric-api-0.161.0+26.2.jar!fabric-crash-report-info-v1-1.0.5+086d547a9e.jar: fabric-crash-report-info-v1.mixins.json -> disabled ['ServerWatchdogMixin', 'SystemReportMixin']
+  fabric-api-0.161.0+26.2.jar!fabric-model-loading-api-v1-8.0.17+c80601bb9e.jar: fabric-model-loading-api-v1.mixins.json -> disabled ['ModelManagerMixin', 'CuboidModelAccessor', 'CuboidModelMixin', 'ModelBakeryBakingResultMixin', 'ModelBakeryMixin', 'BlockStateModelUnbakedMixin']
+== bake round 1 (82 mixins switched off)
+  fabric-api-0.161.0+26.2.jar!fabric-crash-report-info-v1-1.0.5+086d547a9e.jar: fabric-crash-report-info-v1.mixins.json -> disabled ['ServerWatchdogMixin', 'SystemReportMixin']
+  fabric-api-0.161.0+26.2.jar!fabric-data-attachment-api-v1-2.2.19+515ac5339e.jar: fabric-data-attachment-api-v1.mixins.json -> disabled ['PlayerChunkSenderMixin']
+  fabric-api-0.161.0+26.2.jar!fabric-message-api-v1-7.0.8+bb2ed3f79e.jar: fabric-message-api-v1.client.mixins.json -> disabled ['ChatListenerMixin']
+  fabric-api-0.161.0+26.2.jar!fabric-model-loading-api-v1-8.0.17+c80601bb9e.jar: fabric-model-loading-api-v1.mixins.json -> disabled ['ModelManagerMixin', 'CuboidModelAccessor', 'CuboidModelMixin', 'ModelBakeryBakingResultMixin', 'ModelBakeryMixin', 'BlockStateModelUnbakedMixin']
+  fabric-api-0.161.0+26.2.jar!fabric-object-builder-api-v1-24.1.1+6fcd5f039e.jar: fabric-object-builder-v1.mixins.json -> disabled ['SavedDataStorageMixin']
+  fabric-api-0.161.0+26.2.jar!fabric-renderer-api-v1-14.1.4+2b0d8a229e.jar: fabric-renderer-api-v1.mixins.json -> disabled ['block.render.SectionCompilerMixin']
+  fabric-api-0.161.0+26.2.jar!fabric-resource-loader-v1-2.0.13+9edec1269e.jar: fabric-resource-loader-v1.client.mixins.json -> disabled ['GameOptionsWriteVisitorMixin']
+  modmenu-20.0.3.jar: mixins.modmenu.json -> disabled ['MixinPauseScreen', 'MixinTitleScreen']
+  modmenu-20.0.3.jar!fabric-resource-loader-v1-2.0.13+9edec1269e.jar: fabric-resource-loader-v1.client.mixins.json -> disabled ['GameOptionsWriteVisitorMixin']
+== bake round 2 (89 mixins switched off)
+game classes: 11126 total, 649 changed by Fabric/mixins, 0 failed
+mod appleskin 3.0.10+mc26.2: 91 classes, 7 mixin classes (applied, not shipped), 27 resources
+mod armor_hud 3.5.0: 8 classes, 0 mixin classes (applied, not shipped), 5 resources
+mod betterf3 19.0.1: 187 classes, 9 mixin classes (applied, not shipped), 111 resources
+mod boatiview 0.0.9: 12 classes, 1 mixin classes (applied, not shipped), 10 resources
+mod chat_heads 1.3.2: 29 classes, 21 mixin classes (applied, not shipped), 16 resources
+mod cleancut 8.1.0+26.2: 1 classes, 1 mixin classes (applied, not shipped), 2 resources
+mod cloth-basic-math 0.6.1: 7 classes, 0 mixin classes (applied, not shipped), 0 resources
+mod cloth-config 26.2.155: 625 classes, 0 mixin classes (applied, not shipped), 28 resources
+mod dark-loading-screen 1.6.19: 12 classes, 1 mixin classes (applied, not shipped), 23 resources
+mod durabilitytooltip 1.2.0+a: 5 classes, 0 mixin classes (applied, not shipped), 12 resources
+mod enchdesc 26.2.0.2: 5 classes, 2 mixin classes (applied, not shipped), 27 resources
+mod fabric-advancement-api-v1 1.0.0+58719a3b9e: 7 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-api 0.161.0+26.2: 0 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-api-base 2.0.4+ece063239e: 13 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-api-lookup-api-v1 2.0.18+11e1c9a39e: 22 classes, 1 mixin classes (applied, not shipped), 2 resources
+mod fabric-biome-api-v1 18.0.6+c7bd5b8e9e: 32 classes, 9 mixin classes (applied, not shipped), 2 resources
+mod fabric-block-api-v1 3.1.0+53515aab9e: 6 classes, 10 mixin classes (applied, not shipped), 2 resources
+mod fabric-block-getter-api-v2 2.0.7+ec56b6019e: 5 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-command-api-v2 3.1.0+00cb03469e: 14 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-content-registries-v0 11.3.2+37b1aa249e: 54 classes, 18 mixin classes (applied, not shipped), 3 resources
+mod fabric-convention-tags-v2 4.7.1+1f023a9e9e: 14 classes, 0 mixin classes (applied, not shipped), 559 resources
+mod fabric-crash-report-info-v1 1.0.5+086d547a9e: 2 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-creative-tab-api-v1 5.0.15+6468574f9e: 14 classes, 4 mixin classes (applied, not shipped), 36 resources
+mod fabric-data-attachment-api-v1 2.2.19+515ac5339e: 36 classes, 18 mixin classes (applied, not shipped), 11 resources
+mod fabric-data-generation-api-v1 25.6.0+c0da0b829e: 61 classes, 19 mixin classes (applied, not shipped), 2 resources
+mod fabric-debug-api-v1 1.0.2+c792624d9e: 10 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-dimensions-v1 5.1.12+515ac5339e: 9 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-entity-events-v1 5.0.5+06488ac19e: 45 classes, 11 mixin classes (applied, not shipped), 2 resources
+mod fabric-events-interaction-v0 5.2.8+515ac5339e: 32 classes, 10 mixin classes (applied, not shipped), 2 resources
+mod fabric-game-rule-api-v1 4.0.8+46a6d00c9e: 19 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-item-api-v1 14.5.0+c68f6cbe9e: 31 classes, 20 mixin classes (applied, not shipped), 2 resources
+mod fabric-key-mapping-api-v1 2.0.5+e2bdee789e: 4 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-lifecycle-events-v1 4.1.4+29b6eb019e: 59 classes, 23 mixin classes (applied, not shipped), 2 resources
+mod fabric-loot-api-v3 3.0.17+06488ac19e: 13 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-menu-api-v1 2.0.17+086d547a9e: 8 classes, 1 mixin classes (applied, not shipped), 2 resources
+mod fabric-message-api-v1 7.0.8+bb2ed3f79e: 25 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-model-loading-api-v1 8.0.17+c80601bb9e: 53 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-networking-api-v1 6.3.4+2989c6a09e: 130 classes, 27 mixin classes (applied, not shipped), 2 resources
+mod fabric-object-builder-api-v1 24.1.1+6fcd5f039e: 29 classes, 10 mixin classes (applied, not shipped), 2 resources
+mod fabric-particles-v1 5.0.19+d1756aa99e: 24 classes, 11 mixin classes (applied, not shipped), 2 resources
+mod fabric-permission-api-v1 1.0.5+e442d8d09e: 18 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-recipe-api-v1 9.0.22+11e1c9a39e: 41 classes, 8 mixin classes (applied, not shipped), 2 resources
+mod fabric-registry-sync-v0 7.1.1+c7bd5b8e9e: 39 classes, 16 mixin classes (applied, not shipped), 25 resources
+mod fabric-renderer-api-v1 14.1.4+2b0d8a229e: 54 classes, 26 mixin classes (applied, not shipped), 2 resources
+mod fabric-renderer-indigo 9.1.4+2b0d8a229e: 39 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-rendering-fluids-v1 6.0.4+06488ac19e: 7 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-rendering-v1 25.3.3+515ac5339e: 111 classes, 44 mixin classes (applied, not shipped), 2 resources
+mod fabric-resource-conditions-api-v1 6.1.0+10e9a28b9e: 21 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-resource-loader-v0 3.3.20+4fc5413f9e: 9 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-resource-loader-v1 2.0.13+9edec1269e: 44 classes, 23 mixin classes (applied, not shipped), 33 resources
+mod fabric-screen-api-v1 5.2.1+5087f8249e: 39 classes, 7 mixin classes (applied, not shipped), 2 resources
+mod fabric-serialization-api-v1 2.0.4+11a26f319e: 8 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-sound-api-v1 2.0.5+11a26f319e: 2 classes, 1 mixin classes (applied, not shipped), 3 resources
+mod fabric-tag-api-v1 2.1.4+515ac5339e: 17 classes, 6 mixin classes (applied, not shipped), 2 resources
+mod fabric-transfer-api-v1 8.0.13+11dbb7d79e: 101 classes, 13 mixin classes (applied, not shipped), 2 resources
+mod fabric-transitive-access-wideners-v1 8.1.4+67c847259e: 0 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabricloader 0.20.1: 771 classes, 0 mixin classes (applied, not shipped), 31 resources
+mod gammautils 3.1.3: 28 classes, 10 mixin classes (applied, not shipped), 17 resources
+mod held-item-info 1.9.2: 21 classes, 9 mixin classes (applied, not shipped), 8 resources
+mod iceberg 1.4.2.2: 203 classes, 15 mixin classes (applied, not shipped), 0 resources
+mod itemborders 1.3.2: 7 classes, 2 mixin classes (applied, not shipped), 0 resources
+mod logical_zoom 0.0.36: 1 classes, 1 mixin classes (applied, not shipped), 4 resources
+mod mixinextras 0.5.5: 506 classes, 0 mixin classes (applied, not shipped), 1 resources
+mod modmenu 20.0.3: 69 classes, 2 mixin classes (applied, not shipped), 101 resources
+mod mousetweaks 2.31: 22 classes, 1 mixin classes (applied, not shipped), 1 resources
+mod nicer-skies 1.5.0+26.2: 26 classes, 2 mixin classes (applied, not shipped), 6 resources
+mod placeholder-api 3.1.0-beta.1+26.2: 121 classes, 0 mixin classes (applied, not shipped), 7 resources
+mod prickle 26.2.0.3: 46 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod prism 1.1.2: 22 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod shulkerboxtooltip 5.4.3+26.2: 184 classes, 12 mixin classes (applied, not shipped), 20 resources
+mod supermartijn642configlib 1.1.8+a: 42 classes, 0 mixin classes (applied, not shipped), 1 resources
+mod toggle-sprint-display 2.0.2: 10 classes, 2 mixin classes (applied, not shipped), 3 resources
+mod visuality 0.7.15+26.3: 30 classes, 6 mixin classes (applied, not shipped), 72 resources
+library classes changed by mixins: 3
+classes generated or recovered for references: 14 (accessor interfaces filled in: 35)
+mixins applied: 569 of 601 (unapplied ones are usually server-only or target code Eaglercraft replaced)
+mixin handlers that can be switched off per mod: 114
+mod hooks made failure-safe: 2
+library calls rerouted to browser stand-ins: 65
+entrypoints: 74
+  client <- appleskin: new squeek.appleskin.AppleSkin()
+  main <- appleskin: new squeek.appleskin.AppleSkinCommon()
+  modmenu <- appleskin: new squeek.appleskin.gui.ModMenuIntegration()
+  rei_client <- appleskin: new squeek.appleskin.client.REITooltipPlugin()
+  client <- armor_hud: new com.saolghra.armor_hud.fabric.ArmorHudFabric()
+  modmenu <- armor_hud: new com.saolghra.armor_hud.fabric.config.ModMenuIntegration()
+  client <- betterf3: new me.cominixo.betterf3.BetterF3Fabric()
+  modmenu <- betterf3: new me.cominixo.betterf3.ModMenuIntegration()
+  main <- boatiview: new me.soapsuds.boatiview.fabric.BoatItemViewImpl()
+  modmenu <- boatiview: new me.soapsuds.boatiview.fabric.config.ConfigModMenuIntegration()
+  client <- chat_heads: new dzwdz.chat_heads.fabric.ChatHeadsFabric()
+  modmenu <- chat_heads: new dzwdz.chat_heads.fabric.config.ModMenuImpl()
+  client <- cloth-config: ((net.fabricmc.api.ClientModInitializer) me.shedaniel.autoconfig.example.ExampleInits::exampleCommonInit)
+  modmenu <- cloth-config: new me.shedaniel.clothconfig2.fabric.ClothConfigModMenuDemo()
+  modmenu <- dark-loading-screen: new io.github.a5b84.darkloadingscreen.config.ModMenuApiImpl()
+  client <- durabilitytooltip: new com.supermartijn642.durabilitytooltip.DurabilityTooltipClient()
+  main <- durabilitytooltip: new com.supermartijn642.durabilitytooltip.DurabilityTooltip()
+  client <- enchdesc: new net.darkhax.enchdesc.fabric.EnchantmentDescriptionsFabricClient()
+  main <- enchdesc: new net.darkhax.enchdesc.fabric.EnchantmentDescriptionsFabric()
+  main <- fabric-api-lookup-api-v1: new net.fabricmc.fabric.impl.lookup.ApiLookupImpl()
+  main <- fabric-convention-tags-v2: new net.fabricmc.fabric.impl.tag.convention.v2.TranslationConventionLogWarnings()
+  client <- fabric-data-attachment-api-v1: new net.fabricmc.fabric.impl.attachment.client.AttachmentSyncClient()
+  main <- fabric-data-attachment-api-v1: new net.fabricmc.fabric.impl.attachment.AttachmentEntrypoint()
+  main <- fabric-data-attachment-api-v1: new net.fabricmc.fabric.impl.attachment.sync.AttachmentSync()
+  main <- fabric-dimensions-v1: new net.fabricmc.fabric.impl.dimension.DimensionModificationImpl()
+  main <- fabric-events-interaction-v0: new net.fabricmc.fabric.impl.event.interaction.InteractionEventsRouter()
+  client <- fabric-lifecycle-events-v1: new net.fabricmc.fabric.impl.client.event.lifecycle.ClientLifecycleEventsImpl()
+  main <- fabric-lifecycle-events-v1: new net.fabricmc.fabric.impl.event.lifecycle.LifecycleEventsImpl()
+  client <- fabric-menu-api-v1: new net.fabricmc.fabric.impl.menu.client.ClientNetworking()
+  main <- fabric-menu-api-v1: new net.fabricmc.fabric.impl.menu.Networking()
+  client <- fabric-model-loading-api-v1: new net.fabricmc.fabric.impl.client.model.loading.CustomUnbakedBlockStateModelInit()
+  client <- fabric-networking-api-v1: ((net.fabricmc.api.ClientModInitializer) net.fabricmc.fabric.impl.networking.client.ClientNetworkingImpl::clientInit)
+  main <- fabric-networking-api-v1: ((net.fabricmc.api.ModInitializer) net.fabricmc.fabric.impl.networking.CommonPacketsImpl::init)
+  main <- fabric-networking-api-v1: ((net.fabricmc.api.ModInitializer) net.fabricmc.fabric.impl.networking.NetworkingImpl::init)
+  client <- fabric-particles-v1: new net.fabricmc.fabric.impl.client.particle.ExtendedBlockParticleOptionSyncClient()
+  main <- fabric-particles-v1: new net.fabricmc.fabric.impl.particle.ExtendedBlockParticleOptionSync()
+  client <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.ingredient.client.CustomIngredientSyncClient()
+  client <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.sync.client.RecipeSyncImplClient()
+  main <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientInit()
+  main <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientSync()
+  main <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.sync.RecipeSyncImpl()
+  client <- fabric-registry-sync-v0: new net.fabricmc.fabric.impl.client.registry.sync.FabricRegistryClientInit()
+  main <- fabric-registry-sync-v0: new net.fabricmc.fabric.impl.registry.sync.FabricRegistryInit()
+  client <- fabric-renderer-api-v1: new net.fabricmc.fabric.impl.client.renderer.DebugOverlayClient()
+  client <- fabric-renderer-indigo: new net.fabricmc.fabric.impl.client.indigo.Indigo()
+  client <- fabric-rendering-v1: new net.fabricmc.fabric.impl.client.rendering.hud.HudStatusBarHeightRegistryImpl()
+  main <- fabric-resource-conditions-api-v1: new net.fabricmc.fabric.impl.resource.conditions.ResourceConditionsImpl()
+  main <- fabric-tag-api-v1: new net.fabricmc.fabric.impl.tag.TagInit()
+  client <- gammautils: new io.github.sjouwer.gammautils.GammaUtils()
+  modmenu <- gammautils: new io.github.sjouwer.gammautils.config.ModMenuApiImpl()
+  sodium:config_api_user <- gammautils: new io.github.sjouwer.gammautils.compat.SodiumConfigBuilder()
+  client <- held-item-info: new io.github.a5b84.helditeminfo.HeldItemInfo()
+  modmenu <- held-item-info: new io.github.a5b84.helditeminfo.config.ModMenuIntegration()
+  client <- iceberg: new com.anthonyhilyard.iceberg.fabric.client.IcebergFabricClient()
+  server <- iceberg: new com.anthonyhilyard.iceberg.fabric.server.IcebergFabricServer()
+  main <- itemborders: new com.anthonyhilyard.itemborders.fabric.ItemBordersFabric()
+  client <- logical_zoom: new com.logicalgeekboy.logical_zoom.LogicalZoom()
+  client <- modmenu: new com.terraformersmc.modmenu.ModMenu()
+  modmenu <- modmenu: new com.terraformersmc.modmenu.ModMenuModMenuCompat()
+  client <- mousetweaks: new yalter.mousetweaks.fabric.MouseTweaksFabric()
+  modmenu <- mousetweaks: new yalter.mousetweaks.ModMenuApiImpl()
+  client <- nicer-skies: new dev.ztereohype.nicerskies.NicerSkies()
+  modmenu <- nicer-skies: new dev.ztereohype.nicerskies.gui.ModMenuSettingsApi()
+  client <- prickle: new net.darkhax.pricklemc.fabric.PrickleMCFabricClient()
+  main <- prickle: new net.darkhax.pricklemc.fabric.PrickleMCFabric()
+  client <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipClientImpl()
+  main <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl()
+  modmenu <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.impl.ModMenuCompat()
+  shulkerboxtooltip <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl()
+  client <- supermartijn642configlib: new com.supermartijn642.configlib.ConfigLibClient()
+  main <- supermartijn642configlib: new com.supermartijn642.configlib.ConfigLib()
+  modmenu <- toggle-sprint-display: new com.aeltumn.togglesprintdisplay.integration.ModMenuIntegration()
+  client <- visuality: new visuality.VisualityMod()
+  modmenu <- visuality: new visuality.compat.VisualityModMenu()
+reflection allowed for mods: 13 classes by name, 4068 fields, 2058 constructors/record accessors
+problems: 71
+  ! accessor squeek.appleskin.mixin.ClientTooltipComponentMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for squeek.appleskin.mixin.ClientTooltipComponentMixin. Mixin is defined in appleskin.mixins.json and cannot be referenced directly
+  ! accessor dzwdz.chat_heads.mixin.PlainTextRenderableMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for dzwdz.chat_heads.mixin.PlainTextRenderableMixin. Mixin is defined in chat_heads.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.blockgetter.LevelReaderMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.blockgetter.LevelReaderMixin. Mixin is defined in fabric-block-getter-api-v2.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.content.registry.WeatheringCopperMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.content.registry.WeatheringCopperMixin. Mixin is defined in fabric-content-registries-v0.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.datagen.DataProviderMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.datagen.DataProviderMixin. Mixin is defined in fabric-data-generation-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.item.CraftingRecipeMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.item.CraftingRecipeMixin. Mixin is defined in fabric-item-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.client.model.loading.BlockStateModelUnbakedMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: net.fabricmc.fabric.mixin.client.model.loading.BlockStateModelUnbakedMixin is in a defined mixin package net.fabricmc.fabric.mixin.client.model.loading.* owned by fabric-model-loading-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.client.model.loading.CuboidModelAccessor: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for accessor mixin net.fabricmc.fabric.mixin.client.model.loading.CuboidModelAccessor. The mixin is missing from fabric-model-loading-api-v1.mixins.json which owns package net.fabricmc.fabric.mixin.client.model.loading.* and the mixin has not been applied.
+  ! accessor net.fabricmc.fabric.mixin.client.rendering.ClientTooltipComponentMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.client.rendering.ClientTooltipComponentMixin. Mixin is defined in fabric-rendering-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.resource.conditions.DataProviderMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.resource.conditions.DataProviderMixin. Mixin is defined in fabric-resource-conditions-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.resource.client.ClientTooltipComponentMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.resource.client.ClientTooltipComponentMixin. Mixin is defined in fabric-resource-loader-v1.client.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.transfer.ListBackedContainerMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.transfer.ListBackedContainerMixin. Mixin is defined in fabric-transfer-api-v1.mixins.json and cannot be referenced directly
+  ! referenced class not found anywhere: com.anthonyhilyard.legendarytooltips.config.LegendaryTooltipsConfig
+  ! referenced class not found anywhere: com.anthonyhilyard.legendarytooltips.config.LegendaryTooltipsConfig$FrameDefinition
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.ActionResult
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.ConfigType
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IConfigEntry
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IConfigValue
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IModConfig
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IModConfigProvider
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.ModContext
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.entry.renderer.EntryRendererRegistry
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.entry.renderer.EntryRendererRegistry$TooltipTransformer
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.gui.widgets.Tooltip
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.gui.widgets.Tooltip$Entry
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.plugins.REIClientPlugin
+  ! referenced class not found anywhere: me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.ConfigEntryPoint
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.structure.ConfigBuilder
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.structure.IntegerOptionBuilder
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.structure.ModOptionsBuilder
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModContainer
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModContainer$BasicSourceType
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModContributor
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModMetadata
+  ! referenced class not found anywhere: org.quiltmc.loader.api.QuiltLoader
+  ! referenced class not found anywhere: org.quiltmc.loader.api.Version
+  ! referenced class not found anywhere: org.quiltmc.loader.api.Version$Semantic
+  ! referenced class not found anywhere: org.quiltmc.loader.api.VersionFormatException
+  ! mixin not applied: com.anthonyhilyard.iceberg.mixin.LivingEntityMixin -> [net.minecraft.world.entity.LivingEntity]
+  ! mixin not applied: com.terraformersmc.modmenu.mixin.MixinPauseScreen -> [net.minecraft.client.gui.screens.PauseScreen]
+  ! mixin not applied: com.terraformersmc.modmenu.mixin.MixinTitleScreen -> [net.minecraft.client.gui.screens.TitleScreen]
+  ! mixin not applied: dzwdz.chat_heads.mixin.compat.chatpatches.ChatUtilMixin -> [obro1961.chatpatches.util.ChatUtil]
+  ! mixin not applied: net.fabricmc.fabric.mixin.attachment.PlayerChunkSenderMixin -> [net.minecraft.server.network.PlayerChunkSender]
+  ! mixin not applied: net.fabricmc.fabric.mixin.block.BlockMixin -> [net.minecraft.world.level.block.Block]
+  ! mixin not applied: net.fabricmc.fabric.mixin.block.BlockStateMixin -> [net.minecraft.world.level.block.state.BlockState]
+  ! mixin not applied: net.fabricmc.fabric.mixin.blockgetter.BlockEntityMixin -> [net.minecraft.world.level.block.entity.BlockEntity]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.message.ChatListenerMixin -> [net.minecraft.client.multiplayer.chat.ChatListener]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.BlockStateModelUnbakedMixin -> [net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.CuboidModelAccessor -> [net.minecraft.client.resources.model.cuboid.CuboidModel]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.CuboidModelMixin -> [net.minecraft.client.resources.model.cuboid.CuboidModel]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.ModelBakeryBakingResultMixin -> [net.minecraft.client.resources.model.ModelBakery$BakingResult]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.ModelBakeryMixin -> [net.minecraft.client.resources.model.ModelBakery]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.ModelManagerMixin -> [net.minecraft.client.resources.model.ModelManager]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.renderer.block.particle.BlockStateModelSetMixin -> [net.minecraft.client.renderer.block.BlockStateModelSet]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.renderer.block.render.SectionCompilerMixin -> [net.minecraft.client.renderer.chunk.SectionCompiler]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.renderer.sprite.MaterialBakerMixin -> [net.minecraft.client.resources.model.sprite.MaterialBaker]
+  ! mixin not applied: net.fabricmc.fabric.mixin.crash.report.info.ServerWatchdogMixin -> [net.minecraft.server.dedicated.ServerWatchdog]
+  ! mixin not applied: net.fabricmc.fabric.mixin.crash.report.info.SystemReportMixin -> [net.minecraft.SystemReport]
+  ! mixin not applied: net.fabricmc.fabric.mixin.datagen.loot.BlockLootSubProviderMixin -> [net.minecraft.data.loot.BlockLootSubProvider]
+  ! mixin not applied: net.fabricmc.fabric.mixin.datagen.loot.EntityLootSubProviderMixin -> [net.minecraft.data.loot.EntityLootSubProvider]
+  ! mixin not applied: net.fabricmc.fabric.mixin.datagen.server.MainMixin -> [net.minecraft.server.Main]
+  ! mixin not applied: net.fabricmc.fabric.mixin.entity.event.effect.MobEffectMixin -> [net.minecraft.world.effect.MobEffect]
+  ! mixin not applied: net.fabricmc.fabric.mixin.event.lifecycle.server.DedicatedServerMixin -> [net.minecraft.server.dedicated.DedicatedServer]
+  ! mixin not applied: net.fabricmc.fabric.mixin.event.lifecycle.server.LevelChunkMixin -> [net.minecraft.world.level.chunk.LevelChunk]
+  ! mixin not applied: net.fabricmc.fabric.mixin.event.lifecycle.server.ServerHandshakePacketListenerImplMixin -> [net.minecraft.server.network.ServerHandshakePacketListenerImpl]
+  ! mixin not applied: net.fabricmc.fabric.mixin.object.builder.SavedDataStorageMixin -> [net.minecraft.world.level.storage.SavedDataStorage]
+  ! mixin not applied: net.fabricmc.fabric.mixin.resource.client.GameOptionsWriteVisitorMixin -> [net.minecraft.client.Options$3]
+  ! mixin not applied: net.fabricmc.fabric.mixin.resource.server.LanguageMixin -> [net.minecraft.locale.Language]
+  ! mixin not applied: squeek.appleskin.mixin.JEIRenderHelperMixin -> [mezz.jei.fabric.platform.RenderHelper]
+  ! mixin not applied: visuality.mixin.SlimeEntityMixin -> [net.minecraft.world.entity.monster.cubemob.Slime]
+== mixins switched off for Eaglercraft compatibility:
+fabric-crash-report-info-v1.mixins.json:*
+fabric-model-loading-api-v1.mixins.json:*
+@yumi_mc_core:net.minecraft.CrashReport
+sodium-common.mixins.json:core.GlDeviceMixin
+sodium-common.mixins.json:core.GlRenderPassAccessor
+sodium-common.mixins.json:core.GpuDeviceAccessor
+sodium-common.mixins.json:core.MinecraftMixin
+sodium-common.mixins.json:core.RenderPassAccessor
+sodium-common.mixins.json:core.StagedVertexBufferMixin
+sodium-common.mixins.json:core.VulkanPipelineMixin
+sodium-common.mixins.json:core.VulkanRenderPassAccessor
+sodium-common.mixins.json:core.WindowMixin
+sodium-common.mixins.json:core.gui.LevelLoadTrackerMixin
+sodium-common.mixins.json:core.model.colors.BlockColorsMixin
+sodium-common.mixins.json:core.render.BlockEntityTypeMixin
+sodium-common.mixins.json:core.render.TextureAtlasMixin
+sodium-common.mixins.json:core.render.VertexFormatMixin
+sodium-common.mixins.json:core.render.frustum.CameraMixin
+sodium-common.mixins.json:core.render.frustum.FrustumMixin
+sodium-common.mixins.json:core.render.frustum.GameRendererAccessor
+sodium-common.mixins.json:core.render.immediate.consumer.BufferBuilderMixin
+sodium-common.mixins.json:core.render.immediate.consumer.SheetedDecalTextureGeneratorMixin
+sodium-common.mixins.json:core.render.immediate.consumer.SpriteCoordinateExpanderMixin
+sodium-common.mixins.json:core.render.texture.TextureAtlasAccessor
+sodium-common.mixins.json:core.render.world.ChunkSectionsToRenderMixin
+sodium-common.mixins.json:core.render.world.EntityRendererAccessor
+sodium-common.mixins.json:core.render.world.FogRendererMixin
+sodium-common.mixins.json:core.render.world.FrustumAccessor
+sodium-common.mixins.json:core.render.world.GameRendererMixin
+sodium-common.mixins.json:core.render.world.LevelExtractorMixin
+sodium-common.mixins.json:core.render.world.LevelRendererMixin
+sodium-common.mixins.json:core.render.world.ParticleFeatureRendererMixin
+sodium-common.mixins.json:core.render.world.RenderBuffersMixin
+sodium-common.mixins.json:core.render.world.ViewAreaMixin
+sodium-common.mixins.json:core.world.biome.ClientLevelMixin
+sodium-common.mixins.json:core.world.chunk.PalettedContainerMixin
+sodium-common.mixins.json:core.world.chunk.SimpleBitStorageMixin
+sodium-common.mixins.json:core.world.chunk.ZeroBitStorageMixin
+sodium-common.mixins.json:core.world.map.ClientChunkCacheMixin
+sodium-common.mixins.json:core.world.map.ClientLevelMixin
+sodium-common.mixins.json:core.world.map.ClientPacketListenerMixin
+sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin
+sodium-common.mixins.json:features.gui.hooks.debug.DebugEntryMemoryMixin
+sodium-common.mixins.json:features.gui.hooks.debug.DebugScreenEntriesAccessor
+sodium-common.mixins.json:features.gui.hooks.debug.DebugScreenEntryListMixin
+sodium-common.mixins.json:features.gui.hooks.debug.DebugScreenOverlayInsertMixin
+sodium-common.mixins.json:features.gui.hooks.debug.DebugScreenOverlayLogFrameMixin
+sodium-common.mixins.json:features.gui.hooks.debug.DebugScreenOverlayMixin
+sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin
+sodium-common.mixins.json:features.render.entity.CubeMixin
+sodium-common.mixins.json:features.render.entity.ModelPartMixin
+sodium-common.mixins.json:features.render.entity.cull.EntityRendererMixin
+sodium-common.mixins.json:features.render.entity.shadows.ShadowFeatureRendererMixin
+sodium-common.mixins.json:features.render.gui.font.BakedGlyphMixin
+sodium-common.mixins.json:features.render.immediate.DirectionMixin
+sodium-common.mixins.json:features.render.immediate.buffer_builder.intrinsics.BufferBuilderMixin
+sodium-common.mixins.json:features.render.immediate.buffer_builder.sorting.DrawAccessor
+sodium-common.mixins.json:features.render.immediate.buffer_builder.sorting.StagedVertexBufferMixin
+sodium-common.mixins.json:features.render.immediate.buffer_builder.sorting.VertexSortingMixin
+sodium-common.mixins.json:features.render.immediate.matrix_stack.VertexConsumerMixin
+sodium-common.mixins.json:features.render.particle.QuadParticleRenderStateMixin
+sodium-common.mixins.json:features.render.viewport.GlStateManagerMixin
+sodium-common.mixins.json:features.render.world.clouds.CloudRendererMixin
+sodium-common.mixins.json:features.render.world.sky.LevelRendererMixin
+sodium-common.mixins.json:features.textures.NativeImageAccessor
+sodium-common.mixins.json:features.textures.animations.tracking.AtlasGlyphProviderMixin
+sodium-common.mixins.json:features.textures.animations.tracking.AtlasManagerMixin
+sodium-common.mixins.json:features.textures.animations.tracking.FluidStateModelSetMixin
+sodium-common.mixins.json:features.textures.animations.tracking.GuiGraphicsMixin
+sodium-common.mixins.json:features.textures.animations.tracking.ModelBlockRendererMixin
+sodium-common.mixins.json:features.textures.animations.tracking.SpriteContentsMixin
+sodium-common.mixins.json:features.textures.animations.tracking.SpriteContentsTickerMixin
+sodium-common.mixins.json:features.textures.animations.tracking.TextureAtlasMixin
+sodium-common.mixins.json:features.textures.animations.tracking.TextureAtlasSpriteMixin
+sodium-common.mixins.json:features.textures.animations.tracking.TextureSheetParticleMixin
+sodium-common.mixins.json:features.textures.scan.TextureAtlasSpriteMixin
+sodium-common.mixins.json:workarounds.context_creation.GlSurfaceMixin
+sodium-common.mixins.json:workarounds.context_creation.WindowMixin
+sodium-common.mixins.json:workarounds.event_loop.RenderSystemMixin
+sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin
+sodium-fabric.mixins.json:*
+sodium-frapi.mixins.json:*
+fabric-data-attachment-api-v1.mixins.json:PlayerChunkSenderMixin
+fabric-message-api-v1.client.mixins.json:ChatListenerMixin
+fabric-object-builder-v1.mixins.json:SavedDataStorageMixin
+fabric-renderer-api-v1.mixins.json:block.render.SectionCompilerMixin
+fabric-resource-loader-v1.client.mixins.json:GameOptionsWriteVisitorMixin
+mixins.modmenu.json:MixinPauseScreen
+mixins.modmenu.json:MixinTitleScreen
+caution: excluded filename not matched:  module-info.class
+caution: excluded filename not matched:  fabric.mod.json
+caution: excluded filename not matched:  LICENSE*
+caution: excluded filename not matched:  fabric.mod.json
+caution: excluded filename not matched:  LICENSE*
+caution: excluded filename not matched:  fabric.mod.json
+caution: excluded filename not matched:  LICENSE*
+caution: excluded filename not matched:  fabric.mod.json
+caution: excluded filename not matched:  LICENSE*
+caution: excluded filename not matched:  fabric.mod.json
+caution: excluded filename not matched:  LICENSE*
+caution: excluded filename not matched:  fabric.mod.json
+caution: excluded filename not matched:  module-info.class
+left out 0 classes that Eaglercraft replaces for the browser
+log4j: API from log4j-api-2.26.0.jar + Ember LogManager
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+reflection list: 13 classes
+-rw-r--r-- 1 runner runner 13188087 Oct 29 19:11 /home/runner/work/_temp/ws/ember/ember-baked.jar
+81:	implementation(files(rootProject.file("ember/ember-baked.jar"))) // Ember Fabric layer: wins over :game
+patched StandaloneTeaVMLinker to allow missing Java features in mods
+PatchTeaVM: 2 missing-reference errors now warnings in teavm-core-0.13.1-eagler.jar
+PatchTeaVM: 1 null-check passes now skip methods TeaVM cannot compile

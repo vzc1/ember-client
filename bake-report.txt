@@ -1,0 +1,228 @@
+game classes: 11126 total, 649 changed by Fabric/mixins, 0 failed
+mod appleskin 3.0.10+mc26.2: 91 classes, 7 mixin classes (applied, not shipped), 27 resources
+mod armor_hud 3.5.0: 8 classes, 0 mixin classes (applied, not shipped), 5 resources
+mod betterf3 19.0.1: 187 classes, 9 mixin classes (applied, not shipped), 111 resources
+mod boatiview 0.0.9: 12 classes, 1 mixin classes (applied, not shipped), 10 resources
+mod chat_heads 1.3.2: 29 classes, 21 mixin classes (applied, not shipped), 16 resources
+mod cleancut 8.1.0+26.2: 1 classes, 1 mixin classes (applied, not shipped), 2 resources
+mod cloth-basic-math 0.6.1: 7 classes, 0 mixin classes (applied, not shipped), 0 resources
+mod cloth-config 26.2.155: 625 classes, 0 mixin classes (applied, not shipped), 28 resources
+mod dark-loading-screen 1.6.19: 12 classes, 1 mixin classes (applied, not shipped), 23 resources
+mod durabilitytooltip 1.2.0+a: 5 classes, 0 mixin classes (applied, not shipped), 12 resources
+mod enchdesc 26.2.0.2: 5 classes, 2 mixin classes (applied, not shipped), 27 resources
+mod fabric-advancement-api-v1 1.0.0+58719a3b9e: 7 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-api 0.161.0+26.2: 0 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-api-base 2.0.4+ece063239e: 13 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-api-lookup-api-v1 2.0.18+11e1c9a39e: 22 classes, 1 mixin classes (applied, not shipped), 2 resources
+mod fabric-biome-api-v1 18.0.6+c7bd5b8e9e: 32 classes, 9 mixin classes (applied, not shipped), 2 resources
+mod fabric-block-api-v1 3.1.0+53515aab9e: 6 classes, 10 mixin classes (applied, not shipped), 2 resources
+mod fabric-block-getter-api-v2 2.0.7+ec56b6019e: 5 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-command-api-v2 3.1.0+00cb03469e: 14 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-content-registries-v0 11.3.2+37b1aa249e: 54 classes, 18 mixin classes (applied, not shipped), 3 resources
+mod fabric-convention-tags-v2 4.7.1+1f023a9e9e: 14 classes, 0 mixin classes (applied, not shipped), 559 resources
+mod fabric-crash-report-info-v1 1.0.5+086d547a9e: 2 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-creative-tab-api-v1 5.0.15+6468574f9e: 14 classes, 4 mixin classes (applied, not shipped), 36 resources
+mod fabric-data-attachment-api-v1 2.2.19+515ac5339e: 36 classes, 18 mixin classes (applied, not shipped), 11 resources
+mod fabric-data-generation-api-v1 25.6.0+c0da0b829e: 61 classes, 19 mixin classes (applied, not shipped), 2 resources
+mod fabric-debug-api-v1 1.0.2+c792624d9e: 10 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-dimensions-v1 5.1.12+515ac5339e: 9 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-entity-events-v1 5.0.5+06488ac19e: 45 classes, 11 mixin classes (applied, not shipped), 2 resources
+mod fabric-events-interaction-v0 5.2.8+515ac5339e: 32 classes, 10 mixin classes (applied, not shipped), 2 resources
+mod fabric-game-rule-api-v1 4.0.8+46a6d00c9e: 19 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-item-api-v1 14.5.0+c68f6cbe9e: 31 classes, 20 mixin classes (applied, not shipped), 2 resources
+mod fabric-key-mapping-api-v1 2.0.5+e2bdee789e: 4 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-lifecycle-events-v1 4.1.4+29b6eb019e: 59 classes, 23 mixin classes (applied, not shipped), 2 resources
+mod fabric-loot-api-v3 3.0.17+06488ac19e: 13 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-menu-api-v1 2.0.17+086d547a9e: 8 classes, 1 mixin classes (applied, not shipped), 2 resources
+mod fabric-message-api-v1 7.0.8+bb2ed3f79e: 25 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-model-loading-api-v1 8.0.17+c80601bb9e: 53 classes, 4 mixin classes (applied, not shipped), 2 resources
+mod fabric-networking-api-v1 6.3.4+2989c6a09e: 130 classes, 27 mixin classes (applied, not shipped), 2 resources
+mod fabric-object-builder-api-v1 24.1.1+6fcd5f039e: 29 classes, 10 mixin classes (applied, not shipped), 2 resources
+mod fabric-particles-v1 5.0.19+d1756aa99e: 24 classes, 11 mixin classes (applied, not shipped), 2 resources
+mod fabric-permission-api-v1 1.0.5+e442d8d09e: 18 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-recipe-api-v1 9.0.22+11e1c9a39e: 41 classes, 8 mixin classes (applied, not shipped), 2 resources
+mod fabric-registry-sync-v0 7.1.1+c7bd5b8e9e: 39 classes, 16 mixin classes (applied, not shipped), 25 resources
+mod fabric-renderer-api-v1 14.1.4+2b0d8a229e: 54 classes, 26 mixin classes (applied, not shipped), 2 resources
+mod fabric-renderer-indigo 9.1.4+2b0d8a229e: 39 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-rendering-fluids-v1 6.0.4+06488ac19e: 7 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-rendering-v1 25.3.3+515ac5339e: 111 classes, 44 mixin classes (applied, not shipped), 2 resources
+mod fabric-resource-conditions-api-v1 6.1.0+10e9a28b9e: 21 classes, 5 mixin classes (applied, not shipped), 2 resources
+mod fabric-resource-loader-v0 3.3.20+4fc5413f9e: 9 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabric-resource-loader-v1 2.0.13+9edec1269e: 44 classes, 23 mixin classes (applied, not shipped), 33 resources
+mod fabric-screen-api-v1 5.2.1+5087f8249e: 39 classes, 7 mixin classes (applied, not shipped), 2 resources
+mod fabric-serialization-api-v1 2.0.4+11a26f319e: 8 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod fabric-sound-api-v1 2.0.5+11a26f319e: 2 classes, 1 mixin classes (applied, not shipped), 3 resources
+mod fabric-tag-api-v1 2.1.4+515ac5339e: 17 classes, 6 mixin classes (applied, not shipped), 2 resources
+mod fabric-transfer-api-v1 8.0.13+11dbb7d79e: 101 classes, 13 mixin classes (applied, not shipped), 2 resources
+mod fabric-transitive-access-wideners-v1 8.1.4+67c847259e: 0 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod fabricloader 0.20.1: 771 classes, 0 mixin classes (applied, not shipped), 31 resources
+mod gammautils 3.1.3: 28 classes, 10 mixin classes (applied, not shipped), 17 resources
+mod held-item-info 1.9.2: 21 classes, 9 mixin classes (applied, not shipped), 8 resources
+mod iceberg 1.4.2.2: 203 classes, 15 mixin classes (applied, not shipped), 0 resources
+mod itemborders 1.3.2: 7 classes, 2 mixin classes (applied, not shipped), 0 resources
+mod logical_zoom 0.0.36: 1 classes, 1 mixin classes (applied, not shipped), 4 resources
+mod mixinextras 0.5.5: 506 classes, 0 mixin classes (applied, not shipped), 1 resources
+mod modmenu 20.0.3: 69 classes, 2 mixin classes (applied, not shipped), 101 resources
+mod mousetweaks 2.31: 22 classes, 1 mixin classes (applied, not shipped), 1 resources
+mod nicer-skies 1.5.0+26.2: 26 classes, 2 mixin classes (applied, not shipped), 6 resources
+mod placeholder-api 3.1.0-beta.1+26.2: 121 classes, 0 mixin classes (applied, not shipped), 7 resources
+mod prickle 26.2.0.3: 46 classes, 0 mixin classes (applied, not shipped), 2 resources
+mod prism 1.1.2: 22 classes, 2 mixin classes (applied, not shipped), 2 resources
+mod shulkerboxtooltip 5.4.3+26.2: 184 classes, 12 mixin classes (applied, not shipped), 20 resources
+mod supermartijn642configlib 1.1.8+a: 42 classes, 0 mixin classes (applied, not shipped), 1 resources
+mod toggle-sprint-display 2.0.2: 10 classes, 2 mixin classes (applied, not shipped), 3 resources
+mod visuality 0.7.15+26.3: 30 classes, 6 mixin classes (applied, not shipped), 72 resources
+library classes changed by mixins: 3
+classes generated or recovered for references: 14 (accessor interfaces filled in: 35)
+mixins applied: 569 of 601 (unapplied ones are usually server-only or target code Eaglercraft replaced)
+mixin handlers that can be switched off per mod: 114
+mod hooks made failure-safe: 2
+library calls rerouted to browser stand-ins: 65
+entrypoints: 74
+  client <- appleskin: new squeek.appleskin.AppleSkin()
+  main <- appleskin: new squeek.appleskin.AppleSkinCommon()
+  modmenu <- appleskin: new squeek.appleskin.gui.ModMenuIntegration()
+  rei_client <- appleskin: new squeek.appleskin.client.REITooltipPlugin()
+  client <- armor_hud: new com.saolghra.armor_hud.fabric.ArmorHudFabric()
+  modmenu <- armor_hud: new com.saolghra.armor_hud.fabric.config.ModMenuIntegration()
+  client <- betterf3: new me.cominixo.betterf3.BetterF3Fabric()
+  modmenu <- betterf3: new me.cominixo.betterf3.ModMenuIntegration()
+  main <- boatiview: new me.soapsuds.boatiview.fabric.BoatItemViewImpl()
+  modmenu <- boatiview: new me.soapsuds.boatiview.fabric.config.ConfigModMenuIntegration()
+  client <- chat_heads: new dzwdz.chat_heads.fabric.ChatHeadsFabric()
+  modmenu <- chat_heads: new dzwdz.chat_heads.fabric.config.ModMenuImpl()
+  client <- cloth-config: ((net.fabricmc.api.ClientModInitializer) me.shedaniel.autoconfig.example.ExampleInits::exampleCommonInit)
+  modmenu <- cloth-config: new me.shedaniel.clothconfig2.fabric.ClothConfigModMenuDemo()
+  modmenu <- dark-loading-screen: new io.github.a5b84.darkloadingscreen.config.ModMenuApiImpl()
+  client <- durabilitytooltip: new com.supermartijn642.durabilitytooltip.DurabilityTooltipClient()
+  main <- durabilitytooltip: new com.supermartijn642.durabilitytooltip.DurabilityTooltip()
+  client <- enchdesc: new net.darkhax.enchdesc.fabric.EnchantmentDescriptionsFabricClient()
+  main <- enchdesc: new net.darkhax.enchdesc.fabric.EnchantmentDescriptionsFabric()
+  main <- fabric-api-lookup-api-v1: new net.fabricmc.fabric.impl.lookup.ApiLookupImpl()
+  main <- fabric-convention-tags-v2: new net.fabricmc.fabric.impl.tag.convention.v2.TranslationConventionLogWarnings()
+  client <- fabric-data-attachment-api-v1: new net.fabricmc.fabric.impl.attachment.client.AttachmentSyncClient()
+  main <- fabric-data-attachment-api-v1: new net.fabricmc.fabric.impl.attachment.AttachmentEntrypoint()
+  main <- fabric-data-attachment-api-v1: new net.fabricmc.fabric.impl.attachment.sync.AttachmentSync()
+  main <- fabric-dimensions-v1: new net.fabricmc.fabric.impl.dimension.DimensionModificationImpl()
+  main <- fabric-events-interaction-v0: new net.fabricmc.fabric.impl.event.interaction.InteractionEventsRouter()
+  client <- fabric-lifecycle-events-v1: new net.fabricmc.fabric.impl.client.event.lifecycle.ClientLifecycleEventsImpl()
+  main <- fabric-lifecycle-events-v1: new net.fabricmc.fabric.impl.event.lifecycle.LifecycleEventsImpl()
+  client <- fabric-menu-api-v1: new net.fabricmc.fabric.impl.menu.client.ClientNetworking()
+  main <- fabric-menu-api-v1: new net.fabricmc.fabric.impl.menu.Networking()
+  client <- fabric-model-loading-api-v1: new net.fabricmc.fabric.impl.client.model.loading.CustomUnbakedBlockStateModelInit()
+  client <- fabric-networking-api-v1: ((net.fabricmc.api.ClientModInitializer) net.fabricmc.fabric.impl.networking.client.ClientNetworkingImpl::clientInit)
+  main <- fabric-networking-api-v1: ((net.fabricmc.api.ModInitializer) net.fabricmc.fabric.impl.networking.CommonPacketsImpl::init)
+  main <- fabric-networking-api-v1: ((net.fabricmc.api.ModInitializer) net.fabricmc.fabric.impl.networking.NetworkingImpl::init)
+  client <- fabric-particles-v1: new net.fabricmc.fabric.impl.client.particle.ExtendedBlockParticleOptionSyncClient()
+  main <- fabric-particles-v1: new net.fabricmc.fabric.impl.particle.ExtendedBlockParticleOptionSync()
+  client <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.ingredient.client.CustomIngredientSyncClient()
+  client <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.sync.client.RecipeSyncImplClient()
+  main <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientInit()
+  main <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.ingredient.CustomIngredientSync()
+  main <- fabric-recipe-api-v1: new net.fabricmc.fabric.impl.recipe.sync.RecipeSyncImpl()
+  client <- fabric-registry-sync-v0: new net.fabricmc.fabric.impl.client.registry.sync.FabricRegistryClientInit()
+  main <- fabric-registry-sync-v0: new net.fabricmc.fabric.impl.registry.sync.FabricRegistryInit()
+  client <- fabric-renderer-api-v1: new net.fabricmc.fabric.impl.client.renderer.DebugOverlayClient()
+  client <- fabric-renderer-indigo: new net.fabricmc.fabric.impl.client.indigo.Indigo()
+  client <- fabric-rendering-v1: new net.fabricmc.fabric.impl.client.rendering.hud.HudStatusBarHeightRegistryImpl()
+  main <- fabric-resource-conditions-api-v1: new net.fabricmc.fabric.impl.resource.conditions.ResourceConditionsImpl()
+  main <- fabric-tag-api-v1: new net.fabricmc.fabric.impl.tag.TagInit()
+  client <- gammautils: new io.github.sjouwer.gammautils.GammaUtils()
+  modmenu <- gammautils: new io.github.sjouwer.gammautils.config.ModMenuApiImpl()
+  sodium:config_api_user <- gammautils: new io.github.sjouwer.gammautils.compat.SodiumConfigBuilder()
+  client <- held-item-info: new io.github.a5b84.helditeminfo.HeldItemInfo()
+  modmenu <- held-item-info: new io.github.a5b84.helditeminfo.config.ModMenuIntegration()
+  client <- iceberg: new com.anthonyhilyard.iceberg.fabric.client.IcebergFabricClient()
+  server <- iceberg: new com.anthonyhilyard.iceberg.fabric.server.IcebergFabricServer()
+  main <- itemborders: new com.anthonyhilyard.itemborders.fabric.ItemBordersFabric()
+  client <- logical_zoom: new com.logicalgeekboy.logical_zoom.LogicalZoom()
+  client <- modmenu: new com.terraformersmc.modmenu.ModMenu()
+  modmenu <- modmenu: new com.terraformersmc.modmenu.ModMenuModMenuCompat()
+  client <- mousetweaks: new yalter.mousetweaks.fabric.MouseTweaksFabric()
+  modmenu <- mousetweaks: new yalter.mousetweaks.ModMenuApiImpl()
+  client <- nicer-skies: new dev.ztereohype.nicerskies.NicerSkies()
+  modmenu <- nicer-skies: new dev.ztereohype.nicerskies.gui.ModMenuSettingsApi()
+  client <- prickle: new net.darkhax.pricklemc.fabric.PrickleMCFabricClient()
+  main <- prickle: new net.darkhax.pricklemc.fabric.PrickleMCFabric()
+  client <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipClientImpl()
+  main <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl()
+  modmenu <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.impl.ModMenuCompat()
+  shulkerboxtooltip <- shulkerboxtooltip: new com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl()
+  client <- supermartijn642configlib: new com.supermartijn642.configlib.ConfigLibClient()
+  main <- supermartijn642configlib: new com.supermartijn642.configlib.ConfigLib()
+  modmenu <- toggle-sprint-display: new com.aeltumn.togglesprintdisplay.integration.ModMenuIntegration()
+  client <- visuality: new visuality.VisualityMod()
+  modmenu <- visuality: new visuality.compat.VisualityModMenu()
+reflection allowed for mods: 13 classes by name, 4068 fields, 2058 constructors/record accessors
+problems: 71
+  ! accessor squeek.appleskin.mixin.ClientTooltipComponentMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for squeek.appleskin.mixin.ClientTooltipComponentMixin. Mixin is defined in appleskin.mixins.json and cannot be referenced directly
+  ! accessor dzwdz.chat_heads.mixin.PlainTextRenderableMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for dzwdz.chat_heads.mixin.PlainTextRenderableMixin. Mixin is defined in chat_heads.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.blockgetter.LevelReaderMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.blockgetter.LevelReaderMixin. Mixin is defined in fabric-block-getter-api-v2.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.content.registry.WeatheringCopperMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.content.registry.WeatheringCopperMixin. Mixin is defined in fabric-content-registries-v0.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.datagen.DataProviderMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.datagen.DataProviderMixin. Mixin is defined in fabric-data-generation-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.item.CraftingRecipeMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.item.CraftingRecipeMixin. Mixin is defined in fabric-item-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.client.model.loading.BlockStateModelUnbakedMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: net.fabricmc.fabric.mixin.client.model.loading.BlockStateModelUnbakedMixin is in a defined mixin package net.fabricmc.fabric.mixin.client.model.loading.* owned by fabric-model-loading-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.client.model.loading.CuboidModelAccessor: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for accessor mixin net.fabricmc.fabric.mixin.client.model.loading.CuboidModelAccessor. The mixin is missing from fabric-model-loading-api-v1.mixins.json which owns package net.fabricmc.fabric.mixin.client.model.loading.* and the mixin has not been applied.
+  ! accessor net.fabricmc.fabric.mixin.client.rendering.ClientTooltipComponentMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.client.rendering.ClientTooltipComponentMixin. Mixin is defined in fabric-rendering-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.resource.conditions.DataProviderMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.resource.conditions.DataProviderMixin. Mixin is defined in fabric-resource-conditions-api-v1.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.resource.client.ClientTooltipComponentMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.resource.client.ClientTooltipComponentMixin. Mixin is defined in fabric-resource-loader-v1.client.mixins.json and cannot be referenced directly
+  ! accessor net.fabricmc.fabric.mixin.transfer.ListBackedContainerMixin: org.spongepowered.asm.mixin.transformer.throwables.IllegalClassLoadError: Illegal classload request for net.fabricmc.fabric.mixin.transfer.ListBackedContainerMixin. Mixin is defined in fabric-transfer-api-v1.mixins.json and cannot be referenced directly
+  ! referenced class not found anywhere: com.anthonyhilyard.legendarytooltips.config.LegendaryTooltipsConfig
+  ! referenced class not found anywhere: com.anthonyhilyard.legendarytooltips.config.LegendaryTooltipsConfig$FrameDefinition
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.ActionResult
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.ConfigType
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IConfigEntry
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IConfigValue
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IModConfig
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.IModConfigProvider
+  ! referenced class not found anywhere: com.mrcrayfish.configured.api.ModContext
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.entry.renderer.EntryRendererRegistry
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.entry.renderer.EntryRendererRegistry$TooltipTransformer
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.gui.widgets.Tooltip
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.gui.widgets.Tooltip$Entry
+  ! referenced class not found anywhere: me.shedaniel.rei.api.client.plugins.REIClientPlugin
+  ! referenced class not found anywhere: me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.ConfigEntryPoint
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.structure.ConfigBuilder
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.structure.IntegerOptionBuilder
+  ! referenced class not found anywhere: net.caffeinemc.mods.sodium.api.config.structure.ModOptionsBuilder
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModContainer
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModContainer$BasicSourceType
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModContributor
+  ! referenced class not found anywhere: org.quiltmc.loader.api.ModMetadata
+  ! referenced class not found anywhere: org.quiltmc.loader.api.QuiltLoader
+  ! referenced class not found anywhere: org.quiltmc.loader.api.Version
+  ! referenced class not found anywhere: org.quiltmc.loader.api.Version$Semantic
+  ! referenced class not found anywhere: org.quiltmc.loader.api.VersionFormatException
+  ! mixin not applied: com.anthonyhilyard.iceberg.mixin.LivingEntityMixin -> [net.minecraft.world.entity.LivingEntity]
+  ! mixin not applied: com.terraformersmc.modmenu.mixin.MixinPauseScreen -> [net.minecraft.client.gui.screens.PauseScreen]
+  ! mixin not applied: com.terraformersmc.modmenu.mixin.MixinTitleScreen -> [net.minecraft.client.gui.screens.TitleScreen]
+  ! mixin not applied: dzwdz.chat_heads.mixin.compat.chatpatches.ChatUtilMixin -> [obro1961.chatpatches.util.ChatUtil]
+  ! mixin not applied: net.fabricmc.fabric.mixin.attachment.PlayerChunkSenderMixin -> [net.minecraft.server.network.PlayerChunkSender]
+  ! mixin not applied: net.fabricmc.fabric.mixin.block.BlockMixin -> [net.minecraft.world.level.block.Block]
+  ! mixin not applied: net.fabricmc.fabric.mixin.block.BlockStateMixin -> [net.minecraft.world.level.block.state.BlockState]
+  ! mixin not applied: net.fabricmc.fabric.mixin.blockgetter.BlockEntityMixin -> [net.minecraft.world.level.block.entity.BlockEntity]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.message.ChatListenerMixin -> [net.minecraft.client.multiplayer.chat.ChatListener]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.BlockStateModelUnbakedMixin -> [net.minecraft.client.renderer.block.dispatch.BlockStateModel$Unbaked]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.CuboidModelAccessor -> [net.minecraft.client.resources.model.cuboid.CuboidModel]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.CuboidModelMixin -> [net.minecraft.client.resources.model.cuboid.CuboidModel]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.ModelBakeryBakingResultMixin -> [net.minecraft.client.resources.model.ModelBakery$BakingResult]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.ModelBakeryMixin -> [net.minecraft.client.resources.model.ModelBakery]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.model.loading.ModelManagerMixin -> [net.minecraft.client.resources.model.ModelManager]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.renderer.block.particle.BlockStateModelSetMixin -> [net.minecraft.client.renderer.block.BlockStateModelSet]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.renderer.block.render.SectionCompilerMixin -> [net.minecraft.client.renderer.chunk.SectionCompiler]
+  ! mixin not applied: net.fabricmc.fabric.mixin.client.renderer.sprite.MaterialBakerMixin -> [net.minecraft.client.resources.model.sprite.MaterialBaker]
+  ! mixin not applied: net.fabricmc.fabric.mixin.crash.report.info.ServerWatchdogMixin -> [net.minecraft.server.dedicated.ServerWatchdog]
+  ! mixin not applied: net.fabricmc.fabric.mixin.crash.report.info.SystemReportMixin -> [net.minecraft.SystemReport]
+  ! mixin not applied: net.fabricmc.fabric.mixin.datagen.loot.BlockLootSubProviderMixin -> [net.minecraft.data.loot.BlockLootSubProvider]
+  ! mixin not applied: net.fabricmc.fabric.mixin.datagen.loot.EntityLootSubProviderMixin -> [net.minecraft.data.loot.EntityLootSubProvider]
+  ! mixin not applied: net.fabricmc.fabric.mixin.datagen.server.MainMixin -> [net.minecraft.server.Main]
+  ! mixin not applied: net.fabricmc.fabric.mixin.entity.event.effect.MobEffectMixin -> [net.minecraft.world.effect.MobEffect]
+  ! mixin not applied: net.fabricmc.fabric.mixin.event.lifecycle.server.DedicatedServerMixin -> [net.minecraft.server.dedicated.DedicatedServer]
+  ! mixin not applied: net.fabricmc.fabric.mixin.event.lifecycle.server.LevelChunkMixin -> [net.minecraft.world.level.chunk.LevelChunk]
+  ! mixin not applied: net.fabricmc.fabric.mixin.event.lifecycle.server.ServerHandshakePacketListenerImplMixin -> [net.minecraft.server.network.ServerHandshakePacketListenerImpl]
+  ! mixin not applied: net.fabricmc.fabric.mixin.object.builder.SavedDataStorageMixin -> [net.minecraft.world.level.storage.SavedDataStorage]
+  ! mixin not applied: net.fabricmc.fabric.mixin.resource.client.GameOptionsWriteVisitorMixin -> [net.minecraft.client.Options$3]
+  ! mixin not applied: net.fabricmc.fabric.mixin.resource.server.LanguageMixin -> [net.minecraft.locale.Language]
+  ! mixin not applied: squeek.appleskin.mixin.JEIRenderHelperMixin -> [mezz.jei.fabric.platform.RenderHelper]
+  ! mixin not applied: visuality.mixin.SlimeEntityMixin -> [net.minecraft.world.entity.monster.cubemob.Slime]

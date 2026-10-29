@@ -1,0 +1,9 @@
+[standalone-teavm] requestedOptimization=FULL effectiveOptimization=FULL dependencyAnalysis=precise strict=true obfuscated=false
+INFO: Running TeaVM
+[ember] reflection list: 13 classes, 4068 fields
+[standalone-teavm] phase=DEPENDENCY_ANALYSIS workItems=0
+EAGLER_UNSUPPORTED_STRIP java.util.Date.toString (removed @UnsupportedOn)
+EAGLER_WASMGC_STUB: squeek.appleskin.client.REITooltipPlugin -> MISSING interface me.shedaniel.rei.api.client.plugins.REIClientPlugin (submitting synthetic interface)
+EAGLER_WASMGC_STUB: io.github.sjouwer.gammautils.compat.SodiumConfigBuilder -> MISSING interface net.caffeinemc.mods.sodium.api.config.ConfigEntryPoint (submitting synthetic interface)
+[standalone-teavm] progress=8819/0
+EAGLER_WASMGC_STUB: me.cominixo.betterf3.libs.nightconfig.core.file.WriteAsyncFileConfig$WriteCompletedHandler -> MISSING interface java.nio.channels.CompletionHandler (submitting synthetic interface)
