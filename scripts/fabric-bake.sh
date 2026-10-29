@@ -123,6 +123,12 @@ if [ -f "$TEAVM_CORE" ] && [ -f "$F/baked/reflection.tsv" ]; then
 else
   echo "::warning::no TeaVM core jar or reflection list; mod configs may fail to load"
 fi
+# Mods' ServiceLoader registrations (META-INF/services), merged.
+if [ -d "$F/baked/services" ]; then
+  mkdir -p "$ROOT/META-INF/services"
+  for s in "$F"/baked/services/*; do case "$(basename "$s")" in org.spongepowered.*|net.fabricmc.loader.*|net.fabricmc.tinyremapper.*) continue;; esac; cat "$s" >> "$ROOT/META-INF/services/$(basename "$s")"; done
+  echo "service registrations: $(ls "$F/baked/services" | wc -l)"
+fi
 mkdir -p "$WS/ember"
 rm -f "$WS/ember/ember-baked.jar"
 (cd "$ROOT" && zip -q -r -X "$WS/ember/ember-baked.jar" .)

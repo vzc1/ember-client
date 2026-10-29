@@ -175,6 +175,13 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 						classes++;
 					} else if (rel.equals("fabric.mod.json")) {
 						modJson.put(id, Files.readString(f, StandardCharsets.UTF_8));
+					} else if (rel.startsWith("META-INF/services/") && !rel.contains("javax.annotation")) {
+						// ServiceLoader registrations: the browser compiler reads these at build time.
+						Path dest = out.resolve("services").resolve(rel.substring("META-INF/services/".length()));
+						Files.createDirectories(dest.getParent());
+						String text = Files.readString(f, StandardCharsets.UTF_8).trim();
+						if (!text.isEmpty()) Files.writeString(dest, text + "\n", StandardCharsets.UTF_8,
+								java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
 					} else if (!rel.startsWith("META-INF/") && !rel.endsWith(".mixins.json")
 							&& !rel.endsWith("-refmap.json") && !rel.endsWith(".accesswidener")
 							&& !rel.endsWith(".classtweaker")) {
@@ -391,6 +398,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		List<String> skip = List.of("net/fabricmc/", "com/llamalad7/", "org/spongepowered/", "org/objectweb/");
 		// Class names that appear as text in mod code: what Class.forName might be asked for.
 		Set<String> named = new java.util.HashSet<>();
+		Set<String> namedTails = new java.util.HashSet<>();
 		for (String rel : modClassFiles) {
 			Path f = classesOut.resolve(rel);
 			if (!Files.exists(f)) continue;
@@ -403,11 +411,22 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 					@Override public org.objectweb.asm.MethodVisitor visitMethod(int a, String n, String d, String sg, String[] e) {
 						return new org.objectweb.asm.MethodVisitor(Opcodes.ASM9) {
 							@Override public void visitLdcInsn(Object v) { if (v instanceof String str && str.indexOf('.') > 0) named.add(str); }
+							// "pkg + \".ClassName\"" string concatenation: remember the ".ClassName" tail.
+							@Override public void visitInvokeDynamicInsn(String n, String d, org.objectweb.asm.Handle bsm, Object... args) {
+								for (Object a : args) {
+									if (!(a instanceof String recipe)) continue;
+									for (String part : recipe.split("[\u0001\u0002]")) {
+										if (part.startsWith(".") && part.length() > 1 && Character.isUpperCase(part.charAt(part.lastIndexOf('.') + 1)))
+											namedTails.add(part);
+									}
+								}
+							}
 						};
 					}
 				}, ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 			} catch (Throwable t) { /* ignore */ }
 		}
+		Map<String, org.objectweb.asm.tree.ClassNode> nodes = new java.util.HashMap<>();
 		for (String rel : modClassFiles) {
 			if (skip.stream().anyMatch(rel::startsWith)) continue;
 			Path f = classesOut.resolve(rel);
@@ -421,15 +440,40 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			String name = cn.name.replace('/', '.');
 			if (name.endsWith("package-info") || name.equals("module-info")) continue;
 			// Architectury-style mods find their platform code as "<pkg>.fabric.<Name>Impl".
-			boolean byName = named.contains(name) || (name.endsWith("Impl") && name.contains(".fabric."));
+			boolean byName = named.contains(name) || (name.endsWith("Impl") && name.contains(".fabric."))
+					|| namedTails.stream().anyMatch(name::endsWith);
 			if (byName) {
 				sb.append("C\t").append(name).append('\n');
 				classes++;
 			}
-			// Field/constructor reflection is expensive for the browser compiler (every
-			// reflective field widens what it must track), so only config classes get it.
-			if (!name.toLowerCase(java.util.Locale.ROOT).contains("config") || name.contains(".gui.")
-					|| name.startsWith("me.shedaniel.") || name.startsWith("com.electronwill.") || name.contains(".shadowed.") || name.contains(".libs.")) continue;
+			nodes.put(cn.name, cn);
+		}
+		// Field/constructor reflection is expensive for the browser compiler (every
+		// reflective field widens what it must track), so only config classes get it,
+		// plus the mod classes they hold in their fields and their superclasses.
+		java.util.ArrayDeque<String> todo = new java.util.ArrayDeque<>();
+		Set<String> reflect = new java.util.LinkedHashSet<>();
+		for (String n : nodes.keySet()) {
+			String name = n.replace('/', '.');
+			if (name.toLowerCase(java.util.Locale.ROOT).contains("config") && !name.contains(".gui.")
+					&& !name.startsWith("me.shedaniel.") && !name.startsWith("com.electronwill.")
+					&& !name.contains(".shadowed.") && !name.contains(".libs.")) todo.add(n);
+		}
+		while (!todo.isEmpty()) {
+			String n = todo.poll();
+			org.objectweb.asm.tree.ClassNode cn = nodes.get(n);
+			if (cn == null || !reflect.add(n)) continue;
+			if (cn.superName != null) todo.add(cn.superName);
+			for (org.objectweb.asm.tree.FieldNode fn : cn.fields) {
+				if ((fn.access & Opcodes.ACC_STATIC) != 0) continue;
+				String sig = (fn.signature != null ? fn.signature : "") + fn.desc;
+				java.util.regex.Matcher m = java.util.regex.Pattern.compile("L([\\w/$]+)[;<]").matcher(sig);
+				while (m.find()) if (nodes.containsKey(m.group(1))) todo.add(m.group(1));
+			}
+		}
+		for (String n : reflect) {
+			org.objectweb.asm.tree.ClassNode cn = nodes.get(n);
+			String name = n.replace('/', '.');
 			for (org.objectweb.asm.tree.FieldNode fn : cn.fields) {
 				if ((fn.access & Opcodes.ACC_SYNTHETIC) != 0) continue;
 				sb.append("F\t").append(name).append('\t').append(fn.name).append('\n');
@@ -732,7 +776,48 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		return w.toByteArray();
 	}
 
+	/** Netty handler bases that pick messages by their generic type (found by reflection at runtime). */
+	private static final Map<String, String> NETTY_MATCHERS = Map.of(
+			"io/netty/handler/codec/MessageToMessageEncoder", "acceptOutboundMessage",
+			"io/netty/handler/codec/MessageToByteEncoder", "acceptOutboundMessage",
+			"io/netty/handler/codec/MessageToMessageDecoder", "acceptInboundMessage",
+			"io/netty/channel/SimpleChannelInboundHandler", "acceptInboundMessage");
+
+	/**
+	 * Netty finds a handler's message type through generic-type reflection, which the
+	 * browser build lacks, so the handler ends up accepting every message (Fabric's
+	 * packet splitter then fails with ClassCastException). Write the check out instead.
+	 */
+	private static byte[] nettyMatchers(byte[] b) {
+		String s = new String(b, StandardCharsets.ISO_8859_1);
+		if (!s.contains("io/netty/")) return null;
+		org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+		new ClassReader(b).accept(cn, 0);
+		String method = NETTY_MATCHERS.get(cn.superName);
+		if (method == null || cn.signature == null) return null;
+		for (org.objectweb.asm.tree.MethodNode mn : cn.methods) if (mn.name.equals(method)) return null;
+		java.util.regex.Matcher m = java.util.regex.Pattern.compile("L" + java.util.regex.Pattern.quote(cn.superName) + "<L([^;<]+)[;<]").matcher(cn.signature);
+		if (!m.find()) return null;
+		org.objectweb.asm.tree.MethodNode mn = new org.objectweb.asm.tree.MethodNode(Opcodes.ACC_PUBLIC, method, "(Ljava/lang/Object;)Z", null, new String[] {"java/lang/Exception"});
+		mn.instructions.add(new org.objectweb.asm.tree.VarInsnNode(Opcodes.ALOAD, 1));
+		mn.instructions.add(new org.objectweb.asm.tree.TypeInsnNode(Opcodes.INSTANCEOF, m.group(1)));
+		mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.IRETURN));
+		mn.maxStack = 1;
+		mn.maxLocals = 2;
+		cn.methods.add(mn);
+		org.objectweb.asm.ClassWriter w = new org.objectweb.asm.ClassWriter(0);
+		cn.accept(w);
+		return w.toByteArray();
+	}
+
 	private byte[] polyfill(byte[] b, int[] count) {
+		byte[] netty = null;
+		try {
+			netty = nettyMatchers(b);
+		} catch (Throwable t) {
+			problems.add("could not add Netty message checks: " + describe(t));
+		}
+		if (netty != null) { b = netty; count[0]++; }
 		byte[] swapped = null;
 		try {
 			swapped = swapClasses(b);
@@ -741,7 +826,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 		if (swapped != null) { b = swapped; count[0]++; }
 		byte[] rest = polyfillCalls(b, count);
-		return rest != null ? rest : swapped;
+		return rest != null ? rest : swapped != null ? swapped : netty;
 	}
 
 	private byte[] polyfillCalls(byte[] b, int[] count) {
