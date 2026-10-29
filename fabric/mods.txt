@@ -1,8 +1,30 @@
 # Mods downloaded from Modrinth for every build (Fabric, Minecraft 26.2).
-# One Modrinth project name ("slug") per line, the part after modrinth.com/mod/.
-# Required dependencies are downloaded automatically.
+# One Modrinth project name per line: the part after modrinth.com/mod/.
+# Anything they require is added automatically. Mods with no 26.2 Fabric
+# build, or that need Kotlin, are skipped with a warning.
 # For your own .jar files, use the mods/ folder instead.
+
 fabric-api
+
+# HUD and info
 appleskin
+betterf3
+jade
+better-ping-display-fabric
+
+# Menus and inventory
 modmenu
 shulkerboxtooltip
+mouse-tweaks
+
+# Chat
+chat-heads
+
+# Zoom and visuals
+ok-zoomer
+lambdynamiclights
+visuality
+dark-loading-screen
+not-enough-animations
+3dskinlayers
+boat-item-view
