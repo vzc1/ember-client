@@ -148,3 +148,16 @@ open(p, "w").write(s.replace(old, new))
 print("patched StandaloneTeaVMLinker to allow missing Java features in mods")
 PY
 fi
+
+# 8. TeaVM itself stops before writing output if any reachable code mentions a
+#    class/method/field that doesn't exist, even though it already replaces such
+#    references with code that throws when reached. Report them as warnings so
+#    mods that mention desktop-only Java features still build.
+TV="$WS/wasm-toolchain/teavm-eagler-patch/teavm-core-0.13.1-eagler.jar"
+if [ -f "$TV" ] && [ ! -f "$TV.ember-patched" ]; then
+  mkdir -p "$F/tools"
+  ASM_CP="$(ls "$F"/libs/asm-*.jar | tr '\n' "$SEP")"
+  "$JAVAC" -nowarn -d "$F/tools" -cp "$ASM_CP" "$REPO/fabric/tools/PatchTeaVM.java"
+  "$JAVA" -cp "$F/tools$SEP$ASM_CP" PatchTeaVM "$TV"
+  touch "$TV.ember-patched"
+fi
