@@ -91,8 +91,9 @@
   .linkbtn { background: none; border: 0; color: var(--soul); font-weight: 600; cursor: pointer; padding: 0; }
   .linkbtn:hover { text-decoration: underline; }
 
-  .icon-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 12px; }
-  .icon-row a, .icon-row div { text-decoration: none; display: grid; justify-items: center; gap: 6px; font-size: 12px; color: var(--ash-2); text-align: center; }
+  .icon-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 14px 10px; }
+  .icon-row > a, .icon-row > div { text-decoration: none; display: grid; justify-items: center; align-content: start; gap: 6px; font-size: 12px; line-height: 1.3; color: var(--ash-2); text-align: center; min-width: 0; }
+  .icon-row > div > span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; max-width: 100%; }
   .icon-row .ic { width: 56px; height: 56px; }
 
   .ic { border-radius: 10px; background: var(--stone-2); border: 1px solid var(--edge); display: grid; place-items: center; overflow: hidden; flex: none; }
@@ -442,13 +443,13 @@
   }
   function renderModSummary() {
     var offList = readOff();
-    var n = mods.filter(function (m) { return !(m.id && offList.indexOf(m.id) >= 0); }).length;
+    var n = mods.filter(function (m) { return m.listed !== false && !(m.id && offList.indexOf(m.id) >= 0); }).length;
     $("modCount").textContent = n;
     $("modsHead").textContent = "Your mods (" + n + ")";
     $("forgeMeta").textContent = "Minecraft " + (S.version || "") + " with Fabric and " + n + " mod" + (n === 1 ? "" : "s");
     var row = $("homeIcons"); row.innerHTML = "";
     mods.filter(function (m) { return m.listed !== false && !(m.id && offList.indexOf(m.id) >= 0); }).slice(0, 14).forEach(function (m) {
-      row.insertAdjacentHTML("beforeend", '<div>' + iconHTML(m, 56) + '<span>' + esc(m.name) + '</span></div>');
+      row.insertAdjacentHTML("beforeend", '<div>' + iconHTML(m, 56) + '<span title="' + esc(m.name) + '">' + esc(String(m.name).split(" - ")[0]) + '</span></div>');
     });
   }
   $("q").addEventListener("input", renderMods);
