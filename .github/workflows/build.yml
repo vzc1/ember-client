@@ -53,6 +53,11 @@ jobs:
       - name: Apply Ember overlay
         run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/apply-overlay.sh 2>&1 | tee "$RUNNER_TEMP/logs/apply-overlay.log"
 
+      - name: Fabric layer (bake mods into the game)
+        run: |
+          mkdir -p "$RUNNER_TEMP/logs"
+          { bash scripts/fetch-fabric.sh "$RUNNER_TEMP/fabric" && bash scripts/fabric-bake.sh "$RUNNER_TEMP/ws" "$RUNNER_TEMP/fabric"; } 2>&1 | tee "$RUNNER_TEMP/logs/fabric.log"
+
       - name: Build standalone HTML
         env:
           EAGLER_LINK_CAP_MIB: "13312"
@@ -71,6 +76,7 @@ jobs:
           cd "$RUNNER_TEMP"
           mkdir -p logs
           find ws -name '*.log' -newer inputs/setup.jar -size -20M -exec cp --parents {} logs/ \; 2>/dev/null || true
+          cp fabric/bake.log fabric/baked/bake-report.txt fabric/disabled-mixins.txt logs/ 2>/dev/null || true
           (cd logs && zip -q -r ../logs.zip .) || true
           bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "build-latest" "Latest build" \
             "$RUNNER_TEMP/logs.zip" "$GITHUB_WORKSPACE"/out/*.html

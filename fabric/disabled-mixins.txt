@@ -1,0 +1,2 @@
+# Mixins known not to work with Eaglercraft 26.2 (config.json:MixinName), switched off before baking.
+# The bake finds new ones automatically; add entries here to make them permanent.

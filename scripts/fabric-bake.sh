@@ -39,29 +39,45 @@ compile_mod() { # <name> <out>
   if [ -f "$src/fabric.mod.json" ]; then cp "$src/fabric.mod.json" "$2/"; fi
 }
 compile_mod bake "$F/addmods/ember_bake"
-compile_mod ember-core "$F/addmods/ember_core"
 
 # 3. Bake: run Knot with all mods, dump transformed classes, exit before the game starts.
-rm -rf "$F/run" "$F/baked"
-mkdir -p "$F/run/mods"
-cp "$F"/mods/*.jar "$F/run/mods/" 2>/dev/null || true
-(cd "$F/run" && "$JAVA" -Xmx6g \
-  -cp "$FABRIC_CP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
-  -Dfabric.addMods="$F/addmods/ember_bake$SEP$F/addmods/ember_core" \
-  -Dfabric.gameVersion=26.2 \
-  -Dember.bake.out="$F/baked" \
-  -Dember.bake.gameClasses="$GAME_CLASSES" \
-  net.fabricmc.loader.impl.launch.knot.KnotClient --gameDir "$F/run") 2>&1 | tee "$F/bake.log"
-test -f "$F/baked/bake-report.txt" || { echo "::error::Fabric bake did not finish (see bake.log)"; exit 1; }
+#    A mixin that cannot apply to Eaglercraft's version of a class gets switched off
+#    and the bake repeats, so one incompatible mixin never costs a whole class.
+DISABLED="$F/disabled-mixins.txt"
+grep -vhE '^\s*(#|$)' "$REPO/fabric/disabled-mixins.txt" 2>/dev/null > "$DISABLED" || true
+for round in 1 2 3 4 5; do
+  rm -rf "$F/run" "$F/baked"
+  mkdir -p "$F/run/mods"
+  cp "$F"/mods/*.jar "$F/run/mods/" 2>/dev/null || true
+  compile_mod ember-core "$F/addmods/ember_core"
+  python3 "$REPO/scripts/disable-mixins.py" "$DISABLED" "$F"/run/mods/*.jar "$F/addmods/ember_core"
+  echo "== bake round $round ($(wc -l < "$DISABLED") mixins switched off)"
+  (cd "$F/run" && "$JAVA" -Xmx6g \
+    -cp "$FABRIC_CP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
+    -Dfabric.addMods="$F/addmods/ember_bake$SEP$F/addmods/ember_core" \
+    -Dfabric.gameVersion=26.2 \
+    -Dember.bake.out="$F/baked" \
+    -Dember.bake.gameClasses="$GAME_CLASSES" \
+    net.fabricmc.loader.impl.launch.knot.KnotClient --gameDir "$F/run") > "$F/bake.log" 2>&1 || true
+  test -f "$F/baked/bake-report.txt" || { tail -80 "$F/bake.log"; echo "::error::Fabric bake did not finish (see bake.log)"; exit 1; }
+  new="$(comm -13 <(sort -u "$DISABLED") <(sort -u "$F/baked/failed-mixins.txt"))"
+  [ -z "$new" ] && break
+  echo "$new" >> "$DISABLED"
+done
 cat "$F/baked/bake-report.txt"
+echo "== mixins switched off for Eaglercraft compatibility:"; cat "$DISABLED"
 
 # 4. Assemble ember-baked.jar: Fabric runtime classes, baked classes, then the
 #    browser-side loader shim + generated entrypoints on top.
 ROOT="$F/jar-root"
 rm -rf "$ROOT"; mkdir -p "$ROOT"
 for lib in "$F"/libs/fabric-loader-*.jar "$F"/libs/sponge-mixin-*.jar "$F"/libs/mixinextras-*.jar; do
-  [ -f "$lib" ] && (cd "$ROOT" && unzip -q -o "$lib" -x 'META-INF/*' '*.json' 'LICENSE*')
+  [ -f "$lib" ] && (cd "$ROOT" && unzip -q -o "$lib" -x 'META-INF/*' 'module-info.class' 'LICENSE*' 'fabric.mod.json')
 done
+# MixinExtras ships inside the loader jar (jar-in-jar).
+unzip -p "$F"/libs/fabric-loader-*.jar 'META-INF/jars/mixinextras-fabric-*.jar' > "$F/mixinextras.jar" 2>/dev/null || true
+[ -s "$F/mixinextras.jar" ] && (cd "$ROOT" && unzip -q -o "$F/mixinextras.jar" -x 'META-INF/*' 'module-info.class' 'fabric.mod.json')
+find "$ROOT" -name module-info.class -delete
 cp -a "$F/baked/classes/." "$ROOT/"
 "$JAVAC" -nowarn -proc:none --release 21 -encoding UTF-8 -d "$ROOT" \
   -cp "$ROOT$SEP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
@@ -72,7 +88,7 @@ rm -f "$WS/ember/ember-baked.jar"
 ls -la "$WS/ember/ember-baked.jar"
 
 # 5. Mod assets go into the game's resource tree so they land in assets.epk.
-cp -a -n "$F/baked/resources/." "$WS/game/src/main/resources/"
+cp -a --update=none "$F/baked/resources/." "$WS/game/src/main/resources/"
 
 # 6. Put ember-baked.jar in front of the vanilla game classes for the client.
 for target in target_teavm_wasm_gc; do
