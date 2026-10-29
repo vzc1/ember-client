@@ -27,9 +27,13 @@ import org.objectweb.asm.tree.MethodNode;
  */
 public final class PatchTeaVM {
 	private static final String TARGET = "org/teavm/dependency/ReferenceResolver.class";
+	private static final String WASM_GC = "org/teavm/backend/wasm/WasmGCTarget.class";
+	private static final String SAFE = "org/teavm/model/transformation/EmberSafe";
 
 	public static void main(String[] args) throws Exception {
 		Path jar = Path.of(args[0]);
+		byte[] safe = args.length > 1 ? Files.readAllBytes(Path.of(args[1])) : null;
+		int guarded = 0;
 		Path tmp = jar.resolveSibling(jar.getFileName() + ".tmp");
 		int patched = 0;
 		try (ZipFile in = new ZipFile(jar.toFile());
@@ -55,11 +59,36 @@ public final class PatchTeaVM {
 					ClassWriter w = new ClassWriter(0);
 					cn.accept(w);
 					b = w.toByteArray();
+				} else if (safe != null && entry.getName().equals(WASM_GC)) {
+					ClassNode cn = new ClassNode();
+					new ClassReader(b).accept(cn, 0);
+					for (MethodNode m : cn.methods) {
+						for (AbstractInsnNode insn : m.instructions) {
+							if (insn instanceof MethodInsnNode mi
+									&& mi.owner.equals("org/teavm/model/transformation/NullCheckInsertion")
+									&& mi.name.equals("transformProgram")) {
+								mi.setOpcode(Opcodes.INVOKESTATIC);
+								mi.owner = SAFE;
+								mi.name = "nullChecks";
+								mi.desc = "(Lorg/teavm/model/transformation/NullCheckInsertion;" + mi.desc.substring(1);
+								mi.itf = false;
+								guarded++;
+							}
+						}
+					}
+					ClassWriter w = new ClassWriter(0);
+					cn.accept(w);
+					b = w.toByteArray();
 				}
 				ZipEntry copy = new ZipEntry(entry.getName());
 				copy.setTime(entry.getTime());
 				out.putNextEntry(copy);
 				out.write(b);
+				out.closeEntry();
+			}
+			if (safe != null) {
+				out.putNextEntry(new ZipEntry(SAFE + ".class"));
+				out.write(safe);
 				out.closeEntry();
 			}
 		}
@@ -69,5 +98,9 @@ public final class PatchTeaVM {
 		}
 		Files.move(tmp, jar, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 		System.out.println("PatchTeaVM: " + patched + " missing-reference errors now warnings in " + jar.getFileName());
+		if (safe != null) {
+			if (guarded == 0) throw new IllegalStateException("NullCheckInsertion call not found in " + WASM_GC);
+			System.out.println("PatchTeaVM: " + guarded + " null-check passes now skip methods TeaVM cannot compile");
+		}
 	}
 }

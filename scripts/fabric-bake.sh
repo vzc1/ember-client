@@ -158,6 +158,8 @@ if [ -f "$TV" ] && [ ! -f "$TV.ember-patched" ]; then
   mkdir -p "$F/tools"
   ASM_CP="$(ls "$F"/libs/asm-*.jar | tr '\n' "$SEP")"
   "$JAVAC" -nowarn -d "$F/tools" -cp "$ASM_CP" "$REPO/fabric/tools/PatchTeaVM.java"
-  "$JAVA" -cp "$F/tools$SEP$ASM_CP" PatchTeaVM "$TV"
+  TEAVM_LIBS="$(find "$HOME/.gradle" -name 'teavm-relocated-libs-*.jar' 2>/dev/null | tr '\n' "$SEP")"
+  "$JAVAC" -nowarn --release 17 -d "$F/tools" -cp "$TV$SEP$TEAVM_LIBS" "$REPO/fabric/tools/teavm/EmberSafe.java"
+  "$JAVA" -cp "$F/tools$SEP$ASM_CP" PatchTeaVM "$TV" "$F/tools/org/teavm/model/transformation/EmberSafe.class"
   touch "$TV.ember-patched"
 fi
