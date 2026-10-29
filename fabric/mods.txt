@@ -31,7 +31,7 @@ boat-item-view
 
 # PvP and HUD
 armor-hud
-status-effect-bars
+# status-effect-bars  (off: its mixin leaves LivingEntity.forceAddEffect invalid for the browser compiler)
 toggle-sprint-display
 held-item-info
 durability-tooltip
