@@ -713,7 +713,34 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		return cl.getResource(res) != null || ClassLoader.getSystemResource(res) != null;
 	}
 
+	/** Whole Java classes the browser lacks, swapped for Ember's own versions in mod code. */
+	private static final Map<String, String> CLASS_SWAPS = Map.of(
+			"java/lang/ScopedValue", "net/emberclient/compat/ScopedValue",
+			"java/lang/ScopedValue$Carrier", "net/emberclient/compat/ScopedValue$Carrier",
+			"java/lang/ScopedValue$CallableOp", "net/emberclient/compat/ScopedValue$CallableOp");
+
+	private static byte[] swapClasses(byte[] b) {
+		String s = new String(b, StandardCharsets.ISO_8859_1);
+		if (CLASS_SWAPS.keySet().stream().noneMatch(s::contains)) return null;
+		org.objectweb.asm.ClassWriter w = new org.objectweb.asm.ClassWriter(0);
+		new ClassReader(b).accept(new org.objectweb.asm.commons.ClassRemapper(w,
+				new org.objectweb.asm.commons.SimpleRemapper(Opcodes.ASM9, CLASS_SWAPS)), 0);
+		return w.toByteArray();
+	}
+
 	private byte[] polyfill(byte[] b, int[] count) {
+		byte[] swapped = null;
+		try {
+			swapped = swapClasses(b);
+		} catch (Throwable t) {
+			problems.add("could not swap library classes: " + describe(t));
+		}
+		if (swapped != null) { b = swapped; count[0]++; }
+		byte[] rest = polyfillCalls(b, count);
+		return rest != null ? rest : swapped;
+	}
+
+	private byte[] polyfillCalls(byte[] b, int[] count) {
 		try {
 			String s = new String(b, StandardCharsets.ISO_8859_1);
 			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
