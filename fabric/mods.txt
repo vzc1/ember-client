@@ -45,4 +45,4 @@ gamma-utils
 nicer-skies
 
 # Sodium (only its video settings screen; see disabled-mixins.txt)
-sodium
+# sodium (off in this test branch)
