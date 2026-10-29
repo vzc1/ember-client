@@ -88,7 +88,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A && git commit -q -m "Logs for run ${{ github.run_id }}"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" ci-logs
+          B="ci-logs"; [ "${{ github.ref_name }}" != "main" ] && B="ci-logs-${{ github.ref_name }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "HEAD:refs/heads/$B"
 
       - name: Publish result and logs as a draft release
         if: always()
@@ -101,5 +102,6 @@ jobs:
           find ws -name '*.log' -newer inputs/setup.jar -size -20M -exec cp --parents {} logs/ \; 2>/dev/null || true
           cp fabric/bake.log fabric/baked/bake-report.txt fabric/disabled-mixins.txt logs/ 2>/dev/null || true
           (cd logs && zip -q -r ../logs.zip .) || true
-          bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "build-latest" "Latest build" \
+          TAG="build-latest"; [ "${{ github.ref_name }}" != "main" ] && TAG="build-${{ github.ref_name }}"
+          bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "$TAG" "Build $TAG" \
             "$RUNNER_TEMP/logs.zip" "$RUNNER_TEMP/fabric/mods.json" "$GITHUB_WORKSPACE"/out/*.html
