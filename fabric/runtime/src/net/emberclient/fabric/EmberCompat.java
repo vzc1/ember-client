@@ -62,4 +62,28 @@ public final class EmberCompat {
 		@Override public boolean isTerminated() { return shut; }
 		@Override public boolean awaitTermination(long t, TimeUnit u) { return true; }
 	}
+
+	/** The browser file system reports a folder that already exists as an error; Java does not. */
+	public static java.nio.file.Path createDirectories(java.nio.file.Path dir, java.nio.file.attribute.FileAttribute<?>... attrs) throws java.io.IOException {
+		if (dir == null) return null;
+		try {
+			if (java.nio.file.Files.isDirectory(dir)) return dir;
+		} catch (RuntimeException e) {
+			// fall through and try to create it
+		}
+		java.nio.file.Path parent = dir.toAbsolutePath().getParent();
+		if (parent != null && !parent.equals(dir.toAbsolutePath())) {
+			try {
+				if (!java.nio.file.Files.isDirectory(parent)) createDirectories(parent);
+			} catch (RuntimeException e) {
+				// keep going
+			}
+		}
+		try {
+			java.nio.file.Files.createDirectory(dir);
+		} catch (java.nio.file.FileAlreadyExistsException e) {
+			// already there
+		}
+		return dir;
+	}
 }

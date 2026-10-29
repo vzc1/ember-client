@@ -383,6 +383,10 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			if (!Files.exists(f)) continue;
 			try {
 				new ClassReader(Files.readAllBytes(f)).accept(new ClassVisitor(Opcodes.ASM9) {
+					@Override public org.objectweb.asm.FieldVisitor visitField(int a, String n, String d, String sg, Object v) {
+						if (v instanceof String str && str.indexOf('.') > 0) named.add(str);
+						return null;
+					}
 					@Override public org.objectweb.asm.MethodVisitor visitMethod(int a, String n, String d, String sg, String[] e) {
 						return new org.objectweb.asm.MethodVisitor(Opcodes.ASM9) {
 							@Override public void visitLdcInsn(Object v) { if (v instanceof String str && str.indexOf('.') > 0) named.add(str); }
@@ -591,7 +595,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;"},
 			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"},
 			"java/util/concurrent/Executors.newThreadPerTaskExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;", new String[] {"newThreadPerTaskExecutor", "(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;"},
-			"java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"});
+			"java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"},
+			"java/nio/file/Files.createDirectories(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;", new String[] {"createDirectories", "(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;"});
 
 	private static boolean classExists(String name) {
 		String res = name.replace('.', '/') + ".class";
@@ -605,7 +610,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			String s = new String(b, StandardCharsets.ISO_8859_1);
 			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
 					&& !s.contains("findFirst") && !s.contains("delayedExecutor") && !s.contains("PerTaskExecutor")
-					&& !s.contains("forName")) return null;
+					&& !s.contains("forName") && !s.contains("createDirectories")) return null;
 			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
