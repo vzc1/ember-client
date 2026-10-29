@@ -28,3 +28,18 @@ dark-loading-screen
 # not-enough-animations  (off for now: uses Java features the browser lacks at startup)
 # 3dskinlayers  (off for now: uses Java features the browser lacks at startup)
 boat-item-view
+
+# PvP and HUD
+armor-hud
+status-effect-bars
+toggle-sprint-display
+held-item-info
+durability-tooltip
+cleancut
+item-borders
+enchantment-descriptions
+
+# Zoom, brightness and sky
+logical-zoom
+gamma-utils
+nicer-skies
