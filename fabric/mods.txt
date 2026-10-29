@@ -1,3 +1,8 @@
-# Modrinth project slugs to bundle (Fabric, Minecraft 26.2). One per line.
-# Order doesn't matter; dependencies listed here are not auto-added yet.
+# Mods downloaded from Modrinth for every build (Fabric, Minecraft 26.2).
+# One Modrinth project name ("slug") per line, the part after modrinth.com/mod/.
+# Required dependencies are downloaded automatically.
+# For your own .jar files, use the mods/ folder instead.
 fabric-api
+appleskin
+modmenu
+shulkerboxtooltip

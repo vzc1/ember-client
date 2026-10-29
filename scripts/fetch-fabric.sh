@@ -30,13 +30,5 @@ while read -r coords url; do fetch_lib "$coords" "$url"; done
 # intermediary is irrelevant for unobfuscated 26.x but harmless if listed
 ls -la "$DEST/libs"
 
-grep -vE '^\s*(#|$)' fabric/mods.txt | while read -r slug; do
-  q="loaders=%5B%22fabric%22%5D&game_versions=%5B%22$MC%22%5D"
-  ver="$(curl -fsSL -H 'User-Agent: vzc1/ember-client (github.com/vzc1/ember-client)' \
-        "https://api.modrinth.com/v2/project/$slug/version?$q")"
-  url="$(jq -r '.[0].files | (map(select(.primary))[0] // .[0]).url // empty' <<<"$ver")"
-  if [ -z "$url" ]; then echo "::warning::No 26.2 Fabric build for $slug"; continue; fi
-  name="$(basename "$url")"
-  curl -fsSL --retry 3 "$url" -o "$DEST/mods/$name"
-  echo "  mod $slug -> $name ($(jq -r '.[0].version_number' <<<"$ver"))"
-done
+python3 "$(dirname "$0")/fetch-mods.py" "$DEST/mods" fabric/mods.txt mods
+ls -la "$DEST/mods"
