@@ -84,4 +84,4 @@ jobs:
           cp fabric/bake.log fabric/baked/bake-report.txt fabric/disabled-mixins.txt logs/ 2>/dev/null || true
           (cd logs && zip -q -r ../logs.zip .) || true
           bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "build-latest" "Latest build" \
-            "$RUNNER_TEMP/logs.zip" "$GITHUB_WORKSPACE"/out/*.html
+            "$RUNNER_TEMP/logs.zip" "$RUNNER_TEMP/fabric/mods.json" "$GITHUB_WORKSPACE"/out/*.html

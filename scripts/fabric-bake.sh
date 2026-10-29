@@ -49,12 +49,11 @@ for round in 1 2 3 4 5; do
   rm -rf "$F/run" "$F/baked"
   mkdir -p "$F/run/mods"
   cp "$F"/mods/*.jar "$F/run/mods/" 2>/dev/null || true
-  compile_mod ember-core "$F/addmods/ember_core"
-  python3 "$REPO/scripts/disable-mixins.py" "$DISABLED" "$F"/run/mods/*.jar "$F/addmods/ember_core"
+  python3 "$REPO/scripts/disable-mixins.py" "$DISABLED" "$F"/run/mods/*.jar
   echo "== bake round $round ($(wc -l < "$DISABLED") mixins switched off)"
   (cd "$F/run" && "$JAVA" -Xmx6g \
     -cp "$FABRIC_CP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
-    -Dfabric.addMods="$F/addmods/ember_bake$SEP$F/addmods/ember_core" \
+    -Dfabric.addMods="$F/addmods/ember_bake" \
     -Dfabric.gameVersion=26.2 \
     -Dember.bake.out="$F/baked" \
     -Dember.bake.gameClasses="$GAME_CLASSES" \

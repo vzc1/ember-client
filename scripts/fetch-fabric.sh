@@ -30,5 +30,5 @@ while read -r coords url; do fetch_lib "$coords" "$url"; done
 # intermediary is irrelevant for unobfuscated 26.x but harmless if listed
 ls -la "$DEST/libs"
 
-python3 "$(dirname "$0")/fetch-mods.py" "$DEST/mods" fabric/mods.txt mods
+python3 "$(dirname "$0")/fetch-mods.py" "$DEST/mods" fabric/mods.txt mods "$DEST/mods.json"
 ls -la "$DEST/mods"
