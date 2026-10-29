@@ -521,19 +521,41 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			"java/util/stream/Stream.ofNullable(Ljava/lang/Object;)Ljava/util/stream/Stream;", new String[] {"streamOfNullable", "(Ljava/lang/Object;)Ljava/util/stream/Stream;"},
 			"java/util/ServiceLoader.findFirst()Ljava/util/Optional;", new String[] {"serviceFindFirst", "(Ljava/util/ServiceLoader;)Ljava/util/Optional;"},
 			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;"},
-			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"});
+			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"},
+			"java/util/concurrent/Executors.newThreadPerTaskExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;", new String[] {"newThreadPerTaskExecutor", "(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;"},
+			"java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"});
+
+	private static boolean classExists(String name) {
+		String res = name.replace('.', '/') + ".class";
+		if (name.startsWith("java.") || name.startsWith("javax.")) return false; // leave JDK lookups alone
+		ClassLoader cl = FabricLauncherBase.getLauncher().getTargetClassLoader();
+		return cl.getResource(res) != null || ClassLoader.getSystemResource(res) != null;
+	}
 
 	private byte[] polyfill(byte[] b, int[] count) {
 		try {
 			String s = new String(b, StandardCharsets.ISO_8859_1);
 			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
-					&& !s.contains("findFirst") && !s.contains("delayedExecutor")) return null;
+					&& !s.contains("findFirst") && !s.contains("delayedExecutor") && !s.contains("PerTaskExecutor")
+					&& !s.contains("forName")) return null;
 			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
 				if (mn.instructions == null) continue;
 				for (org.objectweb.asm.tree.AbstractInsnNode in : mn.instructions.toArray()) {
 					if (!(in instanceof org.objectweb.asm.tree.MethodInsnNode m)) continue;
+					// Class.forName("some.Class") only finds classes the browser build was told
+					// about. When the class exists, turn it into a plain class literal so it is
+					// built in; missing classes keep throwing ClassNotFoundException as before.
+					if (m.getOpcode() == Opcodes.INVOKESTATIC && m.owner.equals("java/lang/Class") && m.name.equals("forName")
+							&& m.desc.equals("(Ljava/lang/String;)Ljava/lang/Class;")
+							&& m.getPrevious() instanceof org.objectweb.asm.tree.LdcInsnNode ldc && ldc.cst instanceof String cname
+							&& !cname.startsWith("[") && classExists(cname)) {
+						mn.instructions.set(ldc, new org.objectweb.asm.tree.LdcInsnNode(org.objectweb.asm.Type.getObjectType(cname.replace('.', '/'))));
+						mn.instructions.remove(m);
+						count[0]++;
+						continue;
+					}
 					String[] r = POLYFILLS.get(m.owner + "." + m.name + m.desc);
 					if (r == null) continue;
 					mn.instructions.set(m, new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC,

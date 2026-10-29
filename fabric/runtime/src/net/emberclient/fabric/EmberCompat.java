@@ -43,4 +43,23 @@ public final class EmberCompat {
 	public static Executor delayedExecutor(long delay, TimeUnit unit, Executor executor) {
 		return executor;
 	}
+
+	/** One thread in the browser: tasks run right away on the caller. */
+	public static java.util.concurrent.ExecutorService newThreadPerTaskExecutor(java.util.concurrent.ThreadFactory factory) {
+		return new InlineExecutor();
+	}
+
+	public static java.util.concurrent.ExecutorService newVirtualThreadPerTaskExecutor() {
+		return new InlineExecutor();
+	}
+
+	private static final class InlineExecutor extends java.util.concurrent.AbstractExecutorService {
+		private volatile boolean shut;
+		@Override public void execute(Runnable r) { r.run(); }
+		@Override public void shutdown() { shut = true; }
+		@Override public java.util.List<Runnable> shutdownNow() { shut = true; return java.util.Collections.emptyList(); }
+		@Override public boolean isShutdown() { return shut; }
+		@Override public boolean isTerminated() { return shut; }
+		@Override public boolean awaitTermination(long t, TimeUnit u) { return true; }
+	}
 }

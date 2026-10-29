@@ -95,9 +95,20 @@ for dirpath, _, files in os.walk(root):
 print(f"left out {len(dropped)} classes that Eaglercraft replaces for the browser")
 for d in sorted(dropped)[:40]: print("  -", d)
 PY
+# Log4j: many mods log through it, but the browser game has no Log4j. Ship its
+# API classes with Ember's own LogManager, which writes to the game's log.
+LOG4J_API="$(echo "$EMBER_GAME_CP" | tr "$SEP" '\n' | grep -E '/log4j-api-[0-9.]+\.jar$' | head -1)"
+LOG4J_SRC=()
+if [ -n "$LOG4J_API" ]; then
+  (cd "$ROOT" && unzip -q -o "$LOG4J_API" -x 'META-INF/*' 'module-info.class' 'org/apache/logging/log4j/LogManager*.class')
+  LOG4J_SRC=($(find "$REPO/fabric/runtime/log4j" -name '*.java'))
+  echo "log4j: API from $(basename "$LOG4J_API") + Ember LogManager"
+else
+  echo "::warning::log4j-api not on the game classpath; mods that log through Log4j will fail"
+fi
 "$JAVAC" -nowarn -proc:none --release 21 -encoding UTF-8 -d "$ROOT" \
   -cp "$ROOT$SEP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
-  $(find "$REPO/fabric/runtime/src" -name '*.java') "$F/baked/gen/net/emberclient/fabric/EmberGenerated.java"
+  $(find "$REPO/fabric/runtime/src" -name '*.java') "${LOG4J_SRC[@]}" "$F/baked/gen/net/emberclient/fabric/EmberGenerated.java"
 mkdir -p "$WS/ember"
 rm -f "$WS/ember/ember-baked.jar"
 (cd "$ROOT" && zip -q -r -X "$WS/ember/ember-baked.jar" .)
