@@ -3,213 +3,597 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Client</title>
+<title>Ember Client</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff6a2b'/%3E%3Cstop offset='1' stop-color='%23ffc04d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M16 2c2 6 9 8 9 17a9 9 0 0 1-18 0c0-5 3-8 5-10 0 4 2 6 4 6 0-5-2-8 0-13z'/%3E%3C/svg%3E">
 <script src="site-config.js"></script>
 <style>
   :root {
-    --bg: #0e0d10;
-    --panel: #17151b;
-    --panel-2: #1f1c24;
-    --line: #2c2833;
-    --text: #ece8f1;
-    --muted: #9a93a6;
-    --accent: #ff7a3d;
+    --bg: #0c0b0e;
+    --side: #111015;
+    --panel: #16141a;
+    --panel-2: #1d1a22;
+    --panel-3: #25212b;
+    --line: #2a2630;
+    --line-2: #3a3442;
+    --text: #efeaf3;
+    --muted: #9b93a7;
+    --dim: #6f687a;
+    --accent: #ff6a2b;
     --accent-2: #ffb347;
+    --accent-ink: #1c0c03;
     --ok: #4ade80;
     --next: #60a5fa;
-    --radius: 14px;
+    --r: 12px;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text);
-    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  button { font: inherit; color: inherit; }
   a { color: inherit; }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  .app { display: grid; grid-template-columns: 232px 1fr; height: 100vh; }
 
-  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
-    background: rgba(14,13,16,.8); border-bottom: 1px solid var(--line); }
-  nav .wrap { display: flex; align-items: center; gap: 14px; height: 60px; }
-  .logo { width: 30px; height: 30px; border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    box-shadow: 0 0 24px rgba(255,122,61,.45); }
-  .brand { font-weight: 800; font-size: 18px; letter-spacing: .2px; }
-  .badge { font-size: 12px; padding: 2px 8px; border: 1px solid var(--line);
-    border-radius: 999px; color: var(--muted); }
-  nav .spacer { flex: 1; }
-  nav a.link { text-decoration: none; color: var(--muted); font-weight: 600; }
-  nav a.link:hover { color: var(--text); }
+  /* sidebar */
+  aside { background: var(--side); border-right: 1px solid var(--line); display: flex; flex-direction: column; padding: 14px 10px; min-height: 0; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 16px; }
+  .brand svg { width: 26px; height: 26px; filter: drop-shadow(0 0 10px rgba(255,106,43,.45)); }
+  .brand b { font-size: 17px; letter-spacing: .2px; }
+  .ver { margin-left: auto; font-size: 11px; color: var(--muted); border: 1px solid var(--line-2); border-radius: 6px; padding: 1px 6px; }
+  nav.side { display: flex; flex-direction: column; gap: 2px; }
+  nav.side button { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border: 0; background: none;
+    border-radius: 9px; text-align: left; color: var(--muted); font-weight: 600; cursor: pointer; }
+  nav.side button svg { width: 17px; height: 17px; flex: none; }
+  nav.side button:hover { background: var(--panel-2); color: var(--text); }
+  nav.side button[aria-current="page"] { background: var(--panel-3); color: var(--text); }
+  .side-label { font-size: 11px; font-weight: 700; letter-spacing: .8px; color: var(--dim); padding: 20px 12px 6px; }
+  .side-inst { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 9px; background: var(--panel-2); font-weight: 600; cursor: pointer; border: 0; text-align: left; }
+  .side-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); }
+  .side-foot .btn { width: 100%; justify-content: center; }
 
-  .btn { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-    border: 0; border-radius: 10px; padding: 11px 20px; font-weight: 700;
-    font-size: 15px; text-decoration: none; transition: transform .08s, filter .15s; }
+  /* main */
+  main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  header.top { display: flex; align-items: center; gap: 14px; padding: 12px 24px; border-bottom: 1px solid var(--line); }
+  header.top h1 { margin: 0; font-size: 18px; min-width: 110px; }
+  .search { flex: 0 1 360px; display: flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 9px; padding: 7px 12px; color: var(--muted); }
+  .search input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); font: inherit; }
+  .kbd { font-size: 11px; border: 1px solid var(--line-2); border-radius: 5px; padding: 0 5px; color: var(--dim); }
+  .top-right { margin-left: auto; display: flex; gap: 8px; }
+  .chipbtn { text-decoration: none; display: inline-flex; align-items: center; gap: 7px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 9px; padding: 7px 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .chipbtn:hover { border-color: var(--line-2); }
+  .view { flex: 1; overflow: auto; padding: 24px; }
+  .view[hidden] { display: none; }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 10px; padding: 10px 18px;
+    font-weight: 700; cursor: pointer; text-decoration: none; transition: filter .15s, transform .06s; }
   .btn:active { transform: translateY(1px); }
-  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #1a0d05; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--accent-ink); }
   .btn-primary:hover { filter: brightness(1.08); }
-  .btn-ghost { background: var(--panel-2); color: var(--text); border: 1px solid var(--line); }
-  .btn-ghost:hover { border-color: #3d3746; }
+  .btn-ghost { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--line-2); }
+  .btn-lg { padding: 13px 26px; font-size: 16px; }
 
-  header.hero { padding: 80px 0 56px; position: relative; overflow: hidden; }
-  header.hero::before { content: ""; position: absolute; inset: -40% -10% auto auto;
-    width: 640px; height: 640px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,122,61,.22), transparent 65%); pointer-events: none; }
-  .hero h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.05; margin: 0 0 14px; letter-spacing: -1px; }
-  .hero h1 span { background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .hero p { color: var(--muted); font-size: 18px; max-width: 560px; margin: 0 0 28px; }
-  .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-  .hero .note { margin-top: 16px; font-size: 13px; color: var(--muted); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; }
+  .section-title { display: flex; align-items: center; justify-content: space-between; margin: 26px 0 12px; }
+  .section-title h2 { margin: 0; font-size: 15px; }
+  .section-title .muted { font-size: 13px; }
+  .muted { color: var(--muted); }
 
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 56px; }
-  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
-  .stat b { display: block; font-size: 24px; }
-  .stat small { color: var(--muted); }
+  /* home */
+  .home { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; }
+  .setup .bar { height: 5px; background: var(--panel-3); border-radius: 99px; margin: 12px 0 14px; overflow: hidden; }
+  .setup .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 99px; transition: width .3s; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .step { text-align: left; display: flex; align-items: center; gap: 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; font-weight: 600; font-size: 13px; }
+  .tick { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--line-2); flex: none; display: grid; place-items: center; }
+  .step.done { color: var(--muted); }
+  .step.done .tick { background: var(--ok); border-color: var(--ok); }
+  .step.done .tick::after { content: ""; width: 8px; height: 4px; border: 2px solid #0b2a14; border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px,-1px); }
 
-  section h2 { font-size: 26px; margin: 0 0 6px; }
-  section .sub { color: var(--muted); margin: 0 0 20px; }
-  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
-  .search { flex: 1 1 240px; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 10px; padding: 10px 14px; color: var(--text); font: inherit; outline: none; }
-  .search:focus { border-color: var(--accent); }
-  .chip { background: var(--panel); border: 1px solid var(--line); color: var(--muted);
-    border-radius: 999px; padding: 7px 14px; font: inherit; font-weight: 600; cursor: pointer; }
-  .chip[aria-pressed="true"] { color: var(--text); border-color: var(--accent); background: rgba(255,122,61,.12); }
+  .continue { display: flex; align-items: center; gap: 20px; }
+  .grass { width: 86px; height: 86px; border-radius: 12px; flex: none; background: var(--panel-2); display: grid; place-items: center; }
+  .continue .info { flex: 1; min-width: 0; }
+  .continue h3 { margin: 0 0 4px; font-size: 22px; display: flex; align-items: center; gap: 10px; }
+  .tag { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: var(--panel-3); color: var(--muted); }
+  .meta { color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .modicons { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
+  .mi { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #160b04; }
+  .continue .actions { display: flex; flex-direction: column; gap: 8px; min-width: 190px; }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-  .card:hover { border-color: #3d3746; }
-  .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
-  .card h3 { margin: 0; font-size: 16px; }
-  .card .by { color: var(--muted); font-size: 13px; }
-  .card p { margin: 0; color: #c9c3d3; font-size: 14px; }
-  .status { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px;
-    padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
-  .status.included { color: var(--ok); background: rgba(74,222,128,.12); }
-  .status.next { color: var(--next); background: rgba(96,165,250,.12); }
-  .status.planned { color: var(--muted); background: var(--panel-2); }
-  .empty { color: var(--muted); padding: 30px 0; text-align: center; grid-column: 1 / -1; }
+  .streak .big { display: flex; align-items: baseline; gap: 6px; margin: 10px 0 14px; }
+  .streak .big b { font-size: 34px; line-height: 1; }
+  .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; font-size: 11px; color: var(--dim); }
+  .day { aspect-ratio: 1; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--line); display: grid; place-items: center; }
+  .day.on { background: rgba(255,106,43,.18); border-color: var(--accent); }
+  .day.today { border-color: var(--accent-2); }
+  .day svg { width: 12px; height: 12px; opacity: .45; }
+  .day.on svg { opacity: 1; color: var(--accent); }
+  .badges { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 12px; }
+  .badges span { text-align: center; font-size: 12px; font-weight: 700; padding: 5px 0; border-radius: 7px; background: var(--panel-2); color: var(--dim); }
+  .badges span.got { background: rgba(255,179,71,.15); color: var(--accent-2); }
 
-  footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 28px 0 40px; color: var(--muted); font-size: 13px; }
-  footer ul { margin: 0 0 10px; padding-left: 18px; }
+  /* mods */
+  .feature { display: flex; align-items: center; gap: 18px; background:
+    radial-gradient(600px 160px at 85% 0%, rgba(255,106,43,.18), transparent 70%), var(--panel); }
+  .feature .logo { width: 60px; height: 60px; border-radius: 14px; background: var(--panel-2); display: grid; place-items: center; flex: none; }
+  .feature h3 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 14px; }
+  .toolbar .search { flex: 0 1 280px; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; background: var(--panel); border: 1px solid var(--line); color: var(--muted);
+    border-radius: 99px; padding: 6px 13px; font-weight: 600; cursor: pointer; }
+  .chip i { width: 7px; height: 7px; border-radius: 50%; }
+  .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+  .mod { display: flex; gap: 12px; align-items: flex-start; }
+  .mod.included { border-color: rgba(255,106,43,.45); }
+  .mod .mi { width: 44px; height: 44px; border-radius: 10px; font-size: 18px; flex: none; }
+  .mod .body { flex: 1; min-width: 0; }
+  .mod h3 { margin: 0; font-size: 15px; }
+  .mod .by { color: var(--muted); font-size: 12px; margin: 2px 0 8px; }
+  .mod p { margin: 0; color: #cfc8d8; font-size: 13px; }
+  .status { font-size: 11px; font-weight: 800; letter-spacing: .3px; padding: 4px 9px; border-radius: 8px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; }
+  .status.included { background: var(--panel-3); color: var(--text); border: 1px solid var(--line-2); }
+  .status.next { background: rgba(96,165,250,.12); color: var(--next); }
+  .status.planned { background: var(--panel-2); color: var(--dim); }
+  .empty { color: var(--muted); padding: 40px 0; text-align: center; grid-column: 1 / -1; }
 
-  @media (max-width: 640px) {
-    nav a.link { display: none; }
-    header.hero { padding: 48px 0 36px; }
-    .stats { grid-template-columns: 1fr; }
+  /* wardrobe */
+  .wardrobe { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 0; height: 100%; margin: -24px; }
+  .stage { position: relative; display: flex; flex-direction: column; padding: 24px;
+    background: radial-gradient(500px 400px at 50% 55%, #1b1824, transparent 70%); min-height: 420px; }
+  .stage canvas { flex: 1; width: 100% !important; min-height: 0; cursor: grab; }
+  .anims { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .panel-side { border-left: 1px solid var(--line); padding: 20px; overflow: auto; }
+  .drop { border: 1.5px dashed var(--line-2); border-radius: var(--r); padding: 26px 16px; text-align: center; cursor: pointer; }
+  .drop:hover, .drop.over { border-color: var(--accent); background: rgba(255,106,43,.06); }
+  .label { font-size: 11px; font-weight: 800; letter-spacing: .8px; color: var(--dim); margin: 22px 0 8px; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .seg button { border: 0; background: none; padding: 10px; cursor: pointer; color: var(--muted); }
+  .seg button small { display: block; font-size: 11px; color: var(--dim); }
+  .seg button[aria-pressed="true"] { background: var(--panel-3); color: var(--text); font-weight: 700; }
+  .note { font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+  /* servers */
+  .server { display: flex; align-items: center; gap: 14px; }
+  .server .mi { width: 48px; height: 48px; font-size: 18px; border-radius: 10px; flex: none; }
+  .server code { color: var(--muted); font-size: 12px; }
+
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); opacity: 0;
+    background: var(--panel-3); border: 1px solid var(--line-2); padding: 10px 16px; border-radius: 10px; font-weight: 600;
+    transition: .2s; pointer-events: none; z-index: 50; }
+  .toast.show { opacity: 1; transform: translateX(-50%); }
+
+  footer.credits { color: var(--dim); font-size: 12px; margin-top: 36px; }
+  footer.credits ul { margin: 0 0 6px; padding-left: 18px; }
+
+  @media (max-width: 1100px) { .home { grid-template-columns: 1fr; } }
+  @media (max-width: 860px) {
+    .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; min-height: 100vh; }
+    aside { flex-direction: row; align-items: center; padding: 8px; gap: 6px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+    .brand { padding: 0 8px 0 4px; } .brand .ver { display: none; }
+    nav.side { flex-direction: row; }
+    nav.side button span { display: none; }
+    .side-label, .side-inst, .side-foot { display: none; }
+    header.top { padding: 10px 16px; flex-wrap: wrap; } header.top h1 { min-width: 0; }
+    .search { flex: 1 1 100%; order: 3; } .top-right .hide-sm { display: none; }
+    .view { padding: 16px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .continue { flex-direction: column; align-items: stretch; text-align: left; }
+    .continue .actions { min-width: 0; }
+    .wardrobe { grid-template-columns: 1fr; margin: -16px; }
+    .panel-side { border-left: 0; border-top: 1px solid var(--line); }
   }
 </style>
 </head>
 <body>
-<nav>
-  <div class="wrap">
-    <div class="logo" aria-hidden="true"></div>
-    <div class="brand" id="brand">Client</div>
-    <span class="badge" id="ver">26.2</span>
-    <div class="spacer"></div>
-    <a class="link" href="#mods">Mods</a>
-    <a class="btn btn-primary" id="navPlay" href="play.html">Play</a>
-  </div>
-</nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="ember" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6a2b"/><stop offset="1" stop-color="#ffc04d"/></linearGradient>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c1.4 4.4 6.8 6 6.8 12.6a6.8 6.8 0 0 1-13.6 0c0-3.6 2.2-5.8 3.6-7.3 0 2.9 1.4 4.4 3 4.4 0-3.7-1.5-6 .2-9.7z"/></symbol>
+    <symbol id="i-flame-g" viewBox="0 0 24 24"><path fill="url(#ember)" d="M12 2c1.4 4.4 6.8 6 6.8 12.6a6.8 6.8 0 0 1-13.6 0c0-3.6 2.2-5.8 3.6-7.3 0 2.9 1.4 4.4 3 4.4 0-3.7-1.5-6 .2-9.7z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-mods" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 2l9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10"/></symbol>
+    <symbol id="i-shirt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M8 3l-5 4 3 4 2-1v11h8V10l2 1 3-4-5-4c-1 2-2.5 3-4 3S9 5 8 3z"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></g><circle cx="7" cy="7.5" r="1.2" fill="currentColor"/><circle cx="7" cy="16.5" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></g></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 4v11m-5-5l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 20V9m-5 5l5-5 5 5M5 4h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M5 12l5 5 9-10"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></g></symbol>
+  </defs>
+</svg>
 
-<header class="hero">
-  <div class="wrap">
-    <h1>Play <span id="heroName">Client</span></h1>
-    <p id="tagline"></p>
-    <div class="actions">
-      <a class="btn btn-primary" id="play" href="play.html">▶ Play now</a>
-      <a class="btn btn-ghost" id="download" href="play.html" download>Download offline</a>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <svg viewBox="0 0 24 24"><use href="#i-flame-g"/></svg>
+      <b id="brandName">Ember</b><span class="ver" id="brandVer">26.2</span>
     </div>
-    <div class="note">Works best in Chrome or Edge. Saves stay in your browser.</div>
-  </div>
-</header>
-
-<main class="wrap">
-  <div class="stats">
-    <div class="stat"><b id="statVer">26.2</b><small>Minecraft version</small></div>
-    <div class="stat"><b id="statIncluded">0</b><small>Mods included</small></div>
-    <div class="stat"><b id="statPlanned">0</b><small>Mods on the way</small></div>
-  </div>
-
-  <section id="mods">
-    <h2>Mods</h2>
-    <p class="sub">What's in the client now and what's coming next.</p>
-    <div class="toolbar">
-      <input class="search" id="q" type="search" placeholder="Search mods" aria-label="Search mods">
-      <div id="chips" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    <nav class="side" aria-label="Main">
+      <button data-view="home" aria-current="page"><svg><use href="#i-home"/></svg><span>Home</span></button>
+      <button data-view="mods"><svg><use href="#i-mods"/></svg><span>Mods</span></button>
+      <button data-view="wardrobe"><svg><use href="#i-shirt"/></svg><span>Wardrobe</span></button>
+      <button data-view="servers"><svg><use href="#i-server"/></svg><span>Servers</span></button>
+    </nav>
+    <div class="side-label">INSTANCE</div>
+    <button class="side-inst" data-view="home"><span class="mi grassmini"></span><span id="sideInst">Ember 26.2</span></button>
+    <div class="side-foot">
+      <a class="btn btn-primary" data-play href="play.html"><svg width="14" height="14"><use href="#i-play"/></svg>Play</a>
     </div>
-    <div class="grid" id="grid"></div>
-  </section>
-</main>
+  </aside>
 
-<footer>
-  <div class="wrap">
-    <ul id="credits"></ul>
-    Not affiliated with Mojang or Microsoft.
-  </div>
-</footer>
+  <main>
+    <header class="top">
+      <h1 id="viewTitle">Home</h1>
+      <label class="search"><svg width="15" height="15"><use href="#i-search"/></svg>
+        <input id="globalSearch" type="search" placeholder="Search mods" aria-label="Search mods"><span class="kbd">/</span></label>
+      <div class="top-right">
+        <span class="chipbtn hide-sm" title="Play streak"><svg width="14" height="14" style="color:var(--accent)"><use href="#i-flame"/></svg><b id="topStreak">0</b> days</span>
+        <a class="chipbtn" id="dlTop" href="play.html" download><svg width="14" height="14"><use href="#i-download"/></svg>Download</a>
+      </div>
+    </header>
 
+    <!-- HOME -->
+    <section class="view" id="view-home">
+      <div class="home">
+        <div>
+          <div class="card setup" id="setupCard">
+            <div style="display:flex;justify-content:space-between;align-items:baseline">
+              <div><b>Get set up</b><div class="muted" id="setupCount" style="font-size:13px"></div></div>
+              <button class="chipbtn" id="hideSetup" style="padding:4px 10px">Hide</button>
+            </div>
+            <div class="bar"><i id="setupBar"></i></div>
+            <div class="steps" id="steps"></div>
+          </div>
+
+          <div class="section-title"><h2>Continue playing</h2></div>
+          <div class="card continue">
+            <div class="grass" id="bigGrass"></div>
+            <div class="info">
+              <h3><span id="instName">Ember 26.2</span> <span class="tag">Fabric</span></h3>
+              <div class="meta"><span id="instMeta">Minecraft 26.2</span><span id="instPlayed">Not played yet</span></div>
+              <div class="modicons" id="homeModIcons"></div>
+            </div>
+            <div class="actions">
+              <a class="btn btn-primary btn-lg" data-play href="play.html" style="justify-content:center"><svg width="16" height="16"><use href="#i-play"/></svg>Play</a>
+              <button class="btn btn-ghost" data-goto="mods" style="justify-content:center">See mods</button>
+            </div>
+          </div>
+
+          <footer class="credits"><ul id="credits"></ul>Not affiliated with Mojang or Microsoft.</footer>
+        </div>
+
+        <div>
+          <div class="card streak">
+            <div style="display:flex;justify-content:space-between"><b>Streak</b><span class="muted" id="bestStreak">Best: 0 days</span></div>
+            <div class="big"><b id="streakNum">0</b><span class="muted">days</span></div>
+            <div class="days" id="streakDays"></div>
+            <div class="muted" style="font-size:12px;margin-top:12px" id="streakHint">Play to start a streak</div>
+            <div class="badges" id="badges"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODS -->
+    <section class="view" id="view-mods" hidden>
+      <div class="card feature">
+        <div class="logo"><svg width="34" height="34"><use href="#i-flame-g"/></svg></div>
+        <div style="flex:1;min-width:0">
+          <h3>Ember Core <span class="tag">Official</span></h3>
+          <div class="muted" style="font-size:13px;margin:2px 0 6px">by vzc1</div>
+          <div>Ember's built-in Fabric mod. More Ember features land here: HUD, zoom, visuals.</div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <label class="search"><svg width="15" height="15"><use href="#i-search"/></svg><input id="modSearch" type="search" placeholder="Search mods" aria-label="Search mods"></label>
+        <div id="chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+      </div>
+      <div class="grid" id="modGrid"></div>
+      <p class="note">Mods are built into the game when Ember is built. "Included" mods are in the current build; the rest are being ported.</p>
+    </section>
+
+    <!-- WARDROBE -->
+    <section class="view" id="view-wardrobe" hidden>
+      <div class="wardrobe">
+        <div class="stage">
+          <div><b style="font-size:18px">Wardrobe</b><div class="muted" style="font-size:13px">Drag to turn · scroll to zoom</div></div>
+          <canvas id="skinCanvas"></canvas>
+          <div class="anims" id="anims"></div>
+        </div>
+        <div class="panel-side">
+          <label class="drop" id="drop">
+            <svg width="22" height="22"><use href="#i-upload"/></svg>
+            <div style="font-weight:700;margin-top:6px">Upload a skin</div>
+            <div class="muted" style="font-size:12px">Drop a 64×64 PNG here or click to browse</div>
+            <input type="file" id="skinFile" accept="image/png" hidden>
+          </label>
+          <div class="label">MODEL</div>
+          <div class="seg" id="modelSeg">
+            <button data-model="default" aria-pressed="true">Classic<small>4px arms</small></button>
+            <button data-model="slim" aria-pressed="false">Slim<small>3px arms</small></button>
+          </div>
+          <div class="label">SKIN FILE</div>
+          <button class="btn btn-ghost" id="saveSkin" style="width:100%;justify-content:center"><svg width="14" height="14"><use href="#i-download"/></svg>Save skin PNG</button>
+          <p class="note">Preview only. To wear it in game, save the PNG and load it from the skin settings inside Ember.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVERS -->
+    <section class="view" id="view-servers" hidden>
+      <div class="section-title" style="margin-top:0"><h2>Servers</h2><span class="muted" id="serverCount"></span></div>
+      <div class="grid" id="serverGrid"></div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/skinview3d@3.1.0/bundles/skinview3d.bundle.js"></script>
 <script>
 (function () {
-  var S = window.SITE || { name: "Client", tagline: "", version: "", gameFile: "play.html", credits: [], mods: [] };
+  "use strict";
+  var S = window.SITE || {};
+  S.mods = S.mods || []; S.servers = S.servers || []; S.credits = S.credits || [];
   var $ = function (id) { return document.getElementById(id); };
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem("ember." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem("ember." + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  function toast(msg) { var t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove("show"); }, 1800); }
 
-  document.title = S.name + " " + S.version;
-  $("brand").textContent = S.name;
-  $("heroName").textContent = S.name;
-  $("tagline").textContent = S.tagline;
-  $("ver").textContent = S.version;
-  $("statVer").textContent = S.version;
-  ["play", "navPlay", "download"].forEach(function (id) { $(id).href = S.gameFile; });
-  $("download").setAttribute("download", S.name.replace(/\s+/g, "-") + "-" + S.version + ".html");
+  // ---------- branding ----------
+  document.title = (S.fullName || "Ember Client") + " " + (S.version || "");
+  $("brandName").textContent = S.name || "Ember";
+  $("brandVer").textContent = S.version || "";
+  $("instName").textContent = (S.name || "Ember") + " " + (S.version || "");
+  $("sideInst").textContent = $("instName").textContent;
+  document.querySelectorAll("[data-play]").forEach(function (a) { a.href = S.gameFile || "play.html"; });
+  $("dlTop").href = S.gameFile || "play.html";
+  $("dlTop").setAttribute("download", (S.fullName || "Ember").replace(/\s+/g, "-") + "-" + S.version + ".html");
+  S.credits.forEach(function (c) { var li = document.createElement("li"); li.textContent = c; $("credits").appendChild(li); });
 
-  var included = S.mods.filter(function (m) { return m.status === "included"; }).length;
-  $("statIncluded").textContent = included;
-  $("statPlanned").textContent = S.mods.length - included;
+  // grass block icon (drawn, no game assets)
+  function grassSVG(size) {
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 32 32"><path d="M16 3l12 6.5-12 6.5L4 9.5z" fill="#6fbf4a"/><path d="M4 9.5l12 6.5v13L4 22.5z" fill="#8a5a36"/><path d="M28 9.5L16 16v13l12-6.5z" fill="#6e4528"/><path d="M4 9.5l12 6.5v3L4 12.5z" fill="#5aa43a"/><path d="M28 9.5L16 16v3l12-6.5z" fill="#4c8f30"/></svg>';
+  }
+  $("bigGrass").innerHTML = grassSVG(56);
+  document.querySelectorAll(".grassmini").forEach(function (e) { e.style.background = "none"; e.innerHTML = grassSVG(22); });
 
-  S.credits.forEach(function (c) {
-    var li = document.createElement("li"); li.textContent = c; $("credits").appendChild(li);
-  });
+  var catColor = { Performance: "#4ade80", Visuals: "#c084fc", HUD: "#60a5fa", PvP: "#f87171", Utility: "#fbbf24", Library: "#94a3b8" };
+  function modIcon(m, cls) {
+    var c = catColor[m.category] || "#ff8a4c";
+    return '<div class="mi ' + (cls || "") + '" style="background:linear-gradient(135deg,' + c + ',' + c + 'aa)">' + esc(m.name.charAt(0)) + '</div>';
+  }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+
+  // ---------- navigation ----------
+  var titles = { home: "Home", mods: "Mods", wardrobe: "Wardrobe", servers: "Servers" };
+  function show(view) {
+    Object.keys(titles).forEach(function (v) { $("view-" + v).hidden = v !== view; });
+    document.querySelectorAll("nav.side button").forEach(function (b) {
+      if (b.dataset.view === view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+    });
+    $("viewTitle").textContent = titles[view];
+    if (view === "wardrobe") initSkin();
+    store.set("view", view);
+    if (location.hash !== "#" + view) history.replaceState(null, "", "#" + view);
+  }
+  document.querySelectorAll("[data-view]").forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.view); }); });
+  document.querySelectorAll("[data-goto]").forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.goto); }); });
+
+  // ---------- play tracking (streak + checklist) ----------
+  function dayKey(d) { return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+  function recordPlay() {
+    var days = store.get("days", []); var k = dayKey(new Date());
+    if (days.indexOf(k) < 0) { days.push(k); store.set("days", days.slice(-400)); }
+    store.set("lastPlayed", Date.now());
+    var done = store.get("done", {}); done.play = true; store.set("done", done);
+  }
+  document.querySelectorAll("[data-play]").forEach(function (a) { a.addEventListener("click", recordPlay); });
+
+  function streakInfo() {
+    var days = store.get("days", []), set = {}; days.forEach(function (d) { set[d] = 1; });
+    var cur = 0, d = new Date();
+    if (!set[dayKey(d)]) d.setDate(d.getDate() - 1); // today not played yet: count from yesterday
+    while (set[dayKey(d)]) { cur++; d.setDate(d.getDate() - 1); }
+    var best = Math.max(store.get("best", 0), cur); store.set("best", best);
+    return { cur: cur, best: best, set: set };
+  }
+  function renderStreak() {
+    var s = streakInfo();
+    $("streakNum").textContent = s.cur; $("topStreak").textContent = s.cur;
+    $("bestStreak").textContent = "Best: " + s.best + " day" + (s.best === 1 ? "" : "s");
+    var wrap = $("streakDays"); wrap.innerHTML = "";
+    var names = ["S", "M", "T", "W", "T", "F", "S"];
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(); d.setDate(d.getDate() - i);
+      var cell = document.createElement("div");
+      cell.innerHTML = '<div style="margin-bottom:4px">' + names[d.getDay()] + '</div><div class="day' + (s.set[dayKey(d)] ? " on" : "") + (i === 0 ? " today" : "") + '"><svg><use href="#i-flame"/></svg></div>';
+      wrap.appendChild(cell);
+    }
+    $("streakHint").textContent = s.cur ? "Keep it going: play again tomorrow." : "Play to start a streak.";
+    var b = $("badges"); b.innerHTML = "";
+    [3, 7, 14, 30, 50, 100].forEach(function (n) { var e = document.createElement("span"); e.textContent = n; if (s.best >= n) e.className = "got"; b.appendChild(e); });
+    var last = store.get("lastPlayed", 0);
+    $("instPlayed").textContent = last ? "Last played " + new Date(last).toLocaleDateString() : "Not played yet";
+  }
+
+  var stepsDef = [
+    { id: "mods", label: "Browse the mods", go: "mods" },
+    { id: "skin", label: "Pick a skin", go: "wardrobe" },
+    { id: "servers", label: "Find a server", go: "servers" },
+    { id: "play", label: "Play a game" }
+  ];
+  function markStep(id) { var d = store.get("done", {}); if (!d[id]) { d[id] = true; store.set("done", d); renderSetup(); } }
+  function renderSetup() {
+    if (store.get("hideSetup", false)) { $("setupCard").hidden = true; return; }
+    var done = store.get("done", {}), n = 0, wrap = $("steps"); wrap.innerHTML = "";
+    stepsDef.forEach(function (st) {
+      var ok = !!done[st.id]; if (ok) n++;
+      var el = document.createElement(st.go ? "button" : "a");
+      el.className = "step" + (ok ? " done" : ""); el.style.cursor = "pointer"; el.style.textDecoration = "none"; el.style.color = "inherit";
+      el.innerHTML = '<span class="tick"></span>' + esc(st.label);
+      if (st.go) el.addEventListener("click", function () { show(st.go); });
+      else { el.href = S.gameFile || "play.html"; el.addEventListener("click", recordPlay); }
+      wrap.appendChild(el);
+    });
+    $("setupCount").textContent = n + " of " + stepsDef.length + " done";
+    $("setupBar").style.width = (n / stepsDef.length * 100) + "%";
+  }
+  $("hideSetup").addEventListener("click", function () { store.set("hideSetup", true); renderSetup(); });
+
+  // ---------- mods ----------
+  var included = S.mods.filter(function (m) { return m.status === "included"; });
+  $("instMeta").textContent = "Minecraft " + S.version + " · " + included.length + " mod" + (included.length === 1 ? "" : "s");
+  included.slice(0, 10).forEach(function (m) { $("homeModIcons").insertAdjacentHTML("beforeend", modIcon(m)); });
+  if (included.length > 10) $("homeModIcons").insertAdjacentHTML("beforeend", '<span class="muted" style="align-self:center">+' + (included.length - 10) + '</span>');
 
   var labels = { included: "Included", next: "In progress", planned: "Planned" };
+  var activeCat = "All";
   var cats = ["All"].concat(Array.from(new Set(S.mods.map(function (m) { return m.category; }))));
-  var active = "All";
-
   cats.forEach(function (c) {
     var b = document.createElement("button");
-    b.className = "chip"; b.textContent = c; b.setAttribute("aria-pressed", c === active);
-    b.onclick = function () {
-      active = c;
-      Array.prototype.forEach.call($("chips").children, function (x) { x.setAttribute("aria-pressed", x.textContent === c); });
-      render();
-    };
+    b.className = "chip"; b.setAttribute("aria-pressed", c === activeCat);
+    b.innerHTML = (c === "All" ? "" : '<i style="background:' + (catColor[c] || "#ff8a4c") + '"></i>') + esc(c);
+    b.addEventListener("click", function () {
+      activeCat = c;
+      Array.prototype.forEach.call($("chips").children, function (x) { x.setAttribute("aria-pressed", x === b); });
+      renderMods();
+    });
     $("chips").appendChild(b);
   });
-  $("q").addEventListener("input", render);
-
-  function render() {
-    var q = $("q").value.trim().toLowerCase();
+  function renderMods() {
+    var q = ($("modSearch").value || "").trim().toLowerCase();
     var order = { included: 0, next: 1, planned: 2 };
     var list = S.mods.filter(function (m) {
-      return (active === "All" || m.category === active) &&
-        (!q || (m.name + " " + m.author + " " + m.description).toLowerCase().indexOf(q) !== -1);
-    }).sort(function (a, b) { return order[a.status] - order[b.status] || a.name.localeCompare(b.name); });
-
-    var grid = $("grid"); grid.innerHTML = "";
-    if (!list.length) { grid.innerHTML = '<div class="empty">No mods match that.</div>'; return; }
+      return (activeCat === "All" || m.category === activeCat) &&
+        (!q || (m.name + " " + m.author + " " + m.description).toLowerCase().indexOf(q) >= 0);
+    }).sort(function (a, b) { return (order[a.status] - order[b.status]) || a.name.localeCompare(b.name); });
+    var g = $("modGrid"); g.innerHTML = "";
+    if (!list.length) { g.innerHTML = '<div class="empty">No mods match that.</div>'; return; }
     list.forEach(function (m) {
-      var card = document.createElement("div"); card.className = "card";
-      var top = document.createElement("div"); top.className = "card-top";
-      var h = document.createElement("div");
-      var h3 = document.createElement("h3"); h3.textContent = m.name;
-      var by = document.createElement("div"); by.className = "by"; by.textContent = "by " + m.author + " · " + m.category;
-      h.appendChild(h3); h.appendChild(by);
-      var st = document.createElement("span"); st.className = "status " + m.status; st.textContent = labels[m.status] || m.status;
-      top.appendChild(h); top.appendChild(st);
-      var p = document.createElement("p"); p.textContent = m.description;
-      card.appendChild(top); card.appendChild(p);
-      grid.appendChild(card);
+      var st = m.status === "included" ? '<span class="status included"><svg width="12" height="12"><use href="#i-check"/></svg>Included</span>'
+        : '<span class="status ' + m.status + '">' + (labels[m.status] || m.status) + '</span>';
+      g.insertAdjacentHTML("beforeend",
+        '<div class="card mod ' + m.status + '">' + modIcon(m) +
+        '<div class="body"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><h3>' + esc(m.name) + '</h3>' + st + '</div>' +
+        '<div class="by">by ' + esc(m.author) + ' · ' + esc(m.category) + '</div><p>' + esc(m.description) + '</p></div></div>');
     });
   }
-  render();
+  $("modSearch").addEventListener("input", renderMods);
+  $("globalSearch").addEventListener("input", function () {
+    $("modSearch").value = this.value; if ($("view-mods").hidden) show("mods"); renderMods();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "/" && document.activeElement.tagName !== "INPUT") { e.preventDefault(); $("globalSearch").focus(); }
+  });
+
+  // ---------- servers ----------
+  function renderServers() {
+    var g = $("serverGrid"); g.innerHTML = "";
+    $("serverCount").textContent = S.servers.length ? S.servers.length + " listed" : "";
+    if (!S.servers.length) {
+      g.innerHTML = '<div class="empty">No servers listed yet.<br><span style="font-size:12px">Add them in <code>site-config.js</code> under <code>servers</code>.</span></div>';
+      return;
+    }
+    S.servers.forEach(function (s, i) {
+      g.insertAdjacentHTML("beforeend",
+        '<div class="card server"><div class="mi" style="background:linear-gradient(135deg,#ff6a2b,#ffb347)">' + esc(s.name.charAt(0)) + '</div>' +
+        '<div style="flex:1;min-width:0"><b>' + esc(s.name) + '</b><div><code>' + esc(s.address) + '</code></div>' +
+        (s.description ? '<div class="muted" style="font-size:12px">' + esc(s.description) + '</div>' : '') + '</div>' +
+        '<button class="chipbtn" data-copy="' + i + '"><svg width="14" height="14"><use href="#i-copy"/></svg>Copy</button></div>');
+    });
+    g.querySelectorAll("[data-copy]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var a = S.servers[+b.dataset.copy].address;
+        var done = function () { toast("Address copied"); markStep("servers"); };
+        try { navigator.clipboard.writeText(a).then(done, function () { prompt("Copy the address:", a); }); } catch (e) { prompt("Copy the address:", a); }
+      });
+    });
+  }
+  document.querySelector('[data-view="servers"]').addEventListener("click", function () { markStep("servers"); });
+  document.querySelector('[data-view="mods"]').addEventListener("click", function () { markStep("mods"); });
+
+  // ---------- wardrobe ----------
+  var viewer = null, skinData = store.get("skin", null), model = store.get("skinModel", "default");
+  function placeholderSkin() {
+    // A plain grey figure generated in code, so no game textures are needed.
+    var c = document.createElement("canvas"); c.width = 64; c.height = 64; var x = c.getContext("2d");
+    function box(px, py, w, h, d, col) {
+      x.fillStyle = col.top;  x.fillRect(px + d, py, w, d);
+      x.fillStyle = col.top;  x.fillRect(px + d + w, py, w, d);
+      x.fillStyle = col.side; x.fillRect(px, py + d, d, h);
+      x.fillStyle = col.front;x.fillRect(px + d, py + d, w, h);
+      x.fillStyle = col.side; x.fillRect(px + d + w, py + d, d, h);
+      x.fillStyle = col.side; x.fillRect(px + 2 * d + w, py + d, w, h);
+    }
+    var skin = { top: "#77727f", side: "#5c5865", front: "#6a6573" }, dark = { top: "#4c4855", side: "#3d3a45", front: "#45414e" };
+    box(0, 0, 8, 8, 8, skin);              // head
+    box(16, 16, 8, 12, 4, dark);           // body
+    box(40, 16, 4, 12, 4, skin);           // right arm
+    box(32, 48, 4, 12, 4, skin);           // left arm
+    box(0, 16, 4, 12, 4, dark);            // right leg
+    box(16, 48, 4, 12, 4, dark);           // left leg
+    x.fillStyle = "#26232b"; x.fillRect(9, 12, 2, 1); x.fillRect(13, 12, 2, 1); // eyes
+    return c.toDataURL();
+  }
+  function initSkin() {
+    if (viewer || !window.skinview3d) { if (!window.skinview3d) $("anims").innerHTML = '<span class="muted">3D preview could not load.</span>'; return; }
+    var canvas = $("skinCanvas");
+    viewer = new skinview3d.SkinViewer({ canvas: canvas, width: canvas.clientWidth || 600, height: canvas.clientHeight || 460 });
+    viewer.background = null; viewer.fov = 50; viewer.zoom = 0.85;
+    viewer.controls.enableZoom = true;
+    loadSkin();
+    var anims = { Idle: skinview3d.IdleAnimation, Walk: skinview3d.WalkingAnimation, Run: skinview3d.RunningAnimation, Fly: skinview3d.FlyingAnimation };
+    Object.keys(anims).forEach(function (n, i) {
+      var b = document.createElement("button"); b.className = "chip"; b.textContent = n; b.setAttribute("aria-pressed", i === 0);
+      b.addEventListener("click", function () {
+        viewer.animation = new anims[n]();
+        Array.prototype.forEach.call($("anims").children, function (x) { x.setAttribute("aria-pressed", x === b); });
+      });
+      $("anims").appendChild(b);
+    });
+    viewer.animation = new skinview3d.IdleAnimation();
+    var ro = new ResizeObserver(function () { viewer.setSize(canvas.clientWidth, canvas.clientHeight); });
+    ro.observe(canvas);
+  }
+  function loadSkin() { if (viewer) viewer.loadSkin(skinData || placeholderSkin(), { model: model }); }
+  function useFile(f) {
+    if (!f || f.type !== "image/png") { toast("Pick a PNG skin"); return; }
+    var r = new FileReader();
+    r.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        if (img.width !== 64 || (img.height !== 64 && img.height !== 32)) { toast("Skins are 64×64 PNGs"); return; }
+        skinData = r.result; store.set("skin", skinData); loadSkin(); toast("Skin loaded"); markStep("skin");
+      };
+      img.src = r.result;
+    };
+    r.readAsDataURL(f);
+  }
+  $("skinFile").addEventListener("change", function () { useFile(this.files[0]); this.value = ""; });
+  var drop = $("drop");
+  ["dragenter", "dragover"].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add("over"); }); });
+  ["dragleave", "drop"].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.remove("over"); }); });
+  drop.addEventListener("drop", function (e) { useFile(e.dataTransfer.files[0]); });
+  document.querySelectorAll("#modelSeg button").forEach(function (b) {
+    b.setAttribute("aria-pressed", b.dataset.model === model);
+    b.addEventListener("click", function () {
+      model = b.dataset.model; store.set("skinModel", model);
+      document.querySelectorAll("#modelSeg button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+      loadSkin();
+    });
+  });
+  $("saveSkin").addEventListener("click", function () {
+    var a = document.createElement("a"); a.href = skinData || placeholderSkin(); a.download = "ember-skin.png"; a.click();
+  });
+
+  // ---------- start ----------
+  renderSetup(); renderStreak(); renderMods(); renderServers();
+  var start = (location.hash || "").slice(1);
+  show(titles[start] ? start : store.get("view", "home") in titles ? store.get("view", "home") : "home");
 })();
 </script>
 </body>
