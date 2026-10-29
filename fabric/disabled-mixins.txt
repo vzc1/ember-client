@@ -3,3 +3,6 @@
 
 # Crash-report extras use java.lang.management (thread dumps), which the browser has no equivalent of.
 fabric-crash-report-info-v1.mixins.json:*
+
+# Its item-model hook keeps a local in a try block that the browser compiler can't handle, which breaks item models. Few mods use this API.
+fabric-model-loading-api-v1.mixins.json:*
