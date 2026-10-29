@@ -104,6 +104,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			if (b == null) { failed++; continue; }        // the browser build keeps its own copy
 			if (Arrays.equals(raw, b)) continue;           // unchanged: no need to ship it again
 			changed++;
+			checkBytecode(b);
 			collectSynthetic(b, synthetic);
 			write(classesOut.resolve(rel), b);
 		}
@@ -528,6 +529,49 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	}
 
 	/** "config.json:pkg.MixinName" for every mixin that failed to apply, for the next bake to switch off. */
+	/** Mixins whose merged code doesn't verify; switched off on the next bake round. */
+	private final Set<String> invalidMixins = new java.util.TreeSet<>();
+
+	/**
+	 * Mixin can produce methods the JVM would reject (e.g. a captured local that isn't
+	 * set on every path). The browser compiler stops on those, so find the mixin
+	 * responsible and switch it off.
+	 */
+	private void checkBytecode(byte[] b) {
+		try {
+			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+			new ClassReader(b).accept(cn, 0);
+			Map<String, String> merged = new java.util.HashMap<>();
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				String owner = mergedOwner(mn);
+				if (owner != null) merged.put(mn.name + mn.desc, owner);
+			}
+			if (merged.isEmpty()) return;
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				if (mn.instructions == null || mn.instructions.size() == 0) continue;
+				try {
+					new org.objectweb.asm.tree.analysis.Analyzer<>(new org.objectweb.asm.tree.analysis.BasicVerifier()).analyze(cn.name, mn);
+				} catch (org.objectweb.asm.tree.analysis.AnalyzerException e) {
+					Set<String> culprits = new java.util.TreeSet<>();
+					String self = merged.get(mn.name + mn.desc);
+					if (self != null) culprits.add(self);
+					for (org.objectweb.asm.tree.AbstractInsnNode in : mn.instructions) {
+						if (in instanceof org.objectweb.asm.tree.MethodInsnNode mi && mi.owner.equals(cn.name)) {
+							String o = merged.get(mi.name + mi.desc);
+							if (o != null) culprits.add(o);
+						}
+					}
+					// Fabric API is what other mods build on; when a mod's hook is also there, blame the mod.
+					if (culprits.stream().anyMatch(c -> !c.startsWith("net.fabricmc."))) culprits.removeIf(c -> c.startsWith("net.fabricmc."));
+					problems.add("invalid bytecode in " + cn.name + "." + mn.name + " (" + e.getMessage() + "); switching off " + culprits);
+					invalidMixins.addAll(culprits);
+				}
+			}
+		} catch (Throwable t) {
+			// checking is best effort
+		}
+	}
+
 	private void writeFailedMixins(Path out) throws IOException {
 		java.util.regex.Pattern[] patterns = {
 			java.util.regex.Pattern.compile("Mixin \\[([^\\]\\s:]+\\.json):(\\S+) from mod"),
@@ -540,6 +584,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				while (m.find()) failed.add(m.group(1) + ":" + m.group(2));
 			}
 		}
+		for (String m : invalidMixins) failed.add("*:" + m);
 		Files.write(out.resolve("failed-mixins.txt"), failed);
 		if (!failed.isEmpty()) log("mixins that failed to apply (switched off on the next bake): " + failed);
 	}
