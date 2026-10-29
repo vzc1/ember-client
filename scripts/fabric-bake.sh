@@ -106,9 +106,11 @@ if [ -n "$LOG4J_API" ]; then
 else
   echo "::warning::log4j-api not on the game classpath; mods that log through Log4j will fail"
 fi
+# Title-screen "Mods" button, only when Mod Menu is in the build.
+if [ -f "$ROOT/com/terraformersmc/modmenu/api/ModMenuApi.class" ]; then MODS_BUTTON="$REPO/fabric/runtime/modmenu"; else MODS_BUTTON="$REPO/fabric/runtime/modmenu-stub"; fi
 "$JAVAC" -nowarn -proc:none --release 21 -encoding UTF-8 -d "$ROOT" \
   -cp "$ROOT$SEP$GAME_CLASSES$SEP$EMBER_GAME_CP" \
-  $(find "$REPO/fabric/runtime/src" -name '*.java') "${LOG4J_SRC[@]}" "$F/baked/gen/net/emberclient/fabric/EmberGenerated.java"
+  $(find "$REPO/fabric/runtime/src" "$MODS_BUTTON" -name '*.java') "${LOG4J_SRC[@]}" "$F/baked/gen/net/emberclient/fabric/EmberGenerated.java"
 # Reflection list for mods (config loading, Class.forName) + the TeaVM plugin that reads it.
 TEAVM_CORE="$WS/wasm-toolchain/teavm-eagler-patch/teavm-core-0.13.1-eagler.jar"
 if [ -f "$TEAVM_CORE" ] && [ -f "$F/baked/reflection.tsv" ]; then

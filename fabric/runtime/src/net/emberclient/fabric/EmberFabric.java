@@ -166,6 +166,11 @@ public final class EmberFabric {
 		log("starting client entrypoints");
 		invoke("main", ModInitializer.class, ModInitializer::onInitialize);
 		invoke("client", ClientModInitializer.class, ClientModInitializer::onInitializeClient);
+		try {
+			EmberModsButton.register();
+		} catch (Throwable t) {
+			log("could not set up the Mods button: " + t);
+		}
 	}
 
 	public static void startServer() {
