@@ -28,3 +28,37 @@ dark-loading-screen
 # not-enough-animations  (off for now: uses Java features the browser lacks at startup)
 # 3dskinlayers  (off for now: uses Java features the browser lacks at startup)
 boat-item-view
+
+# probe
+nohurtcam
+lowfire
+low-fire
+status-effect-bars
+durability-tooltip
+held-item-info
+cps-display
+keystrokes
+fps-display
+togglesneak
+toggle-sprint-display
+better-hurt-cam
+cleancut
+totem-counter
+armor-hud
+custom-crosshair
+crosshair-plus
+zoomify
+logical-zoom
+item-borders
+shield-statues
+attack-indicator
+hit-indicator
+better-ping-display-fabric
+fullbright
+gamma-utils
+no-fog
+clear-water
+durability-viewer
+enchantment-descriptions
+nicer-skies
+simple-fps-display
