@@ -58,6 +58,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	private final StringBuilder report = new StringBuilder();
 	private final List<String> problems = new ArrayList<>();
 	private final Map<String, List<String>> mixinTargets = new TreeMap<>(); // mixin class -> targets
+	private final Map<String, String> mixinOwner = new java.util.HashMap<>();   // mixin class -> mod id
 	private IMixinTransformer mixin;
 
 	@Override
@@ -118,9 +119,16 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 
 		// Pre-pass: find every mixin class first, so mixin packages are known up front.
 		for (ModContainer mod : mods) {
+			String owner = mod.getMetadata().getId();
 			for (Path root : mod.getRootPaths()) {
 				try (Stream<Path> s = Files.walk(root)) {
-					for (Path f : s.filter(p -> p.toString().endsWith(".class")).toList()) kindOf(Files.readAllBytes(f), mixinTargets);
+					for (Path f : s.filter(p -> p.toString().endsWith(".class")).toList()) {
+						Map<String, List<String>> one = new java.util.HashMap<>();
+						if (kindOf(Files.readAllBytes(f), one) != ClassKind.NORMAL) {
+							mixinTargets.putAll(one);
+							for (String m : one.keySet()) mixinOwner.put(m, owner);
+						}
+					}
 				}
 			}
 		}
@@ -201,6 +209,19 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 		log("mixins applied: " + (mixinTargets.size() - missingMixins) + " of " + mixinTargets.size()
 				+ " (unapplied ones are usually server-only or target code Eaglercraft replaced)");
+
+		// 4b. Let players switch mods off: every @Inject handler a mod's mixin added
+		//     starts with "if this mod is switched off, return".
+		int guarded = 0;
+		try (Stream<Path> st = Files.walk(classesOut)) {
+			for (Path f : st.filter(p -> p.toString().endsWith(".class")).toList()) {
+				byte[] in = Files.readAllBytes(f);
+				int[] n = {0};
+				byte[] outBytes = guardHandlers(in, n);
+				if (outBytes != null && n[0] > 0) { Files.write(f, outBytes); guarded += n[0]; }
+			}
+		}
+		log("mixin handlers that can be switched off per mod: " + guarded);
 
 		// 5. Entrypoints and mod list as plain Java.
 		Path gen = out.resolve("gen/net/emberclient/fabric/EmberGenerated.java");
@@ -403,6 +424,60 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 		Files.write(out.resolve("failed-mixins.txt"), failed);
 		if (!failed.isEmpty()) log("mixins that failed to apply (switched off on the next bake): " + failed);
+	}
+
+	private static final String CI = "Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;";
+	private static final String CIR = "Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;";
+
+	/** Adds a switch-off check to the start of void @Inject handlers merged from mod mixins. */
+	private byte[] guardHandlers(byte[] b, int[] count) {
+		try {
+			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+			new ClassReader(b).accept(cn, 0);
+			if ((cn.access & Opcodes.ACC_INTERFACE) != 0) return null;
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				if (mn.instructions == null || mn.instructions.size() == 0) continue;
+				if (!mn.desc.endsWith(")V") || !(mn.desc.contains(CI) || mn.desc.contains(CIR))) continue;
+				String owner = mergedOwner(mn);
+				if (owner == null) continue;
+				String mod = mixinOwner.get(owner);
+				if (mod == null || mod.startsWith("fabric-") || mod.equals("fabric-api")) continue; // keep the library on
+				org.objectweb.asm.tree.AbstractInsnNode first = mn.instructions.getFirst();
+				while (first != null && first.getOpcode() < 0 && !(first instanceof org.objectweb.asm.tree.FrameNode)) first = first.getNext();
+				if (first instanceof org.objectweb.asm.tree.FrameNode) continue; // already a jump target at the start; leave as is
+				org.objectweb.asm.tree.LabelNode go = new org.objectweb.asm.tree.LabelNode();
+				org.objectweb.asm.tree.InsnList guard = new org.objectweb.asm.tree.InsnList();
+				guard.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
+				guard.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "isDisabled", "(Ljava/lang/String;)Z", false));
+				guard.add(new org.objectweb.asm.tree.JumpInsnNode(Opcodes.IFEQ, go));
+				guard.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN));
+				guard.add(go);
+				guard.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_SAME, 0, null, 0, null));
+				mn.instructions.insert(guard);
+				mn.maxStack = Math.max(mn.maxStack, 1);
+				count[0]++;
+			}
+			if (count[0] == 0) return null;
+			org.objectweb.asm.ClassWriter w = new org.objectweb.asm.ClassWriter(0);
+			cn.accept(w);
+			return w.toByteArray();
+		} catch (Throwable t) {
+			problems.add("could not add switch-off checks: " + describe(t));
+			return null;
+		}
+	}
+
+	private static String mergedOwner(org.objectweb.asm.tree.MethodNode mn) {
+		List<org.objectweb.asm.tree.AnnotationNode> all = new ArrayList<>();
+		if (mn.invisibleAnnotations != null) all.addAll(mn.invisibleAnnotations);
+		if (mn.visibleAnnotations != null) all.addAll(mn.visibleAnnotations);
+		for (org.objectweb.asm.tree.AnnotationNode a : all) {
+			if (!MERGED_DESC.equals(a.desc) || a.values == null) continue;
+			for (int i = 0; i + 1 < a.values.size(); i += 2) {
+				if ("mixin".equals(a.values.get(i))) return String.valueOf(a.values.get(i + 1)).replace('/', '.');
+			}
+		}
+		return null;
 	}
 
 	private static void collectRefs(byte[] b, Set<String> into) {

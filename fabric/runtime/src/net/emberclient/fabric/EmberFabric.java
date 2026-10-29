@@ -40,6 +40,29 @@ public final class EmberFabric {
 		{"fabricloader", "0.20.1", "Fabric Loader"},
 	};
 
+	/** Mods the player switched off on the Ember site (one Fabric mod id per line, saved by the site). */
+	private static java.util.Set<String> disabled;
+
+	public static boolean isDisabled(String modId) {
+		if (disabled == null) {
+			java.util.Set<String> set = new java.util.HashSet<>();
+			try {
+				byte[] b = net.lax1dude.eaglercraft.v1_8.internal.PlatformApplication.getLocalStorage("ember_disabled_mods", false);
+				if (b != null) {
+					for (String line : new String(b, StandardCharsets.UTF_8).split("\n")) {
+						line = line.trim();
+						if (!line.isEmpty()) set.add(line);
+					}
+				}
+			} catch (Throwable t) {
+				log("could not read the switched-off mods list: " + t);
+			}
+			disabled = set;
+			if (!set.isEmpty()) log("switched off: " + set);
+		}
+		return disabled.contains(modId);
+	}
+
 	private static Map<String, EmberModContainer> byId;
 	private static List<ModContainer> mods;
 	private static Object[] instances;
@@ -99,6 +122,7 @@ public final class EmberFabric {
 		String[] keys = EmberGenerated.ENTRY_KEYS;
 		for (int i = 0; i < keys.length; i++) {
 			if (!keys[i].equals(key)) continue;
+			if (isDisabled(EmberGenerated.ENTRY_MODS[i])) continue;
 			Object inst = instance(i);
 			if (inst == null) continue;
 			if (!type.isInstance(inst)) {

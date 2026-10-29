@@ -137,6 +137,10 @@ def main():
             os.remove(os.path.join(dest, n))
             metas.pop(n); files.pop(n)
 
+    for n, info in files.items():
+        ms = metas.get(n) or []
+        info["id"] = ms[0][0] if ms else ""
+
     # Fill in names from fabric.mod.json for folder mods.
     for n, info in files.items():
         if info["source"] == "folder" and metas.get(n):

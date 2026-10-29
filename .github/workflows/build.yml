@@ -72,6 +72,23 @@ jobs:
           EAGLER_BUILD_CAP_MIB: "13312"
         run: mkdir -p "$RUNNER_TEMP/logs" && bash scripts/build-html.sh 2>&1 | tee "$RUNNER_TEMP/logs/build-html.log"
 
+      - name: Push logs to the ci-logs branch
+        if: always()
+        run: |
+          set -uo pipefail
+          L="$RUNNER_TEMP/ci-logs"; rm -rf "$L"; mkdir -p "$L"
+          for f in "$RUNNER_TEMP"/logs/*.log; do [ -f "$f" ] && tail -c 400000 "$f" > "$L/$(basename "$f")"; done
+          for f in "$RUNNER_TEMP"/fabric/baked/bake-report.txt "$RUNNER_TEMP"/fabric/disabled-mixins.txt "$RUNNER_TEMP"/fabric/mods.json; do [ -f "$f" ] && cp "$f" "$L/"; done
+          find "$RUNNER_TEMP/ws" -name '*.log' -newer "$RUNNER_TEMP/inputs/setup.jar" -size -20M 2>/dev/null | while read -r f; do tail -c 400000 "$f" > "$L/ws-$(echo "${f#$RUNNER_TEMP/ws/}" | tr '/' '_')"; done
+          ls -la "$GITHUB_WORKSPACE"/out/ > "$L/output-files.txt" 2>&1 || true
+          echo "run ${{ github.run_id }} at $(date -u)" > "$L/RUN.txt"
+          cd "$L"
+          git init -q -b ci-logs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -q -m "Logs for run ${{ github.run_id }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" ci-logs
+
       - name: Publish result and logs as a draft release
         if: always()
         env:
