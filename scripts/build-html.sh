@@ -25,5 +25,19 @@ if [ "${EMBER_OBFUSCATE:-0}" != "1" ]; then
 fi
 npm ci --ignore-scripts --no-audit --no-fund
 free -m
-npm run build:single -- --output "$OUT/ember-client-26.2.html"
+# If the compiler stalls, record what it is doing (thread dumps go to the ci-logs
+# branch) and stop after 150 minutes instead of running into the job limit.
+(
+  sleep 1500
+  for i in 1 2 3 4 5 6 7 8 9 10; do
+    for pid in $(pgrep -f StandaloneTeaVMLinker); do
+      "$JAVA_HOME/bin/jcmd" "$pid" Thread.print > "$RUNNER_TEMP/logs/stall-$i-$pid.log" 2>&1 || true
+      "$JAVA_HOME/bin/jcmd" "$pid" GC.heap_info >> "$RUNNER_TEMP/logs/stall-$i-$pid.log" 2>&1 || true
+    done
+    sleep 300
+  done
+) &
+WATCH=$!
+timeout 150m npm run build:single -- --output "$OUT/ember-client-26.2.html"
+kill $WATCH 2>/dev/null || true
 ls -la "$OUT"
