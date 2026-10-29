@@ -14,6 +14,12 @@ cp "$K/inputs/sounds.epk" "$WS/target_teavm/build/web/sounds.epk"
 cp "$K/inputs/music.epk"  "$WS/target_teavm/build/web/music.epk"
 
 cd "$WS"
+# Keep real Java method names in the client so crash reports say where they
+# happened (costs a little size). Set EMBER_OBFUSCATE=1 to turn names off again.
+if [ "${EMBER_OBFUSCATE:-0}" != "1" ]; then
+  sed -i 's/obfuscated: !diagnostic,/obfuscated: false,/' wasm-toolchain/link-web-target-standalone.js
+  grep -n 'obfuscated: false' wasm-toolchain/link-web-target-standalone.js
+fi
 npm ci --ignore-scripts --no-audit --no-fund
 free -m
 npm run build:single -- --output "$OUT/ember-client-26.2.html"
