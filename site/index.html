@@ -4,570 +4,549 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ember Client</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff6a2b'/%3E%3Cstop offset='1' stop-color='%23ffc04d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23g)' d='M16 2c2 6 9 8 9 17a9 9 0 0 1-18 0c0-5 3-8 5-10 0 4 2 6 4 6 0-5-2-8 0-13z'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Cpath fill='%23ff5a1f' d='M3 0h1v1H3zM2 1h3v2H2zM1 3h6v3H1zM2 6h4v1H2z'/%3E%3Cpath fill='%23ffb02e' d='M3 3h2v2H3zM3 5h2v1H3z'/%3E%3Cpath fill='%23fff1c9' d='M3 4h1v1H3z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="site-config.js"></script>
 <style>
   :root {
-    --bg: #0c0b0e;
-    --side: #111015;
-    --panel: #16141a;
-    --panel-2: #1d1a22;
-    --panel-3: #25212b;
-    --line: #2a2630;
-    --line-2: #3a3442;
-    --text: #efeaf3;
-    --muted: #9b93a7;
-    --dim: #6f687a;
-    --accent: #ff6a2b;
-    --accent-2: #ffb347;
-    --accent-ink: #1c0c03;
-    --ok: #4ade80;
-    --next: #60a5fa;
-    --r: 12px;
+    --basalt: #15121a;
+    --stone: #1d1823;
+    --stone-2: #262030;
+    --edge: #332b3d;
+    --edge-2: #4a3f57;
+    --ash: #f3ece4;
+    --ash-2: #b9aebd;
+    --ash-3: #7f748a;
+    --magma: #ff5a1f;
+    --lava: #ffb02e;
+    --soul: #3fe0d0;
+    --ink: #1a0a02;
+    --px: "Pixelify Sans", ui-monospace, monospace;
+    --body: "Figtree", system-ui, sans-serif;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
-    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  button { font: inherit; color: inherit; }
+  html, body { margin: 0; height: 100%; background: var(--basalt); color: var(--ash); font: 15px/1.5 var(--body); }
+  button, input { font: inherit; color: inherit; }
   a { color: inherit; }
-  .app { display: grid; grid-template-columns: 232px 1fr; height: 100vh; }
+  :focus-visible { outline: 2px solid var(--soul); outline-offset: 2px; }
+  img.px { image-rendering: pixelated; }
 
-  /* sidebar */
-  aside { background: var(--side); border-right: 1px solid var(--line); display: flex; flex-direction: column; padding: 14px 10px; min-height: 0; }
-  .brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 16px; }
-  .brand svg { width: 26px; height: 26px; filter: drop-shadow(0 0 10px rgba(255,106,43,.45)); }
-  .brand b { font-size: 17px; letter-spacing: .2px; }
-  .ver { margin-left: auto; font-size: 11px; color: var(--muted); border: 1px solid var(--line-2); border-radius: 6px; padding: 1px 6px; }
+  .app { display: grid; grid-template-columns: 240px 1fr; height: 100vh; }
+
+  /* ---------- sidebar ---------- */
+  aside { display: flex; flex-direction: column; padding: 18px 12px; background: #120f16; border-right: 1px solid var(--edge); min-height: 0; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 0 8px 22px; text-decoration: none; }
+  .brand svg { width: 28px; height: 28px; }
+  .brand b { font: 700 24px/1 var(--px); letter-spacing: .5px; }
+  .brand .ver { margin-left: auto; font: 500 12px var(--px); color: var(--lava); border: 1px solid #5a3a14; background: #2a1a0a; padding: 2px 7px; border-radius: 4px; }
   nav.side { display: flex; flex-direction: column; gap: 2px; }
-  nav.side button { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border: 0; background: none;
-    border-radius: 9px; text-align: left; color: var(--muted); font-weight: 600; cursor: pointer; }
-  nav.side button svg { width: 17px; height: 17px; flex: none; }
-  nav.side button:hover { background: var(--panel-2); color: var(--text); }
-  nav.side button[aria-current="page"] { background: var(--panel-3); color: var(--text); }
-  .side-label { font-size: 11px; font-weight: 700; letter-spacing: .8px; color: var(--dim); padding: 20px 12px 6px; }
-  .side-inst { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 9px; background: var(--panel-2); font-weight: 600; cursor: pointer; border: 0; text-align: left; }
-  .side-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); }
-  .side-foot .btn { width: 100%; justify-content: center; }
+  nav.side button { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 0; background: none; border-radius: 8px;
+    color: var(--ash-2); font-weight: 600; text-align: left; cursor: pointer; position: relative; }
+  nav.side button svg { width: 18px; height: 18px; flex: none; }
+  nav.side button:hover { color: var(--ash); background: var(--stone); }
+  nav.side button[aria-current="page"] { color: var(--ash); background: var(--stone-2); }
+  nav.side button[aria-current="page"]::before { content: ""; position: absolute; left: -12px; top: 9px; bottom: 9px; width: 3px; background: var(--magma); border-radius: 0 3px 3px 0; }
+  .side-foot { margin-top: auto; display: grid; gap: 8px; }
 
-  /* main */
-  main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
-  header.top { display: flex; align-items: center; gap: 14px; padding: 12px 24px; border-bottom: 1px solid var(--line); }
-  header.top h1 { margin: 0; font-size: 18px; min-width: 110px; }
-  .search { flex: 0 1 360px; display: flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 9px; padding: 7px 12px; color: var(--muted); }
-  .search input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); font: inherit; }
-  .kbd { font-size: 11px; border: 1px solid var(--line-2); border-radius: 5px; padding: 0 5px; color: var(--dim); }
-  .top-right { margin-left: auto; display: flex; gap: 8px; }
-  .chipbtn { text-decoration: none; display: inline-flex; align-items: center; gap: 7px; background: var(--panel); border: 1px solid var(--line);
-    border-radius: 9px; padding: 7px 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-  .chipbtn:hover { border-color: var(--line-2); }
-  .view { flex: 1; overflow: auto; padding: 24px; }
-  .view[hidden] { display: none; }
-
-  .btn { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 10px; padding: 10px 18px;
+  /* ---------- buttons ---------- */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 8px; padding: 11px 18px;
     font-weight: 700; cursor: pointer; text-decoration: none; transition: filter .15s, transform .06s; }
   .btn:active { transform: translateY(1px); }
-  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--accent-ink); }
-  .btn-primary:hover { filter: brightness(1.08); }
-  .btn-ghost { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); }
-  .btn-ghost:hover { border-color: var(--line-2); }
-  .btn-lg { padding: 13px 26px; font-size: 16px; }
+  .btn svg { width: 15px; height: 15px; }
+  .btn-play { background: var(--magma); color: var(--ink); box-shadow: inset 0 -3px 0 #b8380c, 0 0 0 1px #ff8a52 inset; }
+  .btn-play:hover { filter: brightness(1.08); }
+  .btn-stone { background: var(--stone-2); color: var(--ash); border: 1px solid var(--edge-2); }
+  .btn-stone:hover { border-color: #66587a; }
+  .btn-huge { font: 700 22px/1 var(--px); padding: 18px 34px; letter-spacing: .5px; }
+  .btn-huge svg { width: 20px; height: 20px; }
 
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; }
-  .section-title { display: flex; align-items: center; justify-content: space-between; margin: 26px 0 12px; }
-  .section-title h2 { margin: 0; font-size: 15px; }
-  .section-title .muted { font-size: 13px; }
-  .muted { color: var(--muted); }
+  /* ---------- main ---------- */
+  main { min-width: 0; min-height: 0; overflow: auto; }
+  .view { padding: 28px 32px 48px; max-width: 1280px; }
+  .view[hidden] { display: none; }
+  h2 { font: 700 26px/1.15 var(--px); margin: 0 0 4px; letter-spacing: .3px; }
+  h3 { margin: 0; }
+  .sub { color: var(--ash-2); margin: 0 0 22px; }
+  .muted { color: var(--ash-2); }
 
-  /* home */
-  .home { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; align-items: start; }
-  .setup .bar { height: 5px; background: var(--panel-3); border-radius: 99px; margin: 12px 0 14px; overflow: hidden; }
-  .setup .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 99px; transition: width .3s; }
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .step { text-align: left; display: flex; align-items: center; gap: 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; font-weight: 600; font-size: 13px; }
-  .tick { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--line-2); flex: none; display: grid; place-items: center; }
-  .step.done { color: var(--muted); }
-  .step.done .tick { background: var(--ok); border-color: var(--ok); }
-  .step.done .tick::after { content: ""; width: 8px; height: 4px; border: 2px solid #0b2a14; border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px,-1px); }
+  /* ---------- home: the forge ---------- */
+  .forge { position: relative; overflow: hidden; border-radius: 14px; border: 1px solid #3a2416; min-height: 340px;
+    background: radial-gradient(120% 90% at 50% 120%, #7a2a0c 0%, #3a160c 35%, #1a0f12 70%), #1a0f12;
+    display: flex; align-items: flex-end; }
+  .forge canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .forge::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 42px;
+    background: repeating-linear-gradient(90deg, #2a1610 0 28px, #24130e 28px 56px); border-top: 2px solid #ff5a1f55; }
+  .forge-inner { position: relative; z-index: 1; padding: 36px 36px 74px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 28px; width: 100%; }
+  .wordmark { font: 700 clamp(64px, 10vw, 128px)/.85 var(--px); margin: 0; letter-spacing: 2px;
+    color: #ffe8c2; text-shadow: 0 0 24px #ff5a1f88, 0 4px 0 #b8380c, 0 8px 0 #5c1c06; }
+  .forge .meta { color: #f5cfa8; margin-top: 14px; font-weight: 500; }
+  .forge .actions { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
 
-  .continue { display: flex; align-items: center; gap: 20px; }
-  .grass { width: 86px; height: 86px; border-radius: 12px; flex: none; background: var(--panel-2); display: grid; place-items: center; }
-  .continue .info { flex: 1; min-width: 0; }
-  .continue h3 { margin: 0 0 4px; font-size: 22px; display: flex; align-items: center; gap: 10px; }
-  .tag { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: var(--panel-3); color: var(--muted); }
-  .meta { color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; }
-  .modicons { display: flex; gap: 5px; margin-top: 12px; flex-wrap: wrap; }
-  .mi { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #160b04; }
-  .continue .actions { display: flex; flex-direction: column; gap: 8px; min-width: 190px; }
+  .home-grid { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 20px; margin-top: 20px; align-items: start; }
+  .panel { background: var(--stone); border: 1px solid var(--edge); border-radius: 12px; padding: 20px; }
+  .panel-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  .panel-head h3 { font: 700 18px var(--px); letter-spacing: .3px; }
+  .linkbtn { background: none; border: 0; color: var(--soul); font-weight: 600; cursor: pointer; padding: 0; }
+  .linkbtn:hover { text-decoration: underline; }
 
-  .streak .big { display: flex; align-items: baseline; gap: 6px; margin: 10px 0 14px; }
-  .streak .big b { font-size: 34px; line-height: 1; }
-  .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; font-size: 11px; color: var(--dim); }
-  .day { aspect-ratio: 1; border-radius: 8px; background: var(--panel-2); border: 1px solid var(--line); display: grid; place-items: center; }
-  .day.on { background: rgba(255,106,43,.18); border-color: var(--accent); }
-  .day.today { border-color: var(--accent-2); }
-  .day svg { width: 12px; height: 12px; opacity: .45; }
-  .day.on svg { opacity: 1; color: var(--accent); }
-  .badges { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-top: 12px; }
-  .badges span { text-align: center; font-size: 12px; font-weight: 700; padding: 5px 0; border-radius: 7px; background: var(--panel-2); color: var(--dim); }
-  .badges span.got { background: rgba(255,179,71,.15); color: var(--accent-2); }
+  .icon-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 12px; }
+  .icon-row a, .icon-row div { text-decoration: none; display: grid; justify-items: center; gap: 6px; font-size: 12px; color: var(--ash-2); text-align: center; }
+  .icon-row .ic { width: 56px; height: 56px; }
 
-  /* mods */
-  .feature { display: flex; align-items: center; gap: 18px; background:
-    radial-gradient(600px 160px at 85% 0%, rgba(255,106,43,.18), transparent 70%), var(--panel); }
-  .feature .logo { width: 60px; height: 60px; border-radius: 14px; background: var(--panel-2); display: grid; place-items: center; flex: none; }
-  .feature h3 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 8px; }
-  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 14px; }
-  .toolbar .search { flex: 0 1 280px; }
-  .chip { display: inline-flex; align-items: center; gap: 7px; background: var(--panel); border: 1px solid var(--line); color: var(--muted);
-    border-radius: 99px; padding: 6px 13px; font-weight: 600; cursor: pointer; }
-  .chip i { width: 7px; height: 7px; border-radius: 50%; }
-  .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
-  .mod { display: flex; gap: 12px; align-items: flex-start; }
-  .mod.included { border-color: rgba(255,106,43,.45); }
-  .mod .mi { width: 44px; height: 44px; border-radius: 10px; font-size: 18px; flex: none; }
-  .mod .body { flex: 1; min-width: 0; }
-  .mod h3 { margin: 0; font-size: 15px; }
-  .mod .by { color: var(--muted); font-size: 12px; margin: 2px 0 8px; }
-  .mod p { margin: 0; color: #cfc8d8; font-size: 13px; }
-  .status { font-size: 11px; font-weight: 800; letter-spacing: .3px; padding: 4px 9px; border-radius: 8px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; }
-  .status.included { background: var(--panel-3); color: var(--text); border: 1px solid var(--line-2); }
-  .status.next { background: rgba(96,165,250,.12); color: var(--next); }
-  .status.planned { background: var(--panel-2); color: var(--dim); }
-  .empty { color: var(--muted); padding: 40px 0; text-align: center; grid-column: 1 / -1; }
+  .ic { border-radius: 10px; background: var(--stone-2); border: 1px solid var(--edge); display: grid; place-items: center; overflow: hidden; flex: none; }
+  .ic img { width: 100%; height: 100%; object-fit: cover; }
+  .ic .letter { font: 700 22px var(--px); color: var(--lava); }
 
-  /* wardrobe */
-  .wardrobe { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 0; height: 100%; margin: -24px; }
-  .stage { position: relative; display: flex; flex-direction: column; padding: 24px;
-    background: radial-gradient(500px 400px at 50% 55%, #1b1824, transparent 70%); min-height: 420px; }
+  .steps { display: grid; gap: 8px; }
+  .step { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 9px; background: var(--stone-2); border: 1px solid var(--edge);
+    font-weight: 600; text-align: left; cursor: pointer; text-decoration: none; }
+  .step:hover { border-color: var(--edge-2); }
+  .box { width: 18px; height: 18px; border: 2px solid var(--edge-2); border-radius: 3px; flex: none; display: grid; place-items: center; }
+  .step.done { color: var(--ash-3); }
+  .step.done .box { background: var(--soul); border-color: var(--soul); }
+  .step.done .box::after { content: ""; width: 8px; height: 4px; border: 2.5px solid #06302b; border-top: 0; border-right: 0; transform: rotate(-45deg) translateY(-1px); }
+
+  .streak-num { font: 700 56px/1 var(--px); color: var(--lava); }
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 16px 0 6px; text-align: center; font-size: 11px; color: var(--ash-3); }
+  .cell { aspect-ratio: 1; border-radius: 6px; background: var(--stone-2); border: 1px solid var(--edge); display: grid; place-items: center; margin-top: 4px; }
+  .cell svg { width: 14px; height: 14px; color: var(--edge-2); }
+  .cell.on { background: #3a1a0c; border-color: var(--magma); }
+  .cell.on svg { color: var(--lava); }
+  .cell.today { box-shadow: 0 0 0 2px var(--basalt), 0 0 0 3px var(--lava); }
+
+  /* ---------- mods ---------- */
+  .mods-top { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; margin-bottom: 18px; }
+  .mods-top .count { font: 700 40px/1 var(--px); color: var(--lava); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
+  .search { display: flex; align-items: center; gap: 8px; background: var(--stone); border: 1px solid var(--edge); border-radius: 9px; padding: 9px 12px; min-width: 240px; flex: 0 1 320px; }
+  .search:focus-within { border-color: var(--soul); }
+  .search input { flex: 1; min-width: 0; border: 0; background: none; outline: none; }
+  .search svg { width: 16px; height: 16px; color: var(--ash-3); }
+  .chip { border: 1px solid var(--edge); background: var(--stone); color: var(--ash-2); border-radius: 999px; padding: 7px 14px; font-weight: 600; cursor: pointer; }
+  .chip:hover { color: var(--ash); }
+  .chip[aria-pressed="true"] { background: var(--ash); color: var(--basalt); border-color: var(--ash); }
+  .mod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .mod { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 16px; border-radius: 12px; background: var(--stone); border: 1px solid var(--edge); text-decoration: none; }
+  a.mod:hover { border-color: var(--edge-2); background: #201a27; }
+  .mod .ic { width: 64px; height: 64px; }
+  .mod h3 { font-size: 16px; font-weight: 700; }
+  .mod .by { font-size: 13px; color: var(--ash-3); margin: 1px 0 8px; }
+  .mod p { margin: 0; font-size: 14px; color: var(--ash-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .tag { font-size: 12px; font-weight: 600; color: var(--ash-2); background: var(--stone-2); border-radius: 5px; padding: 2px 8px; }
+  .tag.dep { color: var(--soul); background: #0f2c2a; }
+  .empty { grid-column: 1 / -1; padding: 50px 0; text-align: center; color: var(--ash-2); }
+  .howto { margin-top: 26px; padding: 18px 20px; border-radius: 12px; border: 1px dashed var(--edge-2); color: var(--ash-2); }
+  .howto b { color: var(--ash); }
+  .howto code { background: var(--stone-2); padding: 1px 6px; border-radius: 4px; color: var(--ash); }
+
+  /* ---------- wardrobe ---------- */
+  .wardrobe { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; }
+  .stage { position: relative; border-radius: 14px; border: 1px solid var(--edge); min-height: 520px; display: flex; flex-direction: column;
+    background: radial-gradient(60% 50% at 50% 70%, #2a1f33, transparent 70%), var(--stone); }
   .stage canvas { flex: 1; width: 100% !important; min-height: 0; cursor: grab; }
-  .anims { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
-  .panel-side { border-left: 1px solid var(--line); padding: 20px; overflow: auto; }
-  .drop { border: 1.5px dashed var(--line-2); border-radius: var(--r); padding: 26px 16px; text-align: center; cursor: pointer; }
-  .drop:hover, .drop.over { border-color: var(--accent); background: rgba(255,106,43,.06); }
-  .label { font-size: 11px; font-weight: 800; letter-spacing: .8px; color: var(--dim); margin: 22px 0 8px; }
-  .seg { display: grid; grid-template-columns: 1fr 1fr; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-  .seg button { border: 0; background: none; padding: 10px; cursor: pointer; color: var(--muted); }
-  .seg button small { display: block; font-size: 11px; color: var(--dim); }
-  .seg button[aria-pressed="true"] { background: var(--panel-3); color: var(--text); font-weight: 700; }
-  .note { font-size: 12px; color: var(--muted); margin-top: 14px; }
+  .stage .fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--ash-2); }
+  .anims { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; padding: 14px; }
+  .drop { display: block; border: 2px dashed var(--edge-2); border-radius: 12px; padding: 26px 16px; text-align: center; cursor: pointer; }
+  .drop:hover, .drop.over { border-color: var(--lava); background: #2a1a0a55; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--edge); border-radius: 10px; overflow: hidden; }
+  .seg button { border: 0; background: var(--stone); padding: 10px; cursor: pointer; color: var(--ash-2); }
+  .seg button[aria-pressed="true"] { background: var(--stone-2); color: var(--ash); font-weight: 700; }
+  .seg small { display: block; color: var(--ash-3); font-size: 12px; }
+  .field-label { font-weight: 700; margin: 20px 0 8px; }
 
-  /* servers */
+  /* ---------- servers ---------- */
   .server { display: flex; align-items: center; gap: 14px; }
-  .server .mi { width: 48px; height: 48px; font-size: 18px; border-radius: 10px; flex: none; }
-  .server code { color: var(--muted); font-size: 12px; }
+  .server code { color: var(--ash-2); font-size: 13px; }
 
-  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); opacity: 0;
-    background: var(--panel-3); border: 1px solid var(--line-2); padding: 10px 16px; border-radius: 10px; font-weight: 600;
-    transition: .2s; pointer-events: none; z-index: 50; }
-  .toast.show { opacity: 1; transform: translateX(-50%); }
-
-  footer.credits { color: var(--dim); font-size: 12px; margin-top: 36px; }
+  footer.credits { margin-top: 36px; color: var(--ash-3); font-size: 13px; }
   footer.credits ul { margin: 0 0 6px; padding-left: 18px; }
 
-  @media (max-width: 1100px) { .home { grid-template-columns: 1fr; } }
-  @media (max-width: 860px) {
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 16px); opacity: 0; transition: .2s; pointer-events: none;
+    background: var(--stone-2); border: 1px solid var(--edge-2); padding: 10px 16px; border-radius: 9px; font-weight: 600; z-index: 9; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (max-width: 1080px) { .home-grid, .wardrobe { grid-template-columns: 1fr; } }
+  @media (max-width: 820px) {
     .app { grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: auto; min-height: 100vh; }
-    aside { flex-direction: row; align-items: center; padding: 8px; gap: 6px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
-    .brand { padding: 0 8px 0 4px; } .brand .ver { display: none; }
-    nav.side { flex-direction: row; }
-    nav.side button span { display: none; }
-    .side-label, .side-inst, .side-foot { display: none; }
-    header.top { padding: 10px 16px; flex-wrap: wrap; } header.top h1 { min-width: 0; }
-    .search { flex: 1 1 100%; order: 3; } .top-right .hide-sm { display: none; }
-    .view { padding: 16px; }
-    .steps { grid-template-columns: 1fr 1fr; }
-    .continue { flex-direction: column; align-items: stretch; text-align: left; }
-    .continue .actions { min-width: 0; }
-    .wardrobe { grid-template-columns: 1fr; margin: -16px; }
-    .panel-side { border-left: 0; border-top: 1px solid var(--line); }
+    aside { flex-direction: row; align-items: center; gap: 4px; padding: 8px 10px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--edge); }
+    .brand { padding: 0 6px 0 2px; } .brand .ver { display: none; } .brand b { font-size: 20px; }
+    nav.side { flex-direction: row; } nav.side button span { display: none; }
+    nav.side button[aria-current="page"]::before { display: none; }
+    .side-foot { display: none; }
+    main { overflow: visible; }
+    .view { padding: 18px 16px 40px; }
+    .forge { min-height: 300px; } .forge-inner { padding: 24px 20px 66px; }
+    .forge .actions { margin-left: 0; width: 100%; } .forge .actions .btn { flex: 1; }
+    .mod-grid { grid-template-columns: 1fr; }
+    .search { min-width: 0; flex: 1 1 100%; }
   }
+  @media (prefers-reduced-motion: reduce) { .btn, .toast { transition: none; } }
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <linearGradient id="ember" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6a2b"/><stop offset="1" stop-color="#ffc04d"/></linearGradient>
-    <symbol id="i-flame" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2c1.4 4.4 6.8 6 6.8 12.6a6.8 6.8 0 0 1-13.6 0c0-3.6 2.2-5.8 3.6-7.3 0 2.9 1.4 4.4 3 4.4 0-3.7-1.5-6 .2-9.7z"/></symbol>
-    <symbol id="i-flame-g" viewBox="0 0 24 24"><path fill="url(#ember)" d="M12 2c1.4 4.4 6.8 6 6.8 12.6a6.8 6.8 0 0 1-13.6 0c0-3.6 2.2-5.8 3.6-7.3 0 2.9 1.4 4.4 3 4.4 0-3.7-1.5-6 .2-9.7z"/></symbol>
+    <symbol id="logo" viewBox="0 0 8 8" shape-rendering="crispEdges">
+      <path fill="#ff5a1f" d="M3 0h1v1H3zM2 1h3v2H2zM1 3h6v3H1zM2 6h4v1H2z"/><path fill="#ffb02e" d="M3 3h2v2H3zM3 5h2v1H3z"/><path fill="#fff1c9" d="M3 4h1v1H3z"/>
+    </symbol>
+    <symbol id="flame" viewBox="0 0 8 8" shape-rendering="crispEdges"><path fill="currentColor" d="M3 0h1v1H3zM2 1h3v2H2zM1 3h6v3H1zM2 6h4v1H2z"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
     <symbol id="i-mods" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 2l9 5v10l-9 5-9-5V7zM3 7l9 5 9-5M12 12v10"/></symbol>
     <symbol id="i-shirt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M8 3l-5 4 3 4 2-1v11h8V10l2 1 3-4-5-4c-1 2-2.5 3-4 3S9 5 8 3z"/></symbol>
     <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></g><circle cx="7" cy="7.5" r="1.2" fill="currentColor"/><circle cx="7" cy="16.5" r="1.2" fill="currentColor"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></g></symbol>
-    <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 4v11m-5-5l5 5 5-5M5 20h14"/></symbol>
-    <symbol id="i-upload" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 20V9m-5 5l5-5 5 5M5 4h14"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M5 12l5 5 9-10"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 4v11m-5-5l5 5 5-5M5 20h14"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 20V9m-5 5l5-5 5 5M5 4h14"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></g></symbol>
   </defs>
 </svg>
 
 <div class="app">
   <aside>
-    <div class="brand">
-      <svg viewBox="0 0 24 24"><use href="#i-flame-g"/></svg>
-      <b id="brandName">Ember</b><span class="ver" id="brandVer">26.2</span>
-    </div>
+    <a class="brand" href="#home" data-view="home"><svg><use href="#logo"/></svg><b id="brandName">Ember</b><span class="ver" id="brandVer">26.2</span></a>
     <nav class="side" aria-label="Main">
-      <button data-view="home" aria-current="page"><svg><use href="#i-home"/></svg><span>Home</span></button>
+      <button data-view="home"><svg><use href="#i-home"/></svg><span>Home</span></button>
       <button data-view="mods"><svg><use href="#i-mods"/></svg><span>Mods</span></button>
       <button data-view="wardrobe"><svg><use href="#i-shirt"/></svg><span>Wardrobe</span></button>
       <button data-view="servers"><svg><use href="#i-server"/></svg><span>Servers</span></button>
     </nav>
-    <div class="side-label">INSTANCE</div>
-    <button class="side-inst" data-view="home"><span class="mi grassmini"></span><span id="sideInst">Ember 26.2</span></button>
     <div class="side-foot">
-      <a class="btn btn-primary" data-play href="play.html"><svg width="14" height="14"><use href="#i-play"/></svg>Play</a>
+      <a class="btn btn-play" data-play href="play.html"><svg><use href="#i-play"/></svg>Play</a>
     </div>
   </aside>
 
   <main>
-    <header class="top">
-      <h1 id="viewTitle">Home</h1>
-      <label class="search"><svg width="15" height="15"><use href="#i-search"/></svg>
-        <input id="globalSearch" type="search" placeholder="Search mods" aria-label="Search mods"><span class="kbd">/</span></label>
-      <div class="top-right">
-        <span class="chipbtn hide-sm" title="Play streak"><svg width="14" height="14" style="color:var(--accent)"><use href="#i-flame"/></svg><b id="topStreak">0</b> days</span>
-        <a class="chipbtn" id="dlTop" href="play.html" download><svg width="14" height="14"><use href="#i-download"/></svg>Download</a>
-      </div>
-    </header>
-
     <!-- HOME -->
-    <section class="view" id="view-home">
-      <div class="home">
-        <div>
-          <div class="card setup" id="setupCard">
-            <div style="display:flex;justify-content:space-between;align-items:baseline">
-              <div><b>Get set up</b><div class="muted" id="setupCount" style="font-size:13px"></div></div>
-              <button class="chipbtn" id="hideSetup" style="padding:4px 10px">Hide</button>
-            </div>
-            <div class="bar"><i id="setupBar"></i></div>
+    <section class="view" id="view-home" aria-label="Home">
+      <div class="forge">
+        <canvas id="embers" aria-hidden="true"></canvas>
+        <div class="forge-inner">
+          <div>
+            <h1 class="wordmark" id="wordmark">Ember</h1>
+            <div class="meta" id="forgeMeta">Minecraft 26.2 with Fabric</div>
+          </div>
+          <div class="actions">
+            <a class="btn btn-play btn-huge" data-play href="play.html"><svg><use href="#i-play"/></svg>Play</a>
+            <a class="btn btn-stone" id="dl" href="play.html" download><svg><use href="#i-down"/></svg>Download offline</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-grid">
+        <div style="display:grid;gap:20px">
+          <div class="panel">
+            <div class="panel-head"><h3 id="modsHead">Your mods</h3><button class="linkbtn" data-goto="mods">See all mods</button></div>
+            <div class="icon-row" id="homeIcons"></div>
+          </div>
+          <div class="panel" id="setupPanel">
+            <div class="panel-head"><h3>Get started</h3><button class="linkbtn" id="hideSetup">Hide</button></div>
             <div class="steps" id="steps"></div>
           </div>
-
-          <div class="section-title"><h2>Continue playing</h2></div>
-          <div class="card continue">
-            <div class="grass" id="bigGrass"></div>
-            <div class="info">
-              <h3><span id="instName">Ember 26.2</span> <span class="tag">Fabric</span></h3>
-              <div class="meta"><span id="instMeta">Minecraft 26.2</span><span id="instPlayed">Not played yet</span></div>
-              <div class="modicons" id="homeModIcons"></div>
-            </div>
-            <div class="actions">
-              <a class="btn btn-primary btn-lg" data-play href="play.html" style="justify-content:center"><svg width="16" height="16"><use href="#i-play"/></svg>Play</a>
-              <button class="btn btn-ghost" data-goto="mods" style="justify-content:center">See mods</button>
-            </div>
-          </div>
-
-          <footer class="credits"><ul id="credits"></ul>Not affiliated with Mojang or Microsoft.</footer>
         </div>
-
-        <div>
-          <div class="card streak">
-            <div style="display:flex;justify-content:space-between"><b>Streak</b><span class="muted" id="bestStreak">Best: 0 days</span></div>
-            <div class="big"><b id="streakNum">0</b><span class="muted">days</span></div>
-            <div class="days" id="streakDays"></div>
-            <div class="muted" style="font-size:12px;margin-top:12px" id="streakHint">Play to start a streak</div>
-            <div class="badges" id="badges"></div>
-          </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Streak</h3><span class="muted" id="best">Best 0 days</span></div>
+          <div style="display:flex;align-items:baseline;gap:10px"><span class="streak-num" id="streak">0</span><span class="muted" id="streakWord">days in a row</span></div>
+          <div class="week" id="week"></div>
+          <div class="muted" style="font-size:13px" id="streakHint">Play today to start a streak.</div>
         </div>
       </div>
+      <footer class="credits"><ul id="credits"></ul>Not affiliated with Mojang or Microsoft.</footer>
     </section>
 
     <!-- MODS -->
-    <section class="view" id="view-mods" hidden>
-      <div class="card feature">
-        <div class="logo"><svg width="34" height="34"><use href="#i-flame-g"/></svg></div>
-        <div style="flex:1;min-width:0">
-          <h3>Ember Core <span class="tag">Official</span></h3>
-          <div class="muted" style="font-size:13px;margin:2px 0 6px">by vzc1</div>
-          <div>Ember's built-in Fabric mod. More Ember features land here: HUD, zoom, visuals.</div>
-        </div>
+    <section class="view" id="view-mods" aria-label="Mods" hidden>
+      <div class="mods-top">
+        <div><span class="count" id="modCount">0</span></div>
+        <div><h2>Mods</h2><p class="sub" style="margin:0">Everything below is built into the game.</p></div>
       </div>
-      <div class="toolbar">
-        <label class="search"><svg width="15" height="15"><use href="#i-search"/></svg><input id="modSearch" type="search" placeholder="Search mods" aria-label="Search mods"></label>
-        <div id="chips" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+      <div class="filters">
+        <label class="search"><svg><use href="#i-search"/></svg><input id="q" type="search" placeholder="Search mods" aria-label="Search mods"></label>
+        <div id="chips" style="display:contents"></div>
       </div>
-      <div class="grid" id="modGrid"></div>
-      <p class="note">Mods are built into the game when Ember is built. "Included" mods are in the current build; the rest are being ported.</p>
+      <div class="mod-grid" id="modGrid"></div>
+      <div class="howto">
+        <b>Want another mod?</b> Add its Modrinth name to <code>fabric/mods.txt</code>, or drop the <code>.jar</code> into the <code>mods</code> folder of the ember-client repo. The next build bakes it in. Mods must be Fabric, Minecraft 26.2, and not need Kotlin.
+      </div>
     </section>
 
     <!-- WARDROBE -->
-    <section class="view" id="view-wardrobe" hidden>
+    <section class="view" id="view-wardrobe" aria-label="Wardrobe" hidden>
+      <h2>Wardrobe</h2>
+      <p class="sub">Preview your skin. Drag to turn, scroll to zoom.</p>
       <div class="wardrobe">
         <div class="stage">
-          <div><b style="font-size:18px">Wardrobe</b><div class="muted" style="font-size:13px">Drag to turn · scroll to zoom</div></div>
           <canvas id="skinCanvas"></canvas>
+          <div class="fallback" id="skinFallback" hidden>The 3D preview needs an internet connection.</div>
           <div class="anims" id="anims"></div>
         </div>
-        <div class="panel-side">
+        <div>
           <label class="drop" id="drop">
-            <svg width="22" height="22"><use href="#i-upload"/></svg>
+            <svg width="24" height="24"><use href="#i-up"/></svg>
             <div style="font-weight:700;margin-top:6px">Upload a skin</div>
-            <div class="muted" style="font-size:12px">Drop a 64×64 PNG here or click to browse</div>
+            <div class="muted" style="font-size:13px">Drop a 64×64 PNG or click to choose one</div>
             <input type="file" id="skinFile" accept="image/png" hidden>
           </label>
-          <div class="label">MODEL</div>
+          <div class="field-label">Arms</div>
           <div class="seg" id="modelSeg">
-            <button data-model="default" aria-pressed="true">Classic<small>4px arms</small></button>
-            <button data-model="slim" aria-pressed="false">Slim<small>3px arms</small></button>
+            <button data-model="default">Classic<small>4 pixels wide</small></button>
+            <button data-model="slim">Slim<small>3 pixels wide</small></button>
           </div>
-          <div class="label">SKIN FILE</div>
-          <button class="btn btn-ghost" id="saveSkin" style="width:100%;justify-content:center"><svg width="14" height="14"><use href="#i-download"/></svg>Save skin PNG</button>
-          <p class="note">Preview only. To wear it in game, save the PNG and load it from the skin settings inside Ember.</p>
+          <button class="btn btn-stone" id="saveSkin" style="width:100%;margin-top:20px"><svg><use href="#i-down"/></svg>Save skin PNG</button>
+          <p class="muted" style="font-size:13px">To wear it in game, load the saved PNG from the skin settings inside Ember.</p>
         </div>
       </div>
     </section>
 
     <!-- SERVERS -->
-    <section class="view" id="view-servers" hidden>
-      <div class="section-title" style="margin-top:0"><h2>Servers</h2><span class="muted" id="serverCount"></span></div>
-      <div class="grid" id="serverGrid"></div>
+    <section class="view" id="view-servers" aria-label="Servers" hidden>
+      <h2>Servers</h2>
+      <p class="sub">Copy an address, then add it in Multiplayer.</p>
+      <div class="mod-grid" id="serverGrid"></div>
     </section>
   </main>
 </div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/skinview3d@3.1.0/bundles/skinview3d.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skinview3d@3.1.0/bundles/skinview3d.bundle.js" defer></script>
 <script>
 (function () {
   "use strict";
   var S = window.SITE || {};
   S.mods = S.mods || []; S.servers = S.servers || []; S.credits = S.credits || [];
+  var mods = S.mods.map(function (m) { return Object.assign({ listed: true, icon: "", url: "", categories: [] }, m); });
   var $ = function (id) { return document.getElementById(id); };
   var store = {
     get: function (k, d) { try { var v = localStorage.getItem("ember." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem("ember." + k, JSON.stringify(v)); } catch (e) {} }
   };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function toast(msg) { var t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove("show"); }, 1800); }
+  var game = S.gameFile || "play.html";
 
   // ---------- branding ----------
   document.title = (S.fullName || "Ember Client") + " " + (S.version || "");
   $("brandName").textContent = S.name || "Ember";
   $("brandVer").textContent = S.version || "";
-  $("instName").textContent = (S.name || "Ember") + " " + (S.version || "");
-  $("sideInst").textContent = $("instName").textContent;
-  document.querySelectorAll("[data-play]").forEach(function (a) { a.href = S.gameFile || "play.html"; });
-  $("dlTop").href = S.gameFile || "play.html";
-  $("dlTop").setAttribute("download", (S.fullName || "Ember").replace(/\s+/g, "-") + "-" + S.version + ".html");
+  $("wordmark").textContent = S.name || "Ember";
+  document.querySelectorAll("[data-play]").forEach(function (a) { a.href = game; });
+  $("dl").href = game;
+  $("dl").setAttribute("download", (S.fullName || "Ember").replace(/\s+/g, "-") + "-" + (S.version || "") + ".html");
   S.credits.forEach(function (c) { var li = document.createElement("li"); li.textContent = c; $("credits").appendChild(li); });
 
-  // grass block icon (drawn, no game assets)
-  function grassSVG(size) {
-    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 32 32"><path d="M16 3l12 6.5-12 6.5L4 9.5z" fill="#6fbf4a"/><path d="M4 9.5l12 6.5v13L4 22.5z" fill="#8a5a36"/><path d="M28 9.5L16 16v13l12-6.5z" fill="#6e4528"/><path d="M4 9.5l12 6.5v3L4 12.5z" fill="#5aa43a"/><path d="M28 9.5L16 16v3l12-6.5z" fill="#4c8f30"/></svg>';
-  }
-  $("bigGrass").innerHTML = grassSVG(56);
-  document.querySelectorAll(".grassmini").forEach(function (e) { e.style.background = "none"; e.innerHTML = grassSVG(22); });
-
-  var catColor = { Performance: "#4ade80", Visuals: "#c084fc", HUD: "#60a5fa", PvP: "#f87171", Utility: "#fbbf24", Library: "#94a3b8" };
-  function modIcon(m, cls) {
-    var c = catColor[m.category] || "#ff8a4c";
-    return '<div class="mi ' + (cls || "") + '" style="background:linear-gradient(135deg,' + c + ',' + c + 'aa)">' + esc(m.name.charAt(0)) + '</div>';
-  }
-  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
-
-  // ---------- navigation ----------
-  var titles = { home: "Home", mods: "Mods", wardrobe: "Wardrobe", servers: "Servers" };
-  function show(view) {
-    Object.keys(titles).forEach(function (v) { $("view-" + v).hidden = v !== view; });
+  // ---------- views ----------
+  var views = ["home", "mods", "wardrobe", "servers"];
+  function show(v) {
+    if (views.indexOf(v) < 0) v = "home";
+    views.forEach(function (x) { $("view-" + x).hidden = x !== v; });
     document.querySelectorAll("nav.side button").forEach(function (b) {
-      if (b.dataset.view === view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+      if (b.dataset.view === v) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
-    $("viewTitle").textContent = titles[view];
-    if (view === "wardrobe") initSkin();
-    store.set("view", view);
-    if (location.hash !== "#" + view) history.replaceState(null, "", "#" + view);
+    if (v === "wardrobe") initSkin();
+    if (v === "mods") markStep("mods");
+    if (v === "servers") markStep("servers");
+    if (location.hash !== "#" + v) history.replaceState(null, "", "#" + v);
+    document.querySelector("main").scrollTop = 0;
   }
-  document.querySelectorAll("[data-view]").forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.view); }); });
+  document.querySelectorAll("[data-view]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); show(b.dataset.view); }); });
   document.querySelectorAll("[data-goto]").forEach(function (b) { b.addEventListener("click", function () { show(b.dataset.goto); }); });
 
-  // ---------- play tracking (streak + checklist) ----------
-  function dayKey(d) { return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
-  function recordPlay() {
-    var days = store.get("days", []); var k = dayKey(new Date());
-    if (days.indexOf(k) < 0) { days.push(k); store.set("days", days.slice(-400)); }
-    store.set("lastPlayed", Date.now());
-    var done = store.get("done", {}); done.play = true; store.set("done", done);
+  // ---------- icons ----------
+  function iconHTML(m, size) {
+    var letter = '<span class="letter">' + esc((m.name || "?").charAt(0)) + '</span>';
+    var img = m.icon ? '<img class="px" src="' + esc(m.icon) + '" alt="" loading="lazy">' : letter;
+    return '<div class="ic" style="width:' + size + 'px;height:' + size + 'px" data-letter="' + esc((m.name || "?").charAt(0)) + '">' + img + '</div>';
   }
-  document.querySelectorAll("[data-play]").forEach(function (a) { a.addEventListener("click", recordPlay); });
-
-  function streakInfo() {
-    var days = store.get("days", []), set = {}; days.forEach(function (d) { set[d] = 1; });
-    var cur = 0, d = new Date();
-    if (!set[dayKey(d)]) d.setDate(d.getDate() - 1); // today not played yet: count from yesterday
-    while (set[dayKey(d)]) { cur++; d.setDate(d.getDate() - 1); }
-    var best = Math.max(store.get("best", 0), cur); store.set("best", best);
-    return { cur: cur, best: best, set: set };
-  }
-  function renderStreak() {
-    var s = streakInfo();
-    $("streakNum").textContent = s.cur; $("topStreak").textContent = s.cur;
-    $("bestStreak").textContent = "Best: " + s.best + " day" + (s.best === 1 ? "" : "s");
-    var wrap = $("streakDays"); wrap.innerHTML = "";
-    var names = ["S", "M", "T", "W", "T", "F", "S"];
-    for (var i = 6; i >= 0; i--) {
-      var d = new Date(); d.setDate(d.getDate() - i);
-      var cell = document.createElement("div");
-      cell.innerHTML = '<div style="margin-bottom:4px">' + names[d.getDay()] + '</div><div class="day' + (s.set[dayKey(d)] ? " on" : "") + (i === 0 ? " today" : "") + '"><svg><use href="#i-flame"/></svg></div>';
-      wrap.appendChild(cell);
+  // Swap broken mod icons for their letter tile.
+  document.addEventListener("error", function (e) {
+    var t = e.target;
+    if (t.tagName === "IMG" && t.parentNode && t.parentNode.classList.contains("ic")) {
+      var s = document.createElement("span"); s.className = "letter"; s.textContent = t.parentNode.dataset.letter || "?"; t.replaceWith(s);
     }
-    $("streakHint").textContent = s.cur ? "Keep it going: play again tomorrow." : "Play to start a streak.";
-    var b = $("badges"); b.innerHTML = "";
-    [3, 7, 14, 30, 50, 100].forEach(function (n) { var e = document.createElement("span"); e.textContent = n; if (s.best >= n) e.className = "got"; b.appendChild(e); });
-    var last = store.get("lastPlayed", 0);
-    $("instPlayed").textContent = last ? "Last played " + new Date(last).toLocaleDateString() : "Not played yet";
-  }
-
-  var stepsDef = [
-    { id: "mods", label: "Browse the mods", go: "mods" },
-    { id: "skin", label: "Pick a skin", go: "wardrobe" },
-    { id: "servers", label: "Find a server", go: "servers" },
-    { id: "play", label: "Play a game" }
-  ];
-  function markStep(id) { var d = store.get("done", {}); if (!d[id]) { d[id] = true; store.set("done", d); renderSetup(); } }
-  function renderSetup() {
-    if (store.get("hideSetup", false)) { $("setupCard").hidden = true; return; }
-    var done = store.get("done", {}), n = 0, wrap = $("steps"); wrap.innerHTML = "";
-    stepsDef.forEach(function (st) {
-      var ok = !!done[st.id]; if (ok) n++;
-      var el = document.createElement(st.go ? "button" : "a");
-      el.className = "step" + (ok ? " done" : ""); el.style.cursor = "pointer"; el.style.textDecoration = "none"; el.style.color = "inherit";
-      el.innerHTML = '<span class="tick"></span>' + esc(st.label);
-      if (st.go) el.addEventListener("click", function () { show(st.go); });
-      else { el.href = S.gameFile || "play.html"; el.addEventListener("click", recordPlay); }
-      wrap.appendChild(el);
-    });
-    $("setupCount").textContent = n + " of " + stepsDef.length + " done";
-    $("setupBar").style.width = (n / stepsDef.length * 100) + "%";
-  }
-  $("hideSetup").addEventListener("click", function () { store.set("hideSetup", true); renderSetup(); });
+  }, true);
 
   // ---------- mods ----------
-  var included = S.mods.filter(function (m) { return m.status === "included"; });
-  $("instMeta").textContent = "Minecraft " + S.version + " · " + included.length + " mod" + (included.length === 1 ? "" : "s");
-  included.slice(0, 10).forEach(function (m) { $("homeModIcons").insertAdjacentHTML("beforeend", modIcon(m)); });
-  if (included.length > 10) $("homeModIcons").insertAdjacentHTML("beforeend", '<span class="muted" style="align-self:center">+' + (included.length - 10) + '</span>');
-
-  var labels = { included: "Included", next: "In progress", planned: "Planned" };
+  var catNames = { utility: "Utility", optimization: "Performance", decoration: "Visuals", library: "Library", "game-mechanics": "Gameplay",
+    equipment: "Gear", food: "Food", storage: "Storage", technology: "Tech", transportation: "Travel", adventure: "Adventure",
+    management: "Management", social: "Social", magic: "Magic", mobs: "Mobs", worldgen: "World", minigame: "Minigame", cursed: "Cursed", economy: "Economy" };
   var activeCat = "All";
-  var cats = ["All"].concat(Array.from(new Set(S.mods.map(function (m) { return m.category; }))));
-  cats.forEach(function (c) {
-    var b = document.createElement("button");
-    b.className = "chip"; b.setAttribute("aria-pressed", c === activeCat);
-    b.innerHTML = (c === "All" ? "" : '<i style="background:' + (catColor[c] || "#ff8a4c") + '"></i>') + esc(c);
-    b.addEventListener("click", function () {
-      activeCat = c;
-      Array.prototype.forEach.call($("chips").children, function (x) { x.setAttribute("aria-pressed", x === b); });
-      renderMods();
-    });
-    $("chips").appendChild(b);
-  });
-  function renderMods() {
-    var q = ($("modSearch").value || "").trim().toLowerCase();
-    var order = { included: 0, next: 1, planned: 2 };
-    var list = S.mods.filter(function (m) {
-      return (activeCat === "All" || m.category === activeCat) &&
-        (!q || (m.name + " " + m.author + " " + m.description).toLowerCase().indexOf(q) >= 0);
-    }).sort(function (a, b) { return (order[a.status] - order[b.status]) || a.name.localeCompare(b.name); });
-    var g = $("modGrid"); g.innerHTML = "";
-    if (!list.length) { g.innerHTML = '<div class="empty">No mods match that.</div>'; return; }
-    list.forEach(function (m) {
-      var st = m.status === "included" ? '<span class="status included"><svg width="12" height="12"><use href="#i-check"/></svg>Included</span>'
-        : '<span class="status ' + m.status + '">' + (labels[m.status] || m.status) + '</span>';
-      g.insertAdjacentHTML("beforeend",
-        '<div class="card mod ' + m.status + '">' + modIcon(m) +
-        '<div class="body"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><h3>' + esc(m.name) + '</h3>' + st + '</div>' +
-        '<div class="by">by ' + esc(m.author) + ' · ' + esc(m.category) + '</div><p>' + esc(m.description) + '</p></div></div>');
+  function catOf(m) { return (m.categories || []).map(function (c) { return catNames[c] || c; }); }
+  function renderChips() {
+    var set = {};
+    mods.forEach(function (m) { catOf(m).forEach(function (c) { set[c] = (set[c] || 0) + 1; }); });
+    var cats = ["All"].concat(Object.keys(set).sort(function (a, b) { return set[b] - set[a]; }).slice(0, 8));
+    var wrap = $("chips"); wrap.innerHTML = "";
+    cats.forEach(function (c) {
+      var b = document.createElement("button");
+      b.className = "chip"; b.textContent = c; b.setAttribute("aria-pressed", c === activeCat);
+      b.addEventListener("click", function () { activeCat = c; renderChips(); renderMods(); });
+      wrap.appendChild(b);
     });
   }
-  $("modSearch").addEventListener("input", renderMods);
-  $("globalSearch").addEventListener("input", function () {
-    $("modSearch").value = this.value; if ($("view-mods").hidden) show("mods"); renderMods();
-  });
+  function renderMods() {
+    var q = $("q").value.trim().toLowerCase();
+    var list = mods.filter(function (m) {
+      return (activeCat === "All" || catOf(m).indexOf(activeCat) >= 0) &&
+        (!q || (m.name + " " + (m.author || "") + " " + (m.description || "")).toLowerCase().indexOf(q) >= 0);
+    });
+    var g = $("modGrid"); g.innerHTML = "";
+    if (!list.length) { g.innerHTML = '<div class="empty">No mods match "' + esc(q) + '".</div>'; return; }
+    list.forEach(function (m) {
+      var tag = m.url ? "a" : "div";
+      var tags = catOf(m).slice(0, 3).map(function (c) { return '<span class="tag">' + esc(c) + '</span>'; }).join("");
+      if (m.listed === false) tags += '<span class="tag dep" title="Added because another mod needs it">Needed by another mod</span>';
+      g.insertAdjacentHTML("beforeend",
+        '<' + tag + ' class="mod"' + (m.url ? ' href="' + esc(m.url) + '" target="_blank" rel="noopener"' : "") + '>' +
+        iconHTML(m, 64) + '<div style="min-width:0"><h3>' + esc(m.name) + '</h3>' +
+        '<div class="by">' + (m.author ? "by " + esc(m.author) : "&nbsp;") + (m.version ? ", version " + esc(m.version) : "") + '</div>' +
+        '<p>' + esc(m.description) + '</p>' + (tags ? '<div class="tags">' + tags + '</div>' : "") + '</div></' + tag + '>');
+    });
+  }
+  function renderModSummary() {
+    var n = mods.length;
+    $("modCount").textContent = n;
+    $("modsHead").textContent = "Your mods (" + n + ")";
+    $("forgeMeta").textContent = "Minecraft " + (S.version || "") + " with Fabric and " + n + " mod" + (n === 1 ? "" : "s");
+    var row = $("homeIcons"); row.innerHTML = "";
+    mods.filter(function (m) { return m.listed !== false; }).slice(0, 14).forEach(function (m) {
+      row.insertAdjacentHTML("beforeend", '<div>' + iconHTML(m, 56) + '<span>' + esc(m.name) + '</span></div>');
+    });
+  }
+  $("q").addEventListener("input", renderMods);
   document.addEventListener("keydown", function (e) {
-    if (e.key === "/" && document.activeElement.tagName !== "INPUT") { e.preventDefault(); $("globalSearch").focus(); }
+    if (e.key === "/" && document.activeElement.tagName !== "INPUT") { e.preventDefault(); show("mods"); $("q").focus(); }
   });
+  // The build writes mods.json next to the site; use it when it's there.
+  if (location.protocol !== "file:") {
+    fetch("mods.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (list) {
+      if (Array.isArray(list) && list.length) { mods = list; renderChips(); renderMods(); renderModSummary(); }
+    }).catch(function () {});
+  }
+
+  // ---------- play tracking ----------
+  function dayKey(d) { return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+  function recordPlay() {
+    var days = store.get("days", []), k = dayKey(new Date());
+    if (days.indexOf(k) < 0) { days.push(k); store.set("days", days.slice(-400)); }
+    markStep("play");
+  }
+  document.querySelectorAll("[data-play]").forEach(function (a) { a.addEventListener("click", recordPlay); });
+  function renderStreak() {
+    var set = {}; store.get("days", []).forEach(function (d) { set[d] = 1; });
+    var cur = 0, d = new Date();
+    if (!set[dayKey(d)]) d.setDate(d.getDate() - 1);
+    while (set[dayKey(d)]) { cur++; d.setDate(d.getDate() - 1); }
+    var best = Math.max(store.get("best", 0), cur); store.set("best", best);
+    $("streak").textContent = cur;
+    $("streakWord").textContent = (cur === 1 ? "day" : "days") + " in a row";
+    $("best").textContent = "Best " + best + (best === 1 ? " day" : " days");
+    var names = ["S", "M", "T", "W", "T", "F", "S"], w = $("week"); w.innerHTML = "";
+    for (var i = 6; i >= 0; i--) {
+      var x = new Date(); x.setDate(x.getDate() - i);
+      w.insertAdjacentHTML("beforeend", '<div>' + names[x.getDay()] + '<div class="cell' + (set[dayKey(x)] ? " on" : "") + (i === 0 ? " today" : "") + '"><svg><use href="#flame"/></svg></div></div>');
+    }
+    $("streakHint").textContent = set[dayKey(new Date())] ? "You played today. Come back tomorrow to keep it going." : "Play today to " + (cur ? "keep your streak." : "start a streak.");
+  }
+
+  var steps = [
+    { id: "mods", label: "Look through your mods", go: "mods" },
+    { id: "skin", label: "Pick a skin", go: "wardrobe" },
+    { id: "servers", label: "Find a server", go: "servers" },
+    { id: "play", label: "Play your first game" }
+  ];
+  function markStep(id) { var d = store.get("done", {}); if (!d[id]) { d[id] = 1; store.set("done", d); renderSteps(); } }
+  function renderSteps() {
+    if (store.get("hideSetup", false)) { $("setupPanel").hidden = true; return; }
+    var done = store.get("done", {}), wrap = $("steps"); wrap.innerHTML = "";
+    steps.forEach(function (s) {
+      var el = document.createElement(s.go ? "button" : "a");
+      el.className = "step" + (done[s.id] ? " done" : "");
+      el.innerHTML = '<span class="box"></span>' + esc(s.label);
+      if (s.go) el.addEventListener("click", function () { show(s.go); });
+      else { el.href = game; el.style.color = "inherit"; el.addEventListener("click", recordPlay); }
+      wrap.appendChild(el);
+    });
+    if (steps.every(function (s) { return done[s.id]; })) $("setupPanel").hidden = true;
+  }
+  $("hideSetup").addEventListener("click", function () { store.set("hideSetup", true); renderSteps(); });
 
   // ---------- servers ----------
   function renderServers() {
     var g = $("serverGrid"); g.innerHTML = "";
-    $("serverCount").textContent = S.servers.length ? S.servers.length + " listed" : "";
-    if (!S.servers.length) {
-      g.innerHTML = '<div class="empty">No servers listed yet.<br><span style="font-size:12px">Add them in <code>site-config.js</code> under <code>servers</code>.</span></div>';
-      return;
-    }
+    if (!S.servers.length) { g.innerHTML = '<div class="empty">No servers yet. Add them in <code>site-config.js</code> under <code>servers</code>.</div>'; return; }
     S.servers.forEach(function (s, i) {
       g.insertAdjacentHTML("beforeend",
-        '<div class="card server"><div class="mi" style="background:linear-gradient(135deg,#ff6a2b,#ffb347)">' + esc(s.name.charAt(0)) + '</div>' +
-        '<div style="flex:1;min-width:0"><b>' + esc(s.name) + '</b><div><code>' + esc(s.address) + '</code></div>' +
-        (s.description ? '<div class="muted" style="font-size:12px">' + esc(s.description) + '</div>' : '') + '</div>' +
-        '<button class="chipbtn" data-copy="' + i + '"><svg width="14" height="14"><use href="#i-copy"/></svg>Copy</button></div>');
+        '<div class="mod server">' + iconHTML({ name: s.name, icon: s.icon || "" }, 56) +
+        '<div style="min-width:0"><h3>' + esc(s.name) + '</h3><code>' + esc(s.address) + '</code>' +
+        (s.description ? '<p style="margin-top:6px">' + esc(s.description) + '</p>' : "") +
+        '<div style="margin-top:10px"><button class="btn btn-stone" data-copy="' + i + '" style="padding:7px 12px"><svg><use href="#i-copy"/></svg>Copy address</button></div></div></div>');
     });
     g.querySelectorAll("[data-copy]").forEach(function (b) {
       b.addEventListener("click", function () {
         var a = S.servers[+b.dataset.copy].address;
-        var done = function () { toast("Address copied"); markStep("servers"); };
-        try { navigator.clipboard.writeText(a).then(done, function () { prompt("Copy the address:", a); }); } catch (e) { prompt("Copy the address:", a); }
+        var ok = function () { toast("Copied " + a); };
+        if (navigator.clipboard) navigator.clipboard.writeText(a).then(ok, function () { prompt("Copy this address:", a); });
+        else prompt("Copy this address:", a);
       });
     });
   }
-  document.querySelector('[data-view="servers"]').addEventListener("click", function () { markStep("servers"); });
-  document.querySelector('[data-view="mods"]').addEventListener("click", function () { markStep("mods"); });
 
   // ---------- wardrobe ----------
-  var viewer = null, skinData = store.get("skin", null), model = store.get("skinModel", "default");
+  var viewer = null, skin = store.get("skin", null), model = store.get("skinModel", "default");
   function placeholderSkin() {
-    // A plain grey figure generated in code, so no game textures are needed.
     var c = document.createElement("canvas"); c.width = 64; c.height = 64; var x = c.getContext("2d");
-    function box(px, py, w, h, d, col) {
-      x.fillStyle = col.top;  x.fillRect(px + d, py, w, d);
-      x.fillStyle = col.top;  x.fillRect(px + d + w, py, w, d);
-      x.fillStyle = col.side; x.fillRect(px, py + d, d, h);
-      x.fillStyle = col.front;x.fillRect(px + d, py + d, w, h);
-      x.fillStyle = col.side; x.fillRect(px + d + w, py + d, d, h);
-      x.fillStyle = col.side; x.fillRect(px + 2 * d + w, py + d, w, h);
+    function part(px, py, w, h, d, top, side, front) {
+      x.fillStyle = top; x.fillRect(px + d, py, 2 * w, d);
+      x.fillStyle = side; x.fillRect(px, py + d, d, h); x.fillRect(px + d + w, py + d, d, h); x.fillRect(px + 2 * d + w, py + d, w, h);
+      x.fillStyle = front; x.fillRect(px + d, py + d, w, h);
     }
-    var skin = { top: "#77727f", side: "#5c5865", front: "#6a6573" }, dark = { top: "#4c4855", side: "#3d3a45", front: "#45414e" };
-    box(0, 0, 8, 8, 8, skin);              // head
-    box(16, 16, 8, 12, 4, dark);           // body
-    box(40, 16, 4, 12, 4, skin);           // right arm
-    box(32, 48, 4, 12, 4, skin);           // left arm
-    box(0, 16, 4, 12, 4, dark);            // right leg
-    box(16, 48, 4, 12, 4, dark);           // left leg
-    x.fillStyle = "#26232b"; x.fillRect(9, 12, 2, 1); x.fillRect(13, 12, 2, 1); // eyes
+    part(0, 0, 8, 8, 8, "#c98a5e", "#b07650", "#d39468");
+    part(16, 16, 8, 12, 4, "#e2532a", "#b8380c", "#ff5a1f");
+    part(40, 16, 4, 12, 4, "#c98a5e", "#b07650", "#d39468");
+    part(32, 48, 4, 12, 4, "#c98a5e", "#b07650", "#d39468");
+    part(0, 16, 4, 12, 4, "#3b3348", "#2c2636", "#463d55");
+    part(16, 48, 4, 12, 4, "#3b3348", "#2c2636", "#463d55");
+    x.fillStyle = "#3a2416"; x.fillRect(8, 8, 8, 2);
+    x.fillStyle = "#ffffff"; x.fillRect(9, 12, 2, 1); x.fillRect(13, 12, 2, 1);
+    x.fillStyle = "#3fe0d0"; x.fillRect(10, 12, 1, 1); x.fillRect(14, 12, 1, 1);
     return c.toDataURL();
   }
   function initSkin() {
-    if (viewer || !window.skinview3d) { if (!window.skinview3d) $("anims").innerHTML = '<span class="muted">3D preview could not load.</span>'; return; }
+    if (viewer) return;
+    if (!window.skinview3d) {
+      $("skinFallback").hidden = false;
+      window.addEventListener("load", function () { if (window.skinview3d && !$("view-wardrobe").hidden) initSkin(); }, { once: true });
+      return;
+    }
+    $("skinFallback").hidden = true;
     var canvas = $("skinCanvas");
     viewer = new skinview3d.SkinViewer({ canvas: canvas, width: canvas.clientWidth || 600, height: canvas.clientHeight || 460 });
-    viewer.background = null; viewer.fov = 50; viewer.zoom = 0.85;
-    viewer.controls.enableZoom = true;
+    viewer.background = null; viewer.fov = 45; viewer.zoom = 0.8;
     loadSkin();
-    var anims = { Idle: skinview3d.IdleAnimation, Walk: skinview3d.WalkingAnimation, Run: skinview3d.RunningAnimation, Fly: skinview3d.FlyingAnimation };
+    var anims = { Idle: "IdleAnimation", Walk: "WalkingAnimation", Run: "RunningAnimation", Fly: "FlyingAnimation" };
     Object.keys(anims).forEach(function (n, i) {
       var b = document.createElement("button"); b.className = "chip"; b.textContent = n; b.setAttribute("aria-pressed", i === 0);
       b.addEventListener("click", function () {
-        viewer.animation = new anims[n]();
+        viewer.animation = new skinview3d[anims[n]]();
         Array.prototype.forEach.call($("anims").children, function (x) { x.setAttribute("aria-pressed", x === b); });
       });
       $("anims").appendChild(b);
     });
     viewer.animation = new skinview3d.IdleAnimation();
-    var ro = new ResizeObserver(function () { viewer.setSize(canvas.clientWidth, canvas.clientHeight); });
-    ro.observe(canvas);
+    new ResizeObserver(function () { viewer.setSize(canvas.clientWidth, canvas.clientHeight); }).observe(canvas);
   }
-  function loadSkin() { if (viewer) viewer.loadSkin(skinData || placeholderSkin(), { model: model }); }
+  function loadSkin() { if (viewer) viewer.loadSkin(skin || placeholderSkin(), { model: model }); }
   function useFile(f) {
-    if (!f || f.type !== "image/png") { toast("Pick a PNG skin"); return; }
+    if (!f || f.type !== "image/png") { toast("Choose a PNG skin file"); return; }
     var r = new FileReader();
     r.onload = function () {
       var img = new Image();
       img.onload = function () {
-        if (img.width !== 64 || (img.height !== 64 && img.height !== 32)) { toast("Skins are 64×64 PNGs"); return; }
-        skinData = r.result; store.set("skin", skinData); loadSkin(); toast("Skin loaded"); markStep("skin");
+        if (img.width !== 64 || (img.height !== 64 && img.height !== 32)) { toast("Skins are 64×64 pixels"); return; }
+        skin = r.result; store.set("skin", skin); loadSkin(); toast("Skin loaded"); markStep("skin");
       };
       img.src = r.result;
     };
@@ -586,14 +565,47 @@
       loadSkin();
     });
   });
-  $("saveSkin").addEventListener("click", function () {
-    var a = document.createElement("a"); a.href = skinData || placeholderSkin(); a.download = "ember-skin.png"; a.click();
-  });
+  $("saveSkin").addEventListener("click", function () { var a = document.createElement("a"); a.href = skin || placeholderSkin(); a.download = "ember-skin.png"; a.click(); });
+
+  // ---------- the forge: rising embers ----------
+  (function embers() {
+    var c = $("embers"), x = c.getContext("2d"), parts = [], w = 0, h = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
+    var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function size() { w = c.clientWidth; h = c.clientHeight; c.width = w * dpr; c.height = h * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    function spawn(anywhere) {
+      return { x: Math.random() * w, y: anywhere ? Math.random() * h : h - 30 + Math.random() * 20,
+        s: 2 + Math.floor(Math.random() * 3) * 2, vy: .3 + Math.random() * .9, vx: (Math.random() - .5) * .3,
+        life: 0, max: 220 + Math.random() * 260, hue: Math.random() };
+    }
+    function draw() {
+      x.clearRect(0, 0, w, h);
+      for (var i = 0; i < parts.length; i++) {
+        var p = parts[i], t = p.life / p.max, a = t < .1 ? t * 10 : 1 - t;
+        x.globalAlpha = Math.max(0, a);
+        x.fillStyle = p.hue < .6 ? "#ff5a1f" : p.hue < .9 ? "#ffb02e" : "#fff1c9";
+        x.fillRect(Math.round(p.x), Math.round(p.y), p.s, p.s);
+      }
+      x.globalAlpha = 1;
+    }
+    function step() {
+      if (!$("view-home").hidden && !document.hidden) {
+        while (parts.length < Math.min(120, w / 8)) parts.push(spawn(false));
+        for (var i = parts.length - 1; i >= 0; i--) {
+          var p = parts[i]; p.life++; p.y -= p.vy; p.x += p.vx + Math.sin((p.life + i) / 30) * .2;
+          if (p.life > p.max || p.y < -10) parts.splice(i, 1);
+        }
+        draw();
+      }
+      requestAnimationFrame(step);
+    }
+    size(); new ResizeObserver(size).observe(c);
+    if (still) { for (var i = 0; i < 70; i++) { var p = spawn(true); p.life = p.max * .4; parts.push(p); } draw(); return; }
+    requestAnimationFrame(step);
+  })();
 
   // ---------- start ----------
-  renderSetup(); renderStreak(); renderMods(); renderServers();
-  var start = (location.hash || "").slice(1);
-  show(titles[start] ? start : store.get("view", "home") in titles ? store.get("view", "home") : "home");
+  renderChips(); renderMods(); renderModSummary(); renderStreak(); renderSteps(); renderServers();
+  show((location.hash || "").slice(1) || "home");
 })();
 </script>
 </body>
