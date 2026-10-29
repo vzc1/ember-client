@@ -157,6 +157,16 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 							if (inMixinPackage(cn)) { mixins++; continue; } // mixin helper classes: resolved below if referenced
 							byte[] t = transform(launcher, cn, raw);
 							if (t != null) b = t;
+						} else if (kind == ClassKind.MIXIN_INTERFACE) {
+							// Accessor/invoker interfaces: Mixin writes their static method bodies
+							// when they load; shipped raw they throw "Untransformed @Accessor".
+							String cn = rel.substring(0, rel.length() - 6).replace('/', '.');
+							try {
+								byte[] t = mixin.transformClassBytes(cn, cn, raw);
+								if (t != null && !java.util.Arrays.equals(t, raw)) { b = t; accessorsFixed++; }
+							} catch (Throwable e) {
+								problems.add("accessor " + cn + ": " + describe(e));
+							}
 						}
 						collectSynthetic(b, synthetic);
 						write(classesOut.resolve(rel), b);
@@ -349,6 +359,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	}
 
 	/** Finds classes referenced by shipped code that are not shipped and not on the classpath, and asks Mixin for them. */
+	private int accessorsFixed;
+
 	private void resolveMissing(FabricLauncher launcher, Path classesOut) throws IOException {
 		ClassLoader cl = launcher.getTargetClassLoader();
 		Set<String> tried = new java.util.HashSet<>();
@@ -370,8 +382,18 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 					try { b = mixin.generateClass(MixinEnvironment.getCurrentEnvironment(), name); } catch (Throwable t) { /* not generated */ }
 				}
 				if (b == null && inMixinPackage(name)) {
+					byte[] raw = null;
 					try (java.io.InputStream in = cl.getResourceAsStream(internal + ".class")) {
-						if (in != null) b = in.readAllBytes(); // helper class inside a mixin package: ship as-is
+						if (in != null) raw = in.readAllBytes();
+					}
+					if (raw != null) {
+						// Accessor/invoker interfaces get their static method bodies from Mixin when
+						// loaded; untransformed they throw "Untransformed @Accessor". Run them through
+						// Mixin first, and ship plain helper classes as they are.
+						byte[] t = null;
+						try { t = mixin.transformClassBytes(name, name, raw); } catch (Throwable e) { /* not a loadable mixin */ }
+						b = (t != null && !java.util.Arrays.equals(t, raw)) ? t : raw;
+						if (b == t) accessorsFixed++;
 					}
 				}
 				if (b != null) { write(classesOut.resolve(internal + ".class"), b); generated++; found++; }
@@ -381,7 +403,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			}
 			if (found == 0) break;
 		}
-		log("classes generated or recovered for references: " + generated);
+		log("classes generated or recovered for references: " + generated + " (accessor interfaces filled in: " + accessorsFixed + ")");
 	}
 
 	/** Never used in the browser, or supplied by the browser build itself. */
