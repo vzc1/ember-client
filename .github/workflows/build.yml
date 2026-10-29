@@ -2,6 +2,11 @@ name: Build Ember Client
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "mods/**"
+      - "fabric/mods.txt"
 
 concurrency:
   group: build
