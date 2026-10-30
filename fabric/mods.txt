@@ -44,8 +44,7 @@ logical-zoom
 gamma-utils
 nicer-skies
 
-# Sodium (only its video settings screen; see disabled-mixins.txt)
-sodium
+# sodium  (off: it stops Fabric's own renderer from starting, which crashes on servers; its own start fails in the browser anyway)
 
 # More client mods (added Oct 30)
 # dynamic-fps  (off: its settings file and battery library need desktop Java)
