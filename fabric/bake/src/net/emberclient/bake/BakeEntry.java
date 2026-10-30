@@ -1000,6 +1000,14 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
 				if (mn.instructions == null) continue;
 				for (org.objectweb.asm.tree.AbstractInsnNode in : mn.instructions.toArray()) {
+					// HttpClient.Redirect / HttpClient.Version constants don't exist in the browser
+					// runtime; Ember's offline HttpClient ignores them, so pass null instead.
+					if (in instanceof org.objectweb.asm.tree.FieldInsnNode fi && fi.getOpcode() == Opcodes.GETSTATIC
+							&& (fi.owner.equals("java/net/http/HttpClient$Redirect") || fi.owner.equals("java/net/http/HttpClient$Version"))) {
+						mn.instructions.set(fi, new org.objectweb.asm.tree.InsnNode(Opcodes.ACONST_NULL));
+						count[0]++;
+						continue;
+					}
 					if (!(in instanceof org.objectweb.asm.tree.MethodInsnNode m)) continue;
 					// Class.forName("some.Class") only finds classes the browser build was told
 					// about. When the class exists, turn it into a plain class literal so it is

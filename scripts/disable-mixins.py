@@ -49,7 +49,8 @@ def target_rules(src, want):
     found = set()
     files = set(src.namelist())
     for name in files:
-        if "/" in name.strip("/") or not name.endswith(".json"):
+        # Mixin configs can sit in subfolders (e.g. mixins/common/x.mixins.json).
+        if not name.endswith(".json") or name.startswith("assets/") or name.startswith("data/"):
             continue
         try:
             cfg = json.loads(src.read(name))
