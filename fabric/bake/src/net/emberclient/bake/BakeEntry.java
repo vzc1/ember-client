@@ -411,6 +411,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		// Class names that appear as text in mod code: what Class.forName might be asked for.
 		Set<String> named = new java.util.HashSet<>();
 		Set<String> namedTails = new java.util.HashSet<>();
+		Set<String> words = new java.util.HashSet<>();   // plain words in mod code: method names getDeclaredMethod may ask for
 		for (String rel : modClassFiles) {
 			Path f = classesOut.resolve(rel);
 			if (!Files.exists(f)) continue;
@@ -422,7 +423,11 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 					}
 					@Override public org.objectweb.asm.MethodVisitor visitMethod(int a, String n, String d, String sg, String[] e) {
 						return new org.objectweb.asm.MethodVisitor(Opcodes.ASM9) {
-							@Override public void visitLdcInsn(Object v) { if (v instanceof String str && str.indexOf('.') > 0) named.add(str); }
+							@Override public void visitLdcInsn(Object v) {
+								if (v instanceof String str && str.indexOf('.') > 0) named.add(str);
+								if (v instanceof String str && str.length() > 1 && Character.isJavaIdentifierStart(str.charAt(0))
+										&& str.chars().allMatch(Character::isJavaIdentifierPart)) words.add(str);
+							}
 							// "pkg + \".ClassName\"" string concatenation: remember the ".ClassName" tail.
 							@Override public void visitInvokeDynamicInsn(String n, String d, org.objectweb.asm.Handle bsm, Object... args) {
 								for (Object a : args) {
@@ -457,6 +462,12 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			if (byName) {
 				sb.append("C\t").append(name).append('\n');
 				classes++;
+				// Classes looked up by name are usually then created: keep their constructors.
+				for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+					if (!mn.name.equals("<init>") && !words.contains(mn.name)) continue;
+					sb.append("M\t").append(name).append('\t').append(mn.name).append(mn.desc).append('\n');
+					methods++;
+				}
 			}
 			nodes.put(cn.name, cn);
 		}
@@ -737,6 +748,9 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	 */
 	private static final List<String> SAFE_METHODS = List.of(
 			"me/shedaniel/autoconfig/ConfigManager.save",
+			// AppleSkin reads/writes its config with Jankson; if that trips, keep the defaults.
+			"squeek/appleskin/ModConfig.load",
+			"squeek/appleskin/ModConfig.save",
 			"com/terraformersmc/modmenu/config/ModMenuConfigManager.save",
 			// Mouse Tweaks runs on every mouse event; if it trips, let the click through instead of crashing.
 			"yalter/mousetweaks/Main.onMouseClicked",

@@ -74,8 +74,15 @@ public final class EmberFabric {
 		}
 	}
 
+	private static final java.util.Set<String> LIBRARIES = java.util.Set.of(
+			"cloth-config", "cloth-config2", "cloth-basic-math", "iceberg", "prickle", "placeholder-api",
+			"supermartijn642configlib", "architectury", "yacl", "owo", "modmenu");
+
 	private static void markFailed(String modId, Throwable t) {
 		if (modId == null || modId.startsWith("fabric") || modId.equals("minecraft") || modId.equals("java")) return;
+		// Libraries other mods build on stay on even if their own startup code trips
+		// (cloth-config's only startup code registers an example config).
+		if (LIBRARIES.contains(modId)) { log(modId + " had a startup error but stays on (other mods need it): " + t); return; }
 		if (failed.add(modId)) log(modId + " failed to start and is switched off for this session (" + t + ")");
 	}
 
