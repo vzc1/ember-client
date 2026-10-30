@@ -1,0 +1,30 @@
+[standalone-teavm] requestedOptimization=FULL effectiveOptimization=FULL dependencyAnalysis=precise strict=true obfuscated=false
+INFO: Running TeaVM
+[ember] reflection list: 26 classes, 2009 fields
+[standalone-teavm] phase=DEPENDENCY_ANALYSIS workItems=0
+EAGLER_WASMGC_STUB: com.twelvemonkeys.imageio.spi.ImageReaderSpiBase -> MISSING superclass javax.imageio.spi.ImageReaderSpi (submitting synthetic class)
+EAGLER_WASMGC_STUB: com.twelvemonkeys.imageio.ImageReaderBase -> MISSING superclass javax.imageio.ImageReader (submitting synthetic class)
+EAGLER_UNSUPPORTED_STRIP java.util.Date.toString (removed @UnsupportedOn)
+EAGLER_WASMGC_STUB: squeek.appleskin.client.REITooltipPlugin -> MISSING interface me.shedaniel.rei.api.client.plugins.REIClientPlugin (submitting synthetic interface)
+[standalone-teavm] progress=8941/0
+EAGLER_WASMGC_STUB: com.viaversion.viafabricplus.protocoltranslator.impl.provider.vialegacy.ViaFabricPlusClassicMPPassProvider -> MISSING superclass net.raphimc.vialegacy.protocol.classic.c0_28_30toa1_0_15.provider.ClassicMpPassProvider (submitting synthetic class)
+EAGLER_WASMGC_STUB: me.cominixo.betterf3.libs.nightconfig.core.file.WriteAsyncFileConfig$WriteCompletedHandler -> MISSING interface java.nio.channels.CompletionHandler (submitting synthetic interface)
+EAGLER_WASMGC_STUB: com.viaversion.viafabricplus.protocoltranslator.impl.platform.ViaFabricPlusViaLegacyPlatform -> MISSING superclass net.raphimc.vialegacy.ViaLegacyPlatformImpl (submitting synthetic class)
+Exception in thread "main" org.teavm.tooling.builder.BuildException: java.lang.OutOfMemoryError: Java heap space
+	at org.teavm.tooling.builder.InProcessBuildStrategy.build(InProcessBuildStrategy.java:331)
+	at StandaloneTeaVMLinker.main(StandaloneTeaVMLinker.java:89)
+Caused by: java.lang.OutOfMemoryError: Java heap space
+	at org.teavm.hppc.CompactIntHashSet.ensureSparseCapacity(CompactIntHashSet.java:432)
+	at org.teavm.hppc.CompactIntHashSet.ensureCapacity(CompactIntHashSet.java:290)
+	at org.teavm.dependency.DependencyAnalyzer.schedulePropagation(DependencyAnalyzer.java:363)
+	at org.teavm.dependency.DependencyNode.scheduleMultipleTypes(DependencyNode.java:177)
+	at org.teavm.dependency.DependencyNode.propagate(DependencyNode.java:132)
+	at org.teavm.dependency.Transition.propagate(Transition.java:62)
+	at org.teavm.dependency.Transition.consume(Transition.java:155)
+	at org.teavm.dependency.DependencyAnalyzer.processNodeToNodeTransitionQueue(DependencyAnalyzer.java:700)
+	at org.teavm.dependency.DependencyAnalyzer.processQueue(DependencyAnalyzer.java:665)
+	at org.teavm.dependency.DependencyAnalyzer.processDependencies(DependencyAnalyzer.java:713)
+	at org.teavm.vm.TeaVM.build(TeaVM.java:427)
+	at org.teavm.tooling.TeaVMTool.generate(TeaVMTool.java:540)
+	at org.teavm.tooling.builder.InProcessBuildStrategy.build(InProcessBuildStrategy.java:328)
+	... 1 more
