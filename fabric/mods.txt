@@ -46,3 +46,14 @@ nicer-skies
 
 # Sodium (only its video settings screen; see disabled-mixins.txt)
 sodium
+
+# More client mods (added Oct 30)
+dynamic-fps
+no-chat-reports
+xaeros-minimap
+waveycapes
+fallingleaves
+eating-animation
+smooth-swapping
+auto-reconnect
+viafabricplus
