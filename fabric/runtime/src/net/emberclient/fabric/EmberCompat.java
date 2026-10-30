@@ -63,6 +63,20 @@ public final class EmberCompat {
 		@Override public boolean awaitTermination(long t, TimeUnit u) { return true; }
 	}
 
+	/** ServiceLoader.stream() (Java 9+) for the browser: the loaded services, each wrapped as a provider. */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public static java.util.stream.Stream serviceStream(java.util.ServiceLoader loader) {
+		java.util.List<net.emberclient.compat.ServiceProvider> out = new java.util.ArrayList<>();
+		for (Object service : loader) {
+			final Object s = service;
+			out.add(new net.emberclient.compat.ServiceProvider() {
+				@Override public Class type() { return s.getClass(); }
+				@Override public Object get() { return s; }
+			});
+		}
+		return out.stream();
+	}
+
 	// ---- java.net.http: mods (mostly update checkers) build an HttpClient at startup. The browser
 	// runtime has none, so hand them one whose requests simply fail like an offline network.
 

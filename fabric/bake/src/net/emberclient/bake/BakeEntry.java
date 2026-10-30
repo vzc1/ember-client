@@ -900,6 +900,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 
 	/** owner.name+desc of a missing library method -> static replacement (receiver becomes the first argument). */
 	private static final Map<String, String[]> POLYFILLS = Map.ofEntries(
+			Map.entry("java/util/ServiceLoader.stream()Ljava/util/stream/Stream;", new String[] {"serviceStream", "(Ljava/util/ServiceLoader;)Ljava/util/stream/Stream;"}),
 			Map.entry("java/net/http/HttpClient.newHttpClient()Ljava/net/http/HttpClient;", new String[] {"newHttpClient", "()Ljava/net/http/HttpClient;"}),
 			Map.entry("java/net/http/HttpClient.newBuilder()Ljava/net/http/HttpClient$Builder;", new String[] {"newHttpClientBuilder", "()Ljava/net/http/HttpClient$Builder;"}),
 			Map.entry("java/lang/Class.getPackageName()Ljava/lang/String;", new String[] {"getPackageName", "(Ljava/lang/Class;)Ljava/lang/String;"}),
@@ -924,7 +925,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	private static final Map<String, String> CLASS_SWAPS = Map.of(
 			"java/lang/ScopedValue", "net/emberclient/compat/ScopedValue",
 			"java/lang/ScopedValue$Carrier", "net/emberclient/compat/ScopedValue$Carrier",
-			"java/lang/ScopedValue$CallableOp", "net/emberclient/compat/ScopedValue$CallableOp");
+			"java/lang/ScopedValue$CallableOp", "net/emberclient/compat/ScopedValue$CallableOp",
+			"java/util/ServiceLoader$Provider", "net/emberclient/compat/ServiceProvider");
 
 	private static byte[] swapClasses(byte[] b) {
 		String s = new String(b, StandardCharsets.ISO_8859_1);
@@ -994,7 +996,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
 					&& !s.contains("findFirst") && !s.contains("delayedExecutor") && !s.contains("PerTaskExecutor")
 					&& !s.contains("forName") && !s.contains("createDirectories") && !s.contains("createIcon")
-					&& !s.contains("java/net/http/HttpClient")) return null;
+					&& !s.contains("java/net/http/HttpClient") && !s.contains("java/util/ServiceLoader")) return null;
 			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
