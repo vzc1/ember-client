@@ -92,3 +92,6 @@ sodium-common.mixins.json:workarounds.event_loop.RenderSystemMixin
 sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin
 sodium-fabric.mixins.json:*
 sodium-frapi.mixins.json:*
+
+# No Chat Reports hides the telemetry button through OptionsScreen.TELEMETRY, which Eaglercraft removed.
+@nochatreports:net.minecraft.client.gui.layouts.GridLayout$RowHelper

@@ -800,6 +800,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			"me/shedaniel/autoconfig/ConfigManager.save",
 			// AppleSkin reads/writes its config with Jankson; if that trips, keep the defaults.
 			"squeek/appleskin/ModConfig.load",
+			// AppleSkin's Cloth Config screen setup; without it the mod still works with default settings.
+			"squeek/appleskin/gui/AutoConfigIntegration.init",
 			"squeek/appleskin/ModConfig.save",
 			"com/terraformersmc/modmenu/config/ModMenuConfigManager.save",
 			// Mouse Tweaks runs on every mouse event; if it trips, let the click through instead of crashing.
@@ -897,17 +899,19 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	}
 
 	/** owner.name+desc of a missing library method -> static replacement (receiver becomes the first argument). */
-	private static final Map<String, String[]> POLYFILLS = Map.of(
-			"java/lang/Class.getPackageName()Ljava/lang/String;", new String[] {"getPackageName", "(Ljava/lang/Class;)Ljava/lang/String;"},
-			"java/lang/Class.componentType()Ljava/lang/Class;", new String[] {"componentType", "(Ljava/lang/Class;)Ljava/lang/Class;"},
-			"java/util/stream/Stream.ofNullable(Ljava/lang/Object;)Ljava/util/stream/Stream;", new String[] {"streamOfNullable", "(Ljava/lang/Object;)Ljava/util/stream/Stream;"},
-			"java/util/ServiceLoader.findFirst()Ljava/util/Optional;", new String[] {"serviceFindFirst", "(Ljava/util/ServiceLoader;)Ljava/util/Optional;"},
-			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;"},
-			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"},
-			"java/util/concurrent/Executors.newThreadPerTaskExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;", new String[] {"newThreadPerTaskExecutor", "(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;"},
-			"java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"},
-			"java/nio/file/Files.createDirectories(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;", new String[] {"createDirectories", "(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;"},
-			"com/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler.createIcon(Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", new String[] {"createIcon", "(Lcom/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler;Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", "net/emberclient/fabric/EmberModIcons"});
+	private static final Map<String, String[]> POLYFILLS = Map.ofEntries(
+			Map.entry("java/net/http/HttpClient.newHttpClient()Ljava/net/http/HttpClient;", new String[] {"newHttpClient", "()Ljava/net/http/HttpClient;"}),
+			Map.entry("java/net/http/HttpClient.newBuilder()Ljava/net/http/HttpClient$Builder;", new String[] {"newHttpClientBuilder", "()Ljava/net/http/HttpClient$Builder;"}),
+			Map.entry("java/lang/Class.getPackageName()Ljava/lang/String;", new String[] {"getPackageName", "(Ljava/lang/Class;)Ljava/lang/String;"}),
+			Map.entry("java/lang/Class.componentType()Ljava/lang/Class;", new String[] {"componentType", "(Ljava/lang/Class;)Ljava/lang/Class;"}),
+			Map.entry("java/util/stream/Stream.ofNullable(Ljava/lang/Object;)Ljava/util/stream/Stream;", new String[] {"streamOfNullable", "(Ljava/lang/Object;)Ljava/util/stream/Stream;"}),
+			Map.entry("java/util/ServiceLoader.findFirst()Ljava/util/Optional;", new String[] {"serviceFindFirst", "(Ljava/util/ServiceLoader;)Ljava/util/Optional;"}),
+			Map.entry("java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;"}),
+			Map.entry("java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"}),
+			Map.entry("java/util/concurrent/Executors.newThreadPerTaskExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;", new String[] {"newThreadPerTaskExecutor", "(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;"}),
+			Map.entry("java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"}),
+			Map.entry("java/nio/file/Files.createDirectories(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;", new String[] {"createDirectories", "(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;"}),
+			Map.entry("com/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler.createIcon(Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", new String[] {"createIcon", "(Lcom/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler;Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", "net/emberclient/fabric/EmberModIcons"}));
 
 	private static boolean classExists(String name) {
 		String res = name.replace('.', '/') + ".class";
@@ -989,7 +993,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			String s = new String(b, StandardCharsets.ISO_8859_1);
 			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
 					&& !s.contains("findFirst") && !s.contains("delayedExecutor") && !s.contains("PerTaskExecutor")
-					&& !s.contains("forName") && !s.contains("createDirectories") && !s.contains("createIcon")) return null;
+					&& !s.contains("forName") && !s.contains("createDirectories") && !s.contains("createIcon")
+					&& !s.contains("java/net/http/HttpClient")) return null;
 			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {

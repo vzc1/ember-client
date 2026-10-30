@@ -48,7 +48,7 @@ nicer-skies
 sodium
 
 # More client mods (added Oct 30)
-dynamic-fps
+# dynamic-fps  (off: its settings file and battery library need desktop Java)
 no-chat-reports
 # xaeros-minimap  (off: too big for the browser compiler; it ran out of memory)
 waveycapes
