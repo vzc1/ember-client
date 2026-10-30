@@ -695,14 +695,25 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			"$fabric-screen-api-v1$beforeLoadingScreenTick",
 			"$fabric-screen-api-v1$afterLoadingScreenTick");
 
+	/**
+	 * Whole methods (class.method) that should give up quietly: saving a mod's config
+	 * file. In the browser some config writers hit reflection limits; the mod then
+	 * keeps its default settings instead of failing to start.
+	 */
+	private static final List<String> SAFE_METHODS = List.of(
+			"me/shedaniel/autoconfig/ConfigManager.save",
+			"com/terraformersmc/modmenu/config/ModMenuConfigManager.save");
+
 	private byte[] safeHandlers(byte[] b, int[] count) {
 		String s = new String(b, StandardCharsets.ISO_8859_1);
-		if (SAFE_HANDLERS.stream().noneMatch(s::contains)) return null;
+		boolean anyMethod = SAFE_METHODS.stream().anyMatch(m -> s.contains(m.substring(0, m.indexOf('.'))));
+		if (SAFE_HANDLERS.stream().noneMatch(s::contains) && !anyMethod) return null;
 		try {
 			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
-				if (SAFE_HANDLERS.stream().noneMatch(mn.name::endsWith) || !mn.desc.endsWith(")V")) continue;
+				boolean wanted = SAFE_HANDLERS.stream().anyMatch(mn.name::endsWith) || SAFE_METHODS.contains(cn.name + "." + mn.name);
+				if (!wanted || !mn.desc.endsWith(")V")) continue;
 				if (mn.instructions.size() == 0) continue;
 				org.objectweb.asm.tree.LabelNode start = new org.objectweb.asm.tree.LabelNode();
 				org.objectweb.asm.tree.LabelNode end = new org.objectweb.asm.tree.LabelNode();

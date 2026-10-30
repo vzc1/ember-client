@@ -60,7 +60,15 @@ public final class EmberFabric {
 			disabled = set;
 			if (!set.isEmpty()) log("switched off: " + set);
 		}
-		return disabled.contains(modId);
+		return disabled.contains(modId) || failed.contains(modId);
+	}
+
+	/** Mods whose startup threw: their hooks are switched off so they can't crash the game later. */
+	private static final java.util.Set<String> failed = new java.util.HashSet<>();
+
+	private static void markFailed(String modId, Throwable t) {
+		if (modId == null || modId.startsWith("fabric") || modId.equals("minecraft") || modId.equals("java")) return;
+		if (failed.add(modId)) log(modId + " failed to start and is switched off for this session (" + t + ")");
 	}
 
 	private static Map<String, EmberModContainer> byId;
@@ -141,6 +149,7 @@ public final class EmberFabric {
 			} catch (Throwable t) {
 				log("entrypoint '" + key + "' of " + c.getProvider().getMetadata().getId() + " failed: " + t);
 				t.printStackTrace();
+				markFailed(c.getProvider().getMetadata().getId(), t);
 			}
 		}
 	}
@@ -152,6 +161,7 @@ public final class EmberFabric {
 			} catch (Throwable t) {
 				log("could not create entrypoint " + EmberGenerated.ENTRY_KEYS[i] + " of " + EmberGenerated.ENTRY_MODS[i] + ": " + t);
 				t.printStackTrace();
+				markFailed(EmberGenerated.ENTRY_MODS[i], t);
 			}
 		}
 		return instances[i];
