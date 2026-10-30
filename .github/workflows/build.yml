@@ -101,6 +101,31 @@ jobs:
             ${{ runner.temp }}/ws/target_teavm_wasm_gc_mesh/build/generated/teavm/wasm-gc
           key: workers-v1-${{ hashFiles('scripts/fetch-inputs.sh', 'scripts/create-project.sh', 'fabric/tools/**', 'scripts/fabric-bake.sh') }}
 
+      - name: Copy the game to your PC's Documents folder (home builds)
+        if: always() && inputs.runner == 'home'
+        run: |
+          for d in /mnt/c/Users/*/Documents/Eagler262; do
+            [ -d "$d" ] || continue
+            mkdir -p "$d/builds"
+            cp -v "$GITHUB_WORKSPACE"/out/*.html "$d/builds/" || true
+            cp -v "$RUNNER_TEMP/fabric/mods.json" "$d/builds/" || true
+          done
+
+      - name: Publish result and logs as a draft release
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          cd "$RUNNER_TEMP"
+          mkdir -p logs
+          find ws -name '*.log' -newer inputs/setup.jar -size -20M -exec cp --parents {} logs/ \; 2>/dev/null || true
+          cp fabric/bake.log fabric/baked/bake-report.txt fabric/disabled-mixins.txt logs/ 2>/dev/null || true
+          (cd logs && zip -q -r ../logs.zip .) || true
+          TAG="build-latest"; [ "${{ github.ref_name }}" != "main" ] && TAG="build-${{ github.ref_name }}"; [ "${{ inputs.runner }}" = "home" ] && TAG="$TAG-home"
+          bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "$TAG" "Build $TAG" \
+            "$RUNNER_TEMP/logs.zip" "$RUNNER_TEMP/fabric/mods.json" "$GITHUB_WORKSPACE"/out/*.html 2>&1 | tee "$RUNNER_TEMP/logs/publish.log"
+
       - name: Push logs to the ci-logs branch
         if: always()
         run: |
@@ -118,21 +143,6 @@ jobs:
           git add -A && git commit -q -m "Logs for run ${{ github.run_id }}"
           B="ci-logs"; [ "${{ github.ref_name }}" != "main" ] && B="ci-logs-${{ github.ref_name }}"; [ "${{ inputs.runner }}" = "home" ] && B="$B-home"
           git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "HEAD:refs/heads/$B"
-
-      - name: Publish result and logs as a draft release
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -uo pipefail
-          cd "$RUNNER_TEMP"
-          mkdir -p logs
-          find ws -name '*.log' -newer inputs/setup.jar -size -20M -exec cp --parents {} logs/ \; 2>/dev/null || true
-          cp fabric/bake.log fabric/baked/bake-report.txt fabric/disabled-mixins.txt logs/ 2>/dev/null || true
-          (cd logs && zip -q -r ../logs.zip .) || true
-          TAG="build-latest"; [ "${{ github.ref_name }}" != "main" ] && TAG="build-${{ github.ref_name }}"; [ "${{ inputs.runner }}" = "home" ] && TAG="$TAG-home"
-          bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "$TAG" "Build $TAG" \
-            "$RUNNER_TEMP/logs.zip" "$RUNNER_TEMP/fabric/mods.json" "$GITHUB_WORKSPACE"/out/*.html
 
       # Backup copy of the game, in case the release upload fails.
       - name: Keep the game as a workflow file
