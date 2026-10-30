@@ -62,22 +62,41 @@ public final class EmberReflectionSupplier implements ReflectionSupplier {
 
 	@Override
 	public Collection<String> getAccessibleFields(ReflectionContext context, String className) {
+		if (context.getClassSource().get(className) == null) return Collections.emptyList();
 		return FIELDS.getOrDefault(className, Collections.emptyList());
 	}
 
 	@Override
 	public Collection<MethodDescriptor> getAccessibleMethods(ReflectionContext context, String className) {
-		return METHODS.getOrDefault(className, Collections.emptyList());
+		List<MethodDescriptor> all = METHODS.get(className);
+		if (all == null || context.getClassSource().get(className) == null) return Collections.emptyList();
+		// Leave out methods that mention classes missing from the build (e.g. a mod's optional
+		// integrations): the compiler's reflection support can't handle those.
+		List<MethodDescriptor> ok = new ArrayList<>();
+		for (MethodDescriptor m : all) {
+			boolean present = typePresent(context, m.getResultType());
+			for (org.teavm.model.ValueType t : m.getParameterTypes()) present &= typePresent(context, t);
+			if (present) ok.add(m);
+		}
+		return ok;
+	}
+
+	private static boolean typePresent(ReflectionContext context, org.teavm.model.ValueType t) {
+		while (t instanceof org.teavm.model.ValueType.Array a) t = a.getItemType();
+		if (t instanceof org.teavm.model.ValueType.Object o) return context.getClassSource().get(o.getClassName()) != null;
+		return true;
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
 	public Collection<String> getClassesFoundByName(ReflectionContext context) {
-		return CLASSES;
+		List<String> ok = new ArrayList<>();
+		for (String c : CLASSES) if (context.getClassSource().get(c) != null) ok.add(c);
+		return ok;
 	}
 
 	@Override
 	public boolean isClassFoundByName(ReflectionContext context, String className) {
-		return CLASSES.contains(className);
+		return CLASSES.contains(className) && context.getClassSource().get(className) != null;
 	}
 }
