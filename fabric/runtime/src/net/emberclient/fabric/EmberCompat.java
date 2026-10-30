@@ -63,6 +63,58 @@ public final class EmberCompat {
 		@Override public boolean awaitTermination(long t, TimeUnit u) { return true; }
 	}
 
+	// ---- java.net.http: mods (mostly update checkers) build an HttpClient at startup. The browser
+	// runtime has none, so hand them one whose requests simply fail like an offline network.
+
+	public static java.net.http.HttpClient newHttpClient() {
+		return new OfflineHttpClient();
+	}
+
+	public static java.net.http.HttpClient.Builder newHttpClientBuilder() {
+		return new OfflineHttpBuilder();
+	}
+
+	private static java.io.IOException offline() {
+		return new java.io.IOException("HTTP requests from mods are not available in the browser");
+	}
+
+	private static final class OfflineHttpBuilder implements java.net.http.HttpClient.Builder {
+		@Override public java.net.http.HttpClient.Builder cookieHandler(java.net.CookieHandler h) { return this; }
+		@Override public java.net.http.HttpClient.Builder connectTimeout(java.time.Duration d) { return this; }
+		@Override public java.net.http.HttpClient.Builder sslContext(javax.net.ssl.SSLContext c) { return this; }
+		@Override public java.net.http.HttpClient.Builder sslParameters(javax.net.ssl.SSLParameters p) { return this; }
+		@Override public java.net.http.HttpClient.Builder executor(Executor e) { return this; }
+		@Override public java.net.http.HttpClient.Builder followRedirects(java.net.http.HttpClient.Redirect r) { return this; }
+		@Override public java.net.http.HttpClient.Builder version(java.net.http.HttpClient.Version v) { return this; }
+		@Override public java.net.http.HttpClient.Builder priority(int p) { return this; }
+		@Override public java.net.http.HttpClient.Builder proxy(java.net.ProxySelector p) { return this; }
+		@Override public java.net.http.HttpClient.Builder authenticator(java.net.Authenticator a) { return this; }
+		@Override public java.net.http.HttpClient build() { return new OfflineHttpClient(); }
+	}
+
+	private static final class OfflineHttpClient extends java.net.http.HttpClient {
+		@Override public java.util.Optional<java.net.CookieHandler> cookieHandler() { return java.util.Optional.empty(); }
+		@Override public java.util.Optional<java.time.Duration> connectTimeout() { return java.util.Optional.empty(); }
+		@Override public Redirect followRedirects() { return Redirect.NEVER; }
+		@Override public java.util.Optional<java.net.ProxySelector> proxy() { return java.util.Optional.empty(); }
+		@Override public javax.net.ssl.SSLContext sslContext() { return null; }
+		@Override public javax.net.ssl.SSLParameters sslParameters() { return null; }
+		@Override public java.util.Optional<java.net.Authenticator> authenticator() { return java.util.Optional.empty(); }
+		@Override public Version version() { return Version.HTTP_1_1; }
+		@Override public java.util.Optional<Executor> executor() { return java.util.Optional.empty(); }
+		@Override public <T> java.net.http.HttpResponse<T> send(java.net.http.HttpRequest r, java.net.http.HttpResponse.BodyHandler<T> h) throws java.io.IOException {
+			throw offline();
+		}
+		@Override public <T> java.util.concurrent.CompletableFuture<java.net.http.HttpResponse<T>> sendAsync(java.net.http.HttpRequest r, java.net.http.HttpResponse.BodyHandler<T> h) {
+			java.util.concurrent.CompletableFuture<java.net.http.HttpResponse<T>> f = new java.util.concurrent.CompletableFuture<>();
+			f.completeExceptionally(offline());
+			return f;
+		}
+		@Override public <T> java.util.concurrent.CompletableFuture<java.net.http.HttpResponse<T>> sendAsync(java.net.http.HttpRequest r, java.net.http.HttpResponse.BodyHandler<T> h, java.net.http.HttpResponse.PushPromiseHandler<T> p) {
+			return sendAsync(r, h);
+		}
+	}
+
 	/** The browser file system reports a folder that already exists as an error; Java does not. */
 	public static java.nio.file.Path createDirectories(java.nio.file.Path dir, java.nio.file.attribute.FileAttribute<?>... attrs) throws java.io.IOException {
 		if (dir == null) return null;

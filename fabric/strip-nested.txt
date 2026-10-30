@@ -1,0 +1,8 @@
+# Bundled libraries to drop from big mods (mod jar name prefix : bundled jar name part).
+# ViaFabricPlus: only ViaVersion + ViaBackwards are needed to join 1.21.x servers.
+# Its support for very old (1.8 and older), April Fools and Bedrock versions is too big for the browser build.
+ViaFabricPlus:vialegacy
+ViaFabricPlus:viarewind
+ViaFabricPlus:viaaprilfools
+ViaFabricPlus:viabedrock
+ViaFabricPlus:viaaprilfools

@@ -278,6 +278,24 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 		log("library calls rerouted to browser stand-ins: " + rerouted);
 
+		// 4d. Native code (desktop .dll/.so libraries) can't run in a browser. Mod methods
+		//     declared native become ones that throw, so the mod's own error handling kicks in.
+		int natives = 0;
+		List<Path> nativeCandidates;
+		try (Stream<Path> st = Files.walk(classesOut)) {
+			nativeCandidates = st.filter(p -> p.toString().endsWith(".class")).filter(p -> {
+				String r = classesOut.relativize(p).toString().replace('\\', '/');
+				return !(r.startsWith("net/minecraft/") || r.startsWith("com/mojang/") || r.startsWith("net/lax1dude/")
+						|| r.startsWith("org/teavm/") || r.startsWith("net/emberclient/"));
+			}).toList();
+		}
+		for (Path f : nativeCandidates) {
+			int[] n = {0};
+			byte[] outBytes = stubNatives(Files.readAllBytes(f), n);
+			if (outBytes != null && n[0] > 0) { Files.write(f, outBytes); natives += n[0]; }
+		}
+		log("native mod methods replaced with browser stubs: " + natives);
+
 		// 5. Entrypoints and mod list as plain Java.
 		Path gen = out.resolve("gen/net/emberclient/fabric/EmberGenerated.java");
 		write(gen, generate(mods, modJson).getBytes(StandardCharsets.UTF_8));
@@ -411,6 +429,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		// Class names that appear as text in mod code: what Class.forName might be asked for.
 		Set<String> named = new java.util.HashSet<>();
 		Set<String> namedTails = new java.util.HashSet<>();
+		Set<String> words = new java.util.HashSet<>();   // plain words in mod code: method names getDeclaredMethod may ask for
 		for (String rel : modClassFiles) {
 			Path f = classesOut.resolve(rel);
 			if (!Files.exists(f)) continue;
@@ -422,7 +441,11 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 					}
 					@Override public org.objectweb.asm.MethodVisitor visitMethod(int a, String n, String d, String sg, String[] e) {
 						return new org.objectweb.asm.MethodVisitor(Opcodes.ASM9) {
-							@Override public void visitLdcInsn(Object v) { if (v instanceof String str && str.indexOf('.') > 0) named.add(str); }
+							@Override public void visitLdcInsn(Object v) {
+								if (v instanceof String str && str.indexOf('.') > 0) named.add(str);
+								if (v instanceof String str && str.length() > 1 && Character.isJavaIdentifierStart(str.charAt(0))
+										&& str.chars().allMatch(Character::isJavaIdentifierPart)) words.add(str);
+							}
 							// "pkg + \".ClassName\"" string concatenation: remember the ".ClassName" tail.
 							@Override public void visitInvokeDynamicInsn(String n, String d, org.objectweb.asm.Handle bsm, Object... args) {
 								for (Object a : args) {
@@ -457,6 +480,12 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			if (byName) {
 				sb.append("C\t").append(name).append('\n');
 				classes++;
+				// Classes looked up by name are usually then created: keep their constructors.
+				for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+					if (!mn.name.equals("<init>") && !words.contains(mn.name)) continue;
+					sb.append("M\t").append(name).append('\t').append(mn.name).append(mn.desc).append('\n');
+					methods++;
+				}
 			}
 			nodes.put(cn.name, cn);
 		}
@@ -668,7 +697,10 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				org.objectweb.asm.Type retType = org.objectweb.asm.Type.getReturnType(mn.desc);
 				boolean isPassHook = !isVoidHook && args.length >= 1 && retType.getSort() != org.objectweb.asm.Type.VOID
 						&& args[0].equals(retType);
-				if (!isVoidHook && !isPassHook) continue;
+				// @WrapWithCondition hooks decide whether the original call runs; when off, let it run.
+				boolean isCondHook = !isVoidHook && !isPassHook && mn.name.startsWith("wrapWithCondition$")
+						&& retType.getSort() == org.objectweb.asm.Type.BOOLEAN;
+				if (!isVoidHook && !isPassHook && !isCondHook) continue;
 				String owner = mergedOwner(mn);
 				if (owner == null) continue;
 				String mod = mixinOwner.get(owner);
@@ -681,7 +713,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				guard.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
 				guard.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "isDisabled", "(Ljava/lang/String;)Z", false));
 				guard.add(new org.objectweb.asm.tree.JumpInsnNode(Opcodes.IFEQ, go));
-				addReturn(guard, mn, isPassHook, retType);
+				addReturn(guard, mn, isPassHook, isCondHook, retType);
 				guard.add(go);
 				guard.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_SAME, 0, null, 0, null));
 				mn.instructions.insert(guard);
@@ -697,7 +729,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				mn.instructions.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
 				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.SWAP));
 				mn.instructions.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "hookFailed", "(Ljava/lang/String;Ljava/lang/Throwable;)V", false));
-				addReturn(mn.instructions, mn, isPassHook, retType);
+				addReturn(mn.instructions, mn, isPassHook, isCondHook, retType);
 				mn.tryCatchBlocks.add(new org.objectweb.asm.tree.TryCatchBlockNode(tryStart, tryEnd, onError, "java/lang/Throwable"));
 				mn.maxStack = Math.max(mn.maxStack, 2);
 				count[0]++;
@@ -712,8 +744,41 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 	}
 
+	private byte[] stubNatives(byte[] b, int[] count) {
+		try {
+			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+			new ClassReader(b).accept(cn, 0);
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				if ((mn.access & Opcodes.ACC_NATIVE) == 0) continue;
+				if (mn.visibleAnnotations != null && !mn.visibleAnnotations.isEmpty()) continue;   // e.g. TeaVM @Import/@JSBody
+				if (mn.invisibleAnnotations != null && !mn.invisibleAnnotations.isEmpty()) continue;
+				mn.access &= ~Opcodes.ACC_NATIVE;
+				mn.instructions = new org.objectweb.asm.tree.InsnList();
+				mn.instructions.add(new org.objectweb.asm.tree.TypeInsnNode(Opcodes.NEW, "java/lang/UnsatisfiedLinkError"));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.DUP));
+				mn.instructions.add(new org.objectweb.asm.tree.LdcInsnNode("native code is not available in the browser: " + cn.name + "." + mn.name));
+				mn.instructions.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESPECIAL, "java/lang/UnsatisfiedLinkError", "<init>", "(Ljava/lang/String;)V", false));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ATHROW));
+				mn.tryCatchBlocks = new ArrayList<>();
+				mn.maxStack = 3;
+				int locals = (mn.access & Opcodes.ACC_STATIC) == 0 ? 1 : 0;
+				for (org.objectweb.asm.Type t : org.objectweb.asm.Type.getArgumentTypes(mn.desc)) locals += t.getSize();
+				mn.maxLocals = locals;
+				count[0]++;
+			}
+			if (count[0] == 0) return null;
+			org.objectweb.asm.ClassWriter w = new org.objectweb.asm.ClassWriter(0);
+			cn.accept(w);
+			return w.toByteArray();
+		} catch (Throwable t) {
+			problems.add("could not stub native methods: " + describe(t));
+			return null;
+		}
+	}
+
 	/** Return from a guarded hook: nothing for void hooks, the untouched first argument for value hooks. */
-	private static void addReturn(org.objectweb.asm.tree.InsnList l, org.objectweb.asm.tree.MethodNode mn, boolean pass, org.objectweb.asm.Type ret) {
+	private static void addReturn(org.objectweb.asm.tree.InsnList l, org.objectweb.asm.tree.MethodNode mn, boolean pass, boolean cond, org.objectweb.asm.Type ret) {
+		if (cond) { l.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ICONST_1)); l.add(new org.objectweb.asm.tree.InsnNode(Opcodes.IRETURN)); return; }
 		if (!pass) { l.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN)); return; }
 		int slot = (mn.access & Opcodes.ACC_STATIC) == 0 ? 1 : 0;
 		l.add(new org.objectweb.asm.tree.VarInsnNode(ret.getOpcode(Opcodes.ILOAD), slot));
@@ -733,6 +798,11 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	 */
 	private static final List<String> SAFE_METHODS = List.of(
 			"me/shedaniel/autoconfig/ConfigManager.save",
+			// AppleSkin reads/writes its config with Jankson; if that trips, keep the defaults.
+			"squeek/appleskin/ModConfig.load",
+			// AppleSkin's Cloth Config screen setup; without it the mod still works with default settings.
+			"squeek/appleskin/gui/AutoConfigIntegration.init",
+			"squeek/appleskin/ModConfig.save",
 			"com/terraformersmc/modmenu/config/ModMenuConfigManager.save",
 			// Mouse Tweaks runs on every mouse event; if it trips, let the click through instead of crashing.
 			"yalter/mousetweaks/Main.onMouseClicked",
@@ -829,17 +899,19 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	}
 
 	/** owner.name+desc of a missing library method -> static replacement (receiver becomes the first argument). */
-	private static final Map<String, String[]> POLYFILLS = Map.of(
-			"java/lang/Class.getPackageName()Ljava/lang/String;", new String[] {"getPackageName", "(Ljava/lang/Class;)Ljava/lang/String;"},
-			"java/lang/Class.componentType()Ljava/lang/Class;", new String[] {"componentType", "(Ljava/lang/Class;)Ljava/lang/Class;"},
-			"java/util/stream/Stream.ofNullable(Ljava/lang/Object;)Ljava/util/stream/Stream;", new String[] {"streamOfNullable", "(Ljava/lang/Object;)Ljava/util/stream/Stream;"},
-			"java/util/ServiceLoader.findFirst()Ljava/util/Optional;", new String[] {"serviceFindFirst", "(Ljava/util/ServiceLoader;)Ljava/util/Optional;"},
-			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;"},
-			"java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"},
-			"java/util/concurrent/Executors.newThreadPerTaskExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;", new String[] {"newThreadPerTaskExecutor", "(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;"},
-			"java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"},
-			"java/nio/file/Files.createDirectories(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;", new String[] {"createDirectories", "(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;"},
-			"com/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler.createIcon(Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", new String[] {"createIcon", "(Lcom/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler;Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", "net/emberclient/fabric/EmberModIcons"});
+	private static final Map<String, String[]> POLYFILLS = Map.ofEntries(
+			Map.entry("java/net/http/HttpClient.newHttpClient()Ljava/net/http/HttpClient;", new String[] {"newHttpClient", "()Ljava/net/http/HttpClient;"}),
+			Map.entry("java/net/http/HttpClient.newBuilder()Ljava/net/http/HttpClient$Builder;", new String[] {"newHttpClientBuilder", "()Ljava/net/http/HttpClient$Builder;"}),
+			Map.entry("java/lang/Class.getPackageName()Ljava/lang/String;", new String[] {"getPackageName", "(Ljava/lang/Class;)Ljava/lang/String;"}),
+			Map.entry("java/lang/Class.componentType()Ljava/lang/Class;", new String[] {"componentType", "(Ljava/lang/Class;)Ljava/lang/Class;"}),
+			Map.entry("java/util/stream/Stream.ofNullable(Ljava/lang/Object;)Ljava/util/stream/Stream;", new String[] {"streamOfNullable", "(Ljava/lang/Object;)Ljava/util/stream/Stream;"}),
+			Map.entry("java/util/ServiceLoader.findFirst()Ljava/util/Optional;", new String[] {"serviceFindFirst", "(Ljava/util/ServiceLoader;)Ljava/util/Optional;"}),
+			Map.entry("java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/Executor;"}),
+			Map.entry("java/util/concurrent/CompletableFuture.delayedExecutor(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;", new String[] {"delayedExecutor", "(JLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/Executor;"}),
+			Map.entry("java/util/concurrent/Executors.newThreadPerTaskExecutor(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;", new String[] {"newThreadPerTaskExecutor", "(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;"}),
+			Map.entry("java/util/concurrent/Executors.newVirtualThreadPerTaskExecutor()Ljava/util/concurrent/ExecutorService;", new String[] {"newVirtualThreadPerTaskExecutor", "()Ljava/util/concurrent/ExecutorService;"}),
+			Map.entry("java/nio/file/Files.createDirectories(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;", new String[] {"createDirectories", "(Ljava/nio/file/Path;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;"}),
+			Map.entry("com/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler.createIcon(Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", new String[] {"createIcon", "(Lcom/terraformersmc/modmenu/util/mod/fabric/FabricIconHandler;Lnet/fabricmc/loader/api/ModContainer;Ljava/lang/String;)Lnet/minecraft/client/renderer/texture/DynamicTexture;", "net/emberclient/fabric/EmberModIcons"}));
 
 	private static boolean classExists(String name) {
 		String res = name.replace('.', '/') + ".class";
@@ -921,13 +993,31 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			String s = new String(b, StandardCharsets.ISO_8859_1);
 			if (!s.contains("getPackageName") && !s.contains("componentType") && !s.contains("ofNullable")
 					&& !s.contains("findFirst") && !s.contains("delayedExecutor") && !s.contains("PerTaskExecutor")
-					&& !s.contains("forName") && !s.contains("createDirectories") && !s.contains("createIcon")) return null;
+					&& !s.contains("forName") && !s.contains("createDirectories") && !s.contains("createIcon")
+					&& !s.contains("java/net/http/HttpClient")) return null;
 			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
 				if (mn.instructions == null) continue;
 				for (org.objectweb.asm.tree.AbstractInsnNode in : mn.instructions.toArray()) {
+					// HttpClient.Redirect / HttpClient.Version constants don't exist in the browser
+					// runtime; Ember's offline HttpClient ignores them, so pass null instead.
+					if (in instanceof org.objectweb.asm.tree.FieldInsnNode fi && fi.getOpcode() == Opcodes.GETSTATIC
+							&& (fi.owner.equals("java/net/http/HttpClient$Redirect") || fi.owner.equals("java/net/http/HttpClient$Version"))) {
+						mn.instructions.set(fi, new org.objectweb.asm.tree.InsnNode(Opcodes.ACONST_NULL));
+						count[0]++;
+						continue;
+					}
 					if (!(in instanceof org.objectweb.asm.tree.MethodInsnNode m)) continue;
+					// HttpClient.Builder settings (redirects, proxy, version...) mostly don't exist in the
+					// browser runtime; Ember's offline client ignores them, so drop the argument and keep the builder.
+					if (m.owner.equals("java/net/http/HttpClient$Builder") && !m.name.equals("build")
+							&& org.objectweb.asm.Type.getArgumentTypes(m.desc).length == 1
+							&& org.objectweb.asm.Type.getArgumentTypes(m.desc)[0].getSize() == 1) {
+						mn.instructions.set(m, new org.objectweb.asm.tree.InsnNode(Opcodes.POP));
+						count[0]++;
+						continue;
+					}
 					// Class.forName("some.Class") only finds classes the browser build was told
 					// about. When the class exists, turn it into a plain class literal so it is
 					// built in; missing classes keep throwing ClassNotFoundException as before.
