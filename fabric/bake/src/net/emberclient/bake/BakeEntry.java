@@ -668,7 +668,10 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				org.objectweb.asm.Type retType = org.objectweb.asm.Type.getReturnType(mn.desc);
 				boolean isPassHook = !isVoidHook && args.length >= 1 && retType.getSort() != org.objectweb.asm.Type.VOID
 						&& args[0].equals(retType);
-				if (!isVoidHook && !isPassHook) continue;
+				// @WrapWithCondition hooks decide whether the original call runs; when off, let it run.
+				boolean isCondHook = !isVoidHook && !isPassHook && mn.name.startsWith("wrapWithCondition$")
+						&& retType.getSort() == org.objectweb.asm.Type.BOOLEAN;
+				if (!isVoidHook && !isPassHook && !isCondHook) continue;
 				String owner = mergedOwner(mn);
 				if (owner == null) continue;
 				String mod = mixinOwner.get(owner);
@@ -681,7 +684,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				guard.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
 				guard.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "isDisabled", "(Ljava/lang/String;)Z", false));
 				guard.add(new org.objectweb.asm.tree.JumpInsnNode(Opcodes.IFEQ, go));
-				addReturn(guard, mn, isPassHook, retType);
+				addReturn(guard, mn, isPassHook, isCondHook, retType);
 				guard.add(go);
 				guard.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_SAME, 0, null, 0, null));
 				mn.instructions.insert(guard);
@@ -697,7 +700,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				mn.instructions.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
 				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.SWAP));
 				mn.instructions.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "hookFailed", "(Ljava/lang/String;Ljava/lang/Throwable;)V", false));
-				addReturn(mn.instructions, mn, isPassHook, retType);
+				addReturn(mn.instructions, mn, isPassHook, isCondHook, retType);
 				mn.tryCatchBlocks.add(new org.objectweb.asm.tree.TryCatchBlockNode(tryStart, tryEnd, onError, "java/lang/Throwable"));
 				mn.maxStack = Math.max(mn.maxStack, 2);
 				count[0]++;
@@ -713,7 +716,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	}
 
 	/** Return from a guarded hook: nothing for void hooks, the untouched first argument for value hooks. */
-	private static void addReturn(org.objectweb.asm.tree.InsnList l, org.objectweb.asm.tree.MethodNode mn, boolean pass, org.objectweb.asm.Type ret) {
+	private static void addReturn(org.objectweb.asm.tree.InsnList l, org.objectweb.asm.tree.MethodNode mn, boolean pass, boolean cond, org.objectweb.asm.Type ret) {
+		if (cond) { l.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ICONST_1)); l.add(new org.objectweb.asm.tree.InsnNode(Opcodes.IRETURN)); return; }
 		if (!pass) { l.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN)); return; }
 		int slot = (mn.access & Opcodes.ACC_STATIC) == 0 ? 1 : 0;
 		l.add(new org.objectweb.asm.tree.VarInsnNode(ret.getOpcode(Opcodes.ILOAD), slot));
