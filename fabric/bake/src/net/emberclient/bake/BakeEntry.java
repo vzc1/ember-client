@@ -677,7 +677,21 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				guard.add(go);
 				guard.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_SAME, 0, null, 0, null));
 				mn.instructions.insert(guard);
-				mn.maxStack = Math.max(mn.maxStack, 1);
+				// And if the hook throws, switch that mod off instead of crashing the game.
+				org.objectweb.asm.tree.LabelNode tryStart = new org.objectweb.asm.tree.LabelNode();
+				org.objectweb.asm.tree.LabelNode tryEnd = new org.objectweb.asm.tree.LabelNode();
+				org.objectweb.asm.tree.LabelNode onError = new org.objectweb.asm.tree.LabelNode();
+				mn.instructions.insert(tryStart);
+				mn.instructions.add(tryEnd);
+				mn.instructions.add(onError);
+				mn.instructions.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_FULL, frameLocals(cn, mn).size(),
+						frameLocals(cn, mn).toArray(), 1, new Object[] {"java/lang/Throwable"}));
+				mn.instructions.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.SWAP));
+				mn.instructions.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "hookFailed", "(Ljava/lang/String;Ljava/lang/Throwable;)V", false));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN));
+				mn.tryCatchBlocks.add(new org.objectweb.asm.tree.TryCatchBlockNode(tryStart, tryEnd, onError, "java/lang/Throwable"));
+				mn.maxStack = Math.max(mn.maxStack, 2);
 				count[0]++;
 			}
 			if (count[0] == 0) return null;
@@ -765,6 +779,23 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			problems.add("could not make hooks failure-safe: " + describe(t));
 			return null;
 		}
+	}
+
+	/** Stack-map locals for a method's parameters (used for frames at added catch handlers). */
+	private static List<Object> frameLocals(org.objectweb.asm.tree.ClassNode cn, org.objectweb.asm.tree.MethodNode mn) {
+		List<Object> locals = new ArrayList<>();
+		if ((mn.access & Opcodes.ACC_STATIC) == 0) locals.add(cn.name);
+		for (org.objectweb.asm.Type t : org.objectweb.asm.Type.getArgumentTypes(mn.desc)) {
+			switch (t.getSort()) {
+				case org.objectweb.asm.Type.BOOLEAN, org.objectweb.asm.Type.BYTE, org.objectweb.asm.Type.CHAR,
+						org.objectweb.asm.Type.SHORT, org.objectweb.asm.Type.INT -> locals.add(Opcodes.INTEGER);
+				case org.objectweb.asm.Type.FLOAT -> locals.add(Opcodes.FLOAT);
+				case org.objectweb.asm.Type.LONG -> locals.add(Opcodes.LONG);
+				case org.objectweb.asm.Type.DOUBLE -> locals.add(Opcodes.DOUBLE);
+				default -> locals.add(t.getInternalName());
+			}
+		}
+		return locals;
 	}
 
 	private static String mergedOwner(org.objectweb.asm.tree.MethodNode mn) {

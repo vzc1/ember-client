@@ -66,6 +66,14 @@ public final class EmberFabric {
 	/** Mods whose startup threw: their hooks are switched off so they can't crash the game later. */
 	private static final java.util.Set<String> failed = new java.util.HashSet<>();
 
+	/** Called by the guard the bake adds around mod hooks when one throws. */
+	public static void hookFailed(String modId, Throwable t) {
+		if (failed.add(modId)) {
+			log(modId + " hit an error in the game and is switched off for this session: " + t);
+			t.printStackTrace();
+		}
+	}
+
 	private static void markFailed(String modId, Throwable t) {
 		if (modId == null || modId.startsWith("fabric") || modId.equals("minecraft") || modId.equals("java")) return;
 		if (failed.add(modId)) log(modId + " failed to start and is switched off for this session (" + t + ")");
