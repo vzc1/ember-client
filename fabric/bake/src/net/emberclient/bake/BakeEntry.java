@@ -702,7 +702,12 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 	 */
 	private static final List<String> SAFE_METHODS = List.of(
 			"me/shedaniel/autoconfig/ConfigManager.save",
-			"com/terraformersmc/modmenu/config/ModMenuConfigManager.save");
+			"com/terraformersmc/modmenu/config/ModMenuConfigManager.save",
+			// Mouse Tweaks runs on every mouse event; if it trips, let the click through instead of crashing.
+			"yalter/mousetweaks/Main.onMouseClicked",
+			"yalter/mousetweaks/Main.onMouseReleased",
+			"yalter/mousetweaks/Main.onMouseDrag",
+			"yalter/mousetweaks/Main.onMouseScrolled");
 
 	private byte[] safeHandlers(byte[] b, int[] count) {
 		String s = new String(b, StandardCharsets.ISO_8859_1);
@@ -713,7 +718,8 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			new ClassReader(b).accept(cn, 0);
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
 				boolean wanted = SAFE_HANDLERS.stream().anyMatch(mn.name::endsWith) || SAFE_METHODS.contains(cn.name + "." + mn.name);
-				if (!wanted || !mn.desc.endsWith(")V")) continue;
+				char ret = mn.desc.charAt(mn.desc.indexOf(')') + 1);
+				if (!wanted || "VZIJFDBSCL[".indexOf(ret) < 0) continue;
 				if (mn.instructions.size() == 0) continue;
 				org.objectweb.asm.tree.LabelNode start = new org.objectweb.asm.tree.LabelNode();
 				org.objectweb.asm.tree.LabelNode end = new org.objectweb.asm.tree.LabelNode();
@@ -737,7 +743,16 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				mn.instructions.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_FULL, locals.size(), locals.toArray(),
 						1, new Object[] {"java/lang/Throwable"}));
 				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.POP));
-				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN));
+				// Return the "nothing happened" value for the method's type.
+				switch (ret) {
+					case 'V' -> mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN));
+					case 'J' -> { mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.LCONST_0)); mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.LRETURN)); }
+					case 'F' -> { mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.FCONST_0)); mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.FRETURN)); }
+					case 'D' -> { mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.DCONST_0)); mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.DRETURN)); }
+					case 'L', '[' -> { mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ACONST_NULL)); mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ARETURN)); }
+					default -> { mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ICONST_0)); mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.IRETURN)); }
+				}
+				mn.maxStack = Math.max(mn.maxStack, 2);
 				mn.tryCatchBlocks.add(new org.objectweb.asm.tree.TryCatchBlockNode(start, end, handler, "java/lang/Throwable"));
 				mn.maxStack = Math.max(mn.maxStack, 1);
 				count[0]++;
