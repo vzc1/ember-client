@@ -133,3 +133,16 @@ jobs:
           TAG="build-latest"; [ "${{ github.ref_name }}" != "main" ] && TAG="build-${{ github.ref_name }}"; [ "${{ inputs.runner }}" = "home" ] && TAG="$TAG-home"
           bash "$GITHUB_WORKSPACE/scripts/publish-draft.sh" "$TAG" "Build $TAG" \
             "$RUNNER_TEMP/logs.zip" "$RUNNER_TEMP/fabric/mods.json" "$GITHUB_WORKSPACE"/out/*.html
+
+      # Backup copy of the game, in case the release upload fails.
+      - name: Keep the game as a workflow file
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ember-client
+          path: |
+            out/*.html
+            ${{ runner.temp }}/fabric/mods.json
+          retention-days: 7
+          compression-level: 6
+          if-no-files-found: ignore
