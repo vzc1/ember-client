@@ -348,6 +348,31 @@
   document.querySelectorAll("[data-play]").forEach(function (a) { a.href = game; });
   $("dl").href = game;
   $("dl").setAttribute("download", (S.fullName || "Ember").replace(/\s+/g, "-") + "-" + (S.version || "") + ".html");
+  // The game is stored in pieces; join them into one file that works offline.
+  $("dl").addEventListener("click", function (e) {
+    e.preventDefault();
+    var btn = this, label = btn.lastChild, oldText = label.textContent;
+    if (btn.dataset.busy) return; btn.dataset.busy = "1";
+    function load(src, ok, bad) { var s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = bad; document.head.appendChild(s); }
+    function finish(t) { label.textContent = t; setTimeout(function () { label.textContent = oldText; delete btn.dataset.busy; }, 2500); }
+    function failed() { window.__emberParts = null; finish("Download failed"); }
+    load("game-parts.js", function () {
+      var parts = window.EMBER_PARTS || []; window.__emberParts = [];
+      (function next(i) {
+        if (i === parts.length) {
+          var blob = new Blob([window.__emberParts.join("")], { type: "text/html" });
+          window.__emberParts = null;
+          var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+          a.download = btn.getAttribute("download"); document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 60000);
+          finish("Downloaded");
+          return;
+        }
+        label.textContent = "Preparing " + Math.round(i / parts.length * 100) + "%";
+        load(parts[i], function () { next(i + 1); }, failed);
+      })(0);
+    }, failed);
+  });
   S.credits.forEach(function (c) { var li = document.createElement("li"); li.textContent = c; $("credits").appendChild(li); });
 
   // ---------- views ----------
