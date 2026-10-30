@@ -36,8 +36,8 @@ toggle-sprint-display
 held-item-info
 durability-tooltip
 cleancut
-item-borders
-enchantment-descriptions
+# item-borders  (off: its Iceberg settings system needs Java reflection the browser lacks)
+# enchantment-descriptions  (off: its Prickle settings system reads field annotations, which the browser lacks)
 
 # Zoom, brightness and sky
 logical-zoom
