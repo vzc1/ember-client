@@ -56,3 +56,7 @@ fallingleaves
 eating-animation
 smooth-swapping
 auto-reconnect
+
+# Crystal and anchor PvP (Hero's Anchor Optimizer has no 26.2 build; Anchor Optimizer does the same job)
+marlow-crystal-optimizer
+anchoroptimizer
