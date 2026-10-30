@@ -32,7 +32,10 @@ loader = '''<script>
       // Start all chunk builders at once instead of one, so turning fast doesn't stall.
       if (!/[?&](meshworkers|singlethread|nomesh)/.test(location.search)) {
         window.eaglercraftXOpts = window.eaglercraftXOpts || {};
-        window.eaglercraftXOpts.meshWorkerCount = Math.max(1, Math.min(4, (navigator.hardwareConcurrency || 4) - 2));
+        // Fewer helpers on low-memory machines (school Chromebooks often have 4 GB).
+        var mem = navigator.deviceMemory || 8;
+        var cap = mem <= 2 ? 1 : mem <= 4 ? 2 : 4;
+        window.eaglercraftXOpts.meshWorkerCount = Math.max(1, Math.min(cap, (navigator.hardwareConcurrency || 4) - 2));
       }
       window.__emberParts = null;
       document.open(); document.write(html); document.close();
