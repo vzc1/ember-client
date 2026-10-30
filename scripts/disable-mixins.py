@@ -82,8 +82,10 @@ def patch_zip_bytes(data, want, label):
         for info in src.infolist():
             b = src.read(info.filename)
             base = os.path.basename(info.filename)
-            top = "/" not in info.filename.strip("/")
-            names = set(want.get(base, ())) | (set(want.get("*", ())) if base.endswith(".json") else set())
+            # Mixin configs usually sit at the jar root, but some mods keep them in subfolders.
+            top = info.filename.endswith(".json") and not info.filename.startswith(("assets/", "data/", "META-INF/"))
+            names = (set(want.get(base, ())) | set(want.get(info.filename, ()))
+                     | (set(want.get("*", ())) if base.endswith(".json") else set()))
             if names and top:
                 try:
                     b2, removed = patch_config(b, names)
