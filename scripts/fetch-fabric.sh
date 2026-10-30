@@ -32,3 +32,4 @@ ls -la "$DEST/libs"
 
 python3 "$(dirname "$0")/fetch-mods.py" "$DEST/mods" fabric/mods.txt mods "$DEST/mods.json"
 ls -la "$DEST/mods"
+python3 "$(dirname "$0")/strip-nested.py" fabric/strip-nested.txt "$DEST/mods"
