@@ -660,7 +660,15 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			if ((cn.access & Opcodes.ACC_INTERFACE) != 0) return null;
 			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
 				if (mn.instructions == null || mn.instructions.size() == 0) continue;
-				if (!mn.desc.endsWith(")V") || !(mn.desc.contains(CI) || mn.desc.contains(CIR))) continue;
+				boolean isVoidHook = mn.desc.endsWith(")V") && (mn.desc.contains(CI) || mn.desc.contains(CIR));
+				// Hooks that change a value (@ModifyVariable, @ModifyArg, @ModifyReturnValue...) take the
+				// value and return its replacement. If the mod is off or the hook trips, hand back the
+				// original value unchanged.
+				org.objectweb.asm.Type[] args = org.objectweb.asm.Type.getArgumentTypes(mn.desc);
+				org.objectweb.asm.Type retType = org.objectweb.asm.Type.getReturnType(mn.desc);
+				boolean isPassHook = !isVoidHook && args.length >= 1 && retType.getSort() != org.objectweb.asm.Type.VOID
+						&& args[0].equals(retType);
+				if (!isVoidHook && !isPassHook) continue;
 				String owner = mergedOwner(mn);
 				if (owner == null) continue;
 				String mod = mixinOwner.get(owner);
@@ -673,7 +681,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				guard.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
 				guard.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "isDisabled", "(Ljava/lang/String;)Z", false));
 				guard.add(new org.objectweb.asm.tree.JumpInsnNode(Opcodes.IFEQ, go));
-				guard.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN));
+				addReturn(guard, mn, isPassHook, retType);
 				guard.add(go);
 				guard.add(new org.objectweb.asm.tree.FrameNode(Opcodes.F_SAME, 0, null, 0, null));
 				mn.instructions.insert(guard);
@@ -689,7 +697,7 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 				mn.instructions.add(new org.objectweb.asm.tree.LdcInsnNode(mod));
 				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.SWAP));
 				mn.instructions.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESTATIC, "net/emberclient/fabric/EmberFabric", "hookFailed", "(Ljava/lang/String;Ljava/lang/Throwable;)V", false));
-				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN));
+				addReturn(mn.instructions, mn, isPassHook, retType);
 				mn.tryCatchBlocks.add(new org.objectweb.asm.tree.TryCatchBlockNode(tryStart, tryEnd, onError, "java/lang/Throwable"));
 				mn.maxStack = Math.max(mn.maxStack, 2);
 				count[0]++;
@@ -702,6 +710,15 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			problems.add("could not add switch-off checks: " + describe(t));
 			return null;
 		}
+	}
+
+	/** Return from a guarded hook: nothing for void hooks, the untouched first argument for value hooks. */
+	private static void addReturn(org.objectweb.asm.tree.InsnList l, org.objectweb.asm.tree.MethodNode mn, boolean pass, org.objectweb.asm.Type ret) {
+		if (!pass) { l.add(new org.objectweb.asm.tree.InsnNode(Opcodes.RETURN)); return; }
+		int slot = (mn.access & Opcodes.ACC_STATIC) == 0 ? 1 : 0;
+		l.add(new org.objectweb.asm.tree.VarInsnNode(ret.getOpcode(Opcodes.ILOAD), slot));
+		l.add(new org.objectweb.asm.tree.InsnNode(ret.getOpcode(Opcodes.IRETURN)));
+		mn.maxStack = Math.max(mn.maxStack, ret.getSize());
 	}
 
 	/** Merged mixin handlers (by name) that should catch their own errors instead of crashing the game. */
