@@ -278,6 +278,24 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 		}
 		log("library calls rerouted to browser stand-ins: " + rerouted);
 
+		// 4d. Native code (desktop .dll/.so libraries) can't run in a browser. Mod methods
+		//     declared native become ones that throw, so the mod's own error handling kicks in.
+		int natives = 0;
+		List<Path> nativeCandidates;
+		try (Stream<Path> st = Files.walk(classesOut)) {
+			nativeCandidates = st.filter(p -> p.toString().endsWith(".class")).filter(p -> {
+				String r = classesOut.relativize(p).toString().replace('\\', '/');
+				return !(r.startsWith("net/minecraft/") || r.startsWith("com/mojang/") || r.startsWith("net/lax1dude/")
+						|| r.startsWith("org/teavm/") || r.startsWith("net/emberclient/"));
+			}).toList();
+		}
+		for (Path f : nativeCandidates) {
+			int[] n = {0};
+			byte[] outBytes = stubNatives(Files.readAllBytes(f), n);
+			if (outBytes != null && n[0] > 0) { Files.write(f, outBytes); natives += n[0]; }
+		}
+		log("native mod methods replaced with browser stubs: " + natives);
+
 		// 5. Entrypoints and mod list as plain Java.
 		Path gen = out.resolve("gen/net/emberclient/fabric/EmberGenerated.java");
 		write(gen, generate(mods, modJson).getBytes(StandardCharsets.UTF_8));
@@ -722,6 +740,38 @@ public final class BakeEntry implements PreLaunchEntrypoint {
 			return w.toByteArray();
 		} catch (Throwable t) {
 			problems.add("could not add switch-off checks: " + describe(t));
+			return null;
+		}
+	}
+
+	private byte[] stubNatives(byte[] b, int[] count) {
+		try {
+			org.objectweb.asm.tree.ClassNode cn = new org.objectweb.asm.tree.ClassNode();
+			new ClassReader(b).accept(cn, 0);
+			for (org.objectweb.asm.tree.MethodNode mn : cn.methods) {
+				if ((mn.access & Opcodes.ACC_NATIVE) == 0) continue;
+				if (mn.visibleAnnotations != null && !mn.visibleAnnotations.isEmpty()) continue;   // e.g. TeaVM @Import/@JSBody
+				if (mn.invisibleAnnotations != null && !mn.invisibleAnnotations.isEmpty()) continue;
+				mn.access &= ~Opcodes.ACC_NATIVE;
+				mn.instructions = new org.objectweb.asm.tree.InsnList();
+				mn.instructions.add(new org.objectweb.asm.tree.TypeInsnNode(Opcodes.NEW, "java/lang/UnsatisfiedLinkError"));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.DUP));
+				mn.instructions.add(new org.objectweb.asm.tree.LdcInsnNode("native code is not available in the browser: " + cn.name + "." + mn.name));
+				mn.instructions.add(new org.objectweb.asm.tree.MethodInsnNode(Opcodes.INVOKESPECIAL, "java/lang/UnsatisfiedLinkError", "<init>", "(Ljava/lang/String;)V", false));
+				mn.instructions.add(new org.objectweb.asm.tree.InsnNode(Opcodes.ATHROW));
+				mn.tryCatchBlocks = new ArrayList<>();
+				mn.maxStack = 3;
+				int locals = (mn.access & Opcodes.ACC_STATIC) == 0 ? 1 : 0;
+				for (org.objectweb.asm.Type t : org.objectweb.asm.Type.getArgumentTypes(mn.desc)) locals += t.getSize();
+				mn.maxLocals = locals;
+				count[0]++;
+			}
+			if (count[0] == 0) return null;
+			org.objectweb.asm.ClassWriter w = new org.objectweb.asm.ClassWriter(0);
+			cn.accept(w);
+			return w.toByteArray();
+		} catch (Throwable t) {
+			problems.add("could not stub native methods: " + describe(t));
 			return null;
 		}
 	}
