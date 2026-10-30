@@ -1,0 +1,102 @@
+2214:
+2026-10-30 16:14:29
+Full thread dump OpenJDK 64-Bit Server VM (25.0.5+8-LTS mixed mode, sharing)
+                 JDK version: OpenJDK Runtime Environment Temurin-25.0.5+8 (25.0.5+8) (build 25.0.5+8-LTS)
+
+Threads class SMR info:
+_java_thread_list=0x00007e869c0023a0, length=11, elements={
+0x00007e86e002c160, 0x00007e86e007dfb0, 0x00007e86e007f500, 0x00007e86e0080e20,
+0x00007e86e0082710, 0x00007e86e0083f60, 0x00007e86e0085db0, 0x00007e86e0087630,
+0x00007e86e0093c40, 0x00007e86e0096450, 0x00007e869c000f40
+}
+
+"main" #3 [2215] prio=5 os_prio=0 cpu=1469045.56ms elapsed=1488.91s tid=0x00007e86e002c160 nid=2215 runnable  [0x00007e86e67fd000]
+   java.lang.Thread.State: RUNNABLE
+	at org.teavm.dependency.SuperClassFilter.match(SuperClassFilter.java:37)
+	at org.teavm.dependency.Transition.filterType(Transition.java:168)
+	at org.teavm.dependency.DependencyNode.scheduleMultipleTypes(DependencyNode.java:160)
+	at org.teavm.dependency.DependencyNode.propagate(DependencyNode.java:132)
+	at org.teavm.dependency.Transition.propagate(Transition.java:62)
+	at org.teavm.dependency.Transition.consume(Transition.java:155)
+	at org.teavm.dependency.DependencyAnalyzer.processNodeToNodeTransitionQueue(DependencyAnalyzer.java:700)
+	at org.teavm.dependency.DependencyAnalyzer.processQueue(DependencyAnalyzer.java:665)
+	at org.teavm.dependency.DependencyAnalyzer.processDependencies(DependencyAnalyzer.java:713)
+	at org.teavm.vm.TeaVM.build(TeaVM.java:427)
+	at org.teavm.tooling.TeaVMTool.generate(TeaVMTool.java:540)
+	at org.teavm.tooling.builder.InProcessBuildStrategy.build(InProcessBuildStrategy.java:328)
+	at StandaloneTeaVMLinker.main(StandaloneTeaVMLinker.java:89)
+
+"Reference Handler" #11 [2227] daemon prio=10 os_prio=0 cpu=0.73ms elapsed=1488.90s tid=0x00007e86e007dfb0 nid=2227 waiting on condition  [0x00007e86abffe000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@25.0.5/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@25.0.5/Reference.java:246)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@25.0.5/Reference.java:208)
+
+"Finalizer" #12 [2228] daemon prio=8 os_prio=0 cpu=0.13ms elapsed=1488.90s tid=0x00007e86e007f500 nid=2228 in Object.wait()  [0x00007e86abdfe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait0(java.base@25.0.5/Native Method)
+	- waiting on <0x0000000540fc0720> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.Object.wait(java.base@25.0.5/Object.java:389)
+	at java.lang.Object.wait(java.base@25.0.5/Object.java:351)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@25.0.5/ReferenceQueue.java:137)
+	at java.lang.ref.ReferenceQueue.remove(java.base@25.0.5/ReferenceQueue.java:215)
+	- locked <0x0000000540fc0720> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@25.0.5/Finalizer.java:165)
+
+"Signal Dispatcher" #13 [2229] daemon prio=9 os_prio=0 cpu=0.40ms elapsed=1488.90s tid=0x00007e86e0080e20 nid=2229 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Service Thread" #14 [2230] daemon prio=9 os_prio=0 cpu=51.05ms elapsed=1488.90s tid=0x00007e86e0082710 nid=2230 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Monitor Deflation Thread" #15 [2231] daemon prio=9 os_prio=0 cpu=178.46ms elapsed=1488.90s tid=0x00007e86e0083f60 nid=2231 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #16 [2232] daemon prio=9 os_prio=0 cpu=6989.44ms elapsed=1488.90s tid=0x00007e86e0085db0 nid=2232 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"C1 CompilerThread0" #24 [2233] daemon prio=9 os_prio=0 cpu=583.41ms elapsed=1488.90s tid=0x00007e86e0087630 nid=2233 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+"Notification Thread" #28 [2234] daemon prio=9 os_prio=0 cpu=0.10ms elapsed=1488.90s tid=0x00007e86e0093c40 nid=2234 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Common-Cleaner" #29 [2235] daemon prio=8 os_prio=0 cpu=1.73ms elapsed=1488.90s tid=0x00007e86e0096450 nid=2235 in Object.wait()  [0x00007e86ab3fe000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait0(java.base@25.0.5/Native Method)
+	- waiting on <0x0000000542954fa8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.Object.wait(java.base@25.0.5/Object.java:389)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@25.0.5/ReferenceQueue.java:123)
+	at java.lang.ref.ReferenceQueue.remove(java.base@25.0.5/ReferenceQueue.java:201)
+	- locked <0x0000000542954fa8> (a java.lang.ref.ReferenceQueue$Lock)
+	at jdk.internal.ref.CleanerImpl.run(java.base@25.0.5/CleanerImpl.java:146)
+	at java.lang.Thread.runWith(java.base@25.0.5/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.5/Thread.java:1474)
+	at jdk.internal.misc.InnocuousThread.run(java.base@25.0.5/InnocuousThread.java:148)
+
+"Attach Listener" #33 [2468] daemon prio=9 os_prio=0 cpu=0.39ms elapsed=0.11s tid=0x00007e869c000f40 nid=2468 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"GC Thread#3" os_prio=0 cpu=18060.53ms elapsed=1488.21s tid=0x00007e86ac0031a0 nid=2247 runnable  
+
+"GC Thread#2" os_prio=0 cpu=18047.32ms elapsed=1488.21s tid=0x00007e86ac0024c0 nid=2246 runnable  
+
+"GC Thread#1" os_prio=0 cpu=18105.18ms elapsed=1488.21s tid=0x00007e86ac000ce0 nid=2245 runnable  
+
+"VM Thread" os_prio=0 cpu=476.63ms elapsed=1488.90s tid=0x00007e86e0072cf0 nid=2226 runnable  
+
+"VM Periodic Task Thread" os_prio=0 cpu=12.34ms elapsed=1488.90s tid=0x00007e86e005e100 nid=2225 waiting on condition  
+
+"GC Thread#0" os_prio=0 cpu=18150.51ms elapsed=1488.91s tid=0x00007e86e0049f40 nid=2220 runnable  
+
+JNI global refs: 17, weak refs: 0
+
+2214:
+PSYoungGen      total 3512832K, used 3378451K [0x0000000715580000, 0x0000000800000000, 0x0000000800000000)
+ eden space 3352064K, 95% used [0x0000000715580000,0x00000007d9bc6708,0x00000007e1f00000)
+ from space 160768K, 99% used [0x00000007e1f00000,0x00000007ebbfe650,0x00000007ebc00000)
+ to   space 253952K, 0% used [0x00000007f0800000,0x00000007f0800000,0x0000000800000000)
+ParOldGen       total 7566336K, used 7566166K [0x0000000540000000, 0x000000070dd00000, 0x0000000715580000)
+ object space 7566336K, 99% used [0x0000000540000000,0x000000070dcd5a48,0x000000070dd00000)

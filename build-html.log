@@ -1,0 +1,1612 @@
+81:  obfuscated: false,
+450:if (wasm.length > 400_000_000 && !diagnosticBuild) {
+
+added 1 package in 422ms
+               total        used        free      shared  buff/cache   available
+Mem:           31985        1223       28769          51        2414       30762
+Swap:           8192           0        8192
+reusing cached server and mesh workers
+
+> build:single
+> node wasm-toolchain/build-single-html.js --output /home/vzc1/actions-runner/actions-runner/_work/ember-client/ember-client/out/ember-client-26.2.html --reuse-server --reuse-mesh
+
+[single-html] RAM: 30.0 GiB available; reserve 3.9 GiB; process cap 13312 MiB; Java heap 11264 MiB.
+[single-html] /home/vzc1/actions-runner/actions-runner/_work/_tool/node/24.22.2/x64/bin/node wasm-toolchain/link-web-target-standalone.js client
+[memory-cap] limit=13312 MiB metric=rss command=/home/vzc1/actions-runner/actions-runner/_work/_tool/node/24.22.2/x64/bin/node
+[standalone-client-link] ./gradlew :game:jar :platform:jar :platform-teavm:jar :teavm-compat:jar :target_teavm_wasm_gc:jar :target_teavm_wasm_gc:printStandaloneClasspaths --console=plain --no-daemon --max-workers=2
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :platform:compileJava UP-TO-DATE
+> Task :platform:processResources NO-SOURCE
+> Task :platform:classes UP-TO-DATE
+> Task :platform:jar UP-TO-DATE
+> Task :game:compileJava UP-TO-DATE
+> Task :game:processResources
+> Task :game:classes
+> Task :game:jar
+> Task :teavm-compat:compileJava FROM-CACHE
+> Task :teavm-compat:processResources
+> Task :teavm-compat:classes
+> Task :teavm-compat:jar
+> Task :platform-teavm:compileJava FROM-CACHE
+> Task :platform-teavm:processResources NO-SOURCE
+> Task :platform-teavm:classes UP-TO-DATE
+> Task :platform-teavm:jar
+> Task :target_teavm_wasm_gc:compileJava
+> Task :target_teavm_wasm_gc:processResources NO-SOURCE
+> Task :target_teavm_wasm_gc:classes
+> Task :target_teavm_wasm_gc:jar
+
+> Task :target_teavm_wasm_gc:printStandaloneClasspaths
+EAGLER_STANDALONE_CLASSPATHS={"tool":["/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/teavm-core-0.13.1-eagler.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/teavm-jso-impl-0.13.1-eagler.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-gradle-plugin/0.13.1/73e1559947be72c69baaa0bffc55aff45c6a911a/teavm-gradle-plugin-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-tooling/0.13.1/350a42a84851087a1896bd6ef4608bff6d07fe7e/teavm-tooling-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-core/0.13.1/6e57a36241f4eab12e892a5b3496d01d7cb751d4/teavm-core-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-impl/0.13.1/e790b4598465b0008078ff2790cceafe280e4654/teavm-jso-impl-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-apis/0.13.1/4ba2e03d62d0029b669876b4f5aafe4e184998fe/teavm-jso-apis-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-interop/0.13.1/73e85dd04c2b27bae0301add1729d50434fc5ea/teavm-interop-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-api/0.13.1/28677e191c11ede110ad1748a052cd18a25b5d/teavm-metaprogramming-api-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-commons/0.13.1/20f0ca058ba290048d2a17e9f5014a2ec90539b0/teavm-relocated-libs-asm-commons-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-util/0.13.1/e0cc59407083aa266185f9c5c4f59d5a04c1d6b7/teavm-relocated-libs-asm-util-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-hppc/0.13.1/d7b3043e84b9202a5f252df6322271a30de3a5a3/teavm-relocated-libs-hppc-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-rhino/0.13.1/c6b7703825bcae8794359e8f1cbe342816116762/teavm-relocated-libs-rhino-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso/0.13.1/302ac974df830ff778d80d89293ba675174eb6f5/teavm-jso-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-analysis/0.13.1/65ac69292aa28307f73a61c149da3f877ba5426b/teavm-relocated-libs-asm-analysis-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-tree/0.13.1/d709372e6eb5f80877b7f505f1f02a916af6b1cb/teavm-relocated-libs-asm-tree-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm/0.13.1/f746b39e4d2db6e5dac979cba0b630fc358770a1/teavm-relocated-libs-asm-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-wasm-gc-deobfuscator/0.13.1/a051bbecce343f66a74739b0260abc03956ae83/teavm-wasm-gc-deobfuscator-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-commons-io/0.13.1/8aec42811000fabc73b2d097483a40b59248e299/teavm-relocated-libs-commons-io-0.13.1.jar"],"program":["/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/ember/ember-baked.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/uri-classlib-override.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/fiber-override.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/classlib-override.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/platform-teavm/build/libs/platform-teavm.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/game/build/libs/game.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/platform/build/libs/platform.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/teavm-compat/build/libs/teavm-compat.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-classlib/0.13.1/a1dfb33d28bee31e22841546ae776e7f731dfbc7/teavm-classlib-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-platform/0.13.1/9396b0ee53251bb2e6698767515a636bd1e867c5/teavm-platform-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-impl/0.13.1/e790b4598465b0008078ff2790cceafe280e4654/teavm-jso-impl-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-apis/0.13.1/4ba2e03d62d0029b669876b4f5aafe4e184998fe/teavm-jso-apis-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso/0.13.1/302ac974df830ff778d80d89293ba675174eb6f5/teavm-jso-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-core/0.13.1/6e57a36241f4eab12e892a5b3496d01d7cb751d4/teavm-core-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-interop/0.13.1/73e85dd04c2b27bae0301add1729d50434fc5ea/teavm-interop-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/at.yawk.lz4/lz4-java/1.10.1/f541d7f910fe3d76f38f799c507c48cc81b12ecb/lz4-java-1.10.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.mojang/authlib/9.0.75/d61056a234d5e4b272e09d59b0713f80d6c0b6af/authlib-9.0.75.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.mojang/datafixerupper/10.0.21/b6b2ae770c02e0c1eb90f9985b151e9085a38d0b/datafixerupper-10.0.21.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.14.0/efc0e34ede4e3204eaefb84a00e55e8c86634382/gson-2.14.0.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.mojang/patchy/2.2.10/da05971b07cbb379d002cf7eaec6a2048211fefc/patchy-2.2.10.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/33.6.0-jre/c376b13067cc99a5774403530953f7b05a91e218/guava-33.6.0-jre.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.google.guava/failureaccess/1.0.3/aeaffd00d57023a2c947393ed251f0354f0985fc/failureaccess-1.0.3.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.mojang/blocklist/1.0.10/5c685c5ffa94c4cd39496c7184c1d122e515ecef/blocklist-1.0.10.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.mojang/brigadier/1.3.10/d15b53a14cf20fdcaa98f731af5dda654452c010/brigadier-1.3.10.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.mojang/jtracy/1.0.37/a3fb649b2e2b2288d2978f0b0bc3d83f62809d1e/jtracy-1.0.37.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.mojang/jtracy/1.0.37/e1b4395227af41195da9e2ead13c48ee0b7d31cd/jtracy-1.0.37-natives-linux.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.28.0/e482f2c7a88dac3c497e96aa420b6a769f59c8d7/commons-compress-1.28.0.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.22.0/6b3eb4beb7058c2a638f5f17bcb388649fd339dd/commons-codec-1.22.0.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.20.0/36f3474daec2849c149e877614e7f979b2082cd2/commons-io-2.20.0.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-http/4.2.15.Final/e611826aa054371bb9a17f27bdb05755a4cac5f0/netty-codec-http-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-compression/4.2.15.Final/89fc4a20b7ae6af974304b1695405e62c4f9b16d/netty-codec-compression-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-handler/4.2.15.Final/d5344afd1148e3b9927a74be019605ebb0937a93/netty-handler-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec-base/4.2.15.Final/e97149fdd5fb04858efa90e314651c8d700dc68b/netty-codec-base-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-transport/4.2.15.Final/a000c3a6196ee40207b73ac619dcb339409dd62f/netty-transport-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-buffer/4.2.15.Final/2beb620803bf871cda2dd5d46b8f831e8015dd34/netty-buffer-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-resolver/4.2.15.Final/b961a16d379b508b473e064ba06842bba280f4e3/netty-resolver-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/io.netty/netty-common/4.2.15.Final/7222492c1af9c2d4d78d521eea340a619e242fda/netty-common-4.2.15.Final.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/8.5.18/a6cff377eecc19c2037bf31568a6d7106b50ba1f/fastutil-8.5.18.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/5.0.4/4fdac2fbe92dfad86aa6e9301736f6b4342a3f5c/jopt-simple-5.0.4.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.20.0/65897b3e5731220962e659e001904af3c3cbeba9/commons-lang3-3.20.0.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.10.8/fc0a71dad90a2cf41d82a76156a0e700af8e4f8d/joml-1.10.8.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.jspecify/jspecify/1.0.0/7425a601c1c7ec76645a78d22b8c6a627edee507/jspecify-1.0.0.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-impl/0.13.1/4c2d959a7662dadcd5c544c228f98a839ea19c4c/teavm-metaprogramming-impl-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.jcraft/jzlib/1.1.3/c01428efa717624f7aabf4df319939dda9646b2d/jzlib-1.1.3.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.12.2/78e18a7b4180e911dafba0a412adfa82c1e3d14b/joda-time-2.12.2.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.48.0/bbe30942a31d1778c74cb272321267eca82dc708/error_prone_annotations-2.48.0.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/b421526c5f297295adef1c886e5246c39d4ac629/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/3.1/a892ca9507839bbdb900d64310ac98256cab992f/j2objc-annotations-3.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.2/25ea2e8b0c338a877313bd4672d3fe056ea78f0d/jsr305-3.0.2.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-api/0.13.1/28677e191c11ede110ad1748a052cd18a25b5d/teavm-metaprogramming-api-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-commons/0.13.1/20f0ca058ba290048d2a17e9f5014a2ec90539b0/teavm-relocated-libs-asm-commons-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-util/0.13.1/e0cc59407083aa266185f9c5c4f59d5a04c1d6b7/teavm-relocated-libs-asm-util-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-hppc/0.13.1/d7b3043e84b9202a5f252df6322271a30de3a5a3/teavm-relocated-libs-hppc-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-rhino/0.13.1/c6b7703825bcae8794359e8f1cbe342816116762/teavm-relocated-libs-rhino-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-commons-io/0.13.1/8aec42811000fabc73b2d097483a40b59248e299/teavm-relocated-libs-commons-io-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-analysis/0.13.1/65ac69292aa28307f73a61c149da3f877ba5426b/teavm-relocated-libs-asm-analysis-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-tree/0.13.1/d709372e6eb5f80877b7f505f1f02a916af6b1cb/teavm-relocated-libs-asm-tree-0.13.1.jar","/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm/0.13.1/f746b39e4d2db6e5dac979cba0b630fc358770a1/teavm-relocated-libs-asm-0.13.1.jar","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/classes/java/main","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/resources/main","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/classes/java/teavm","/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/resources/teavm"]}
+
+BUILD SUCCESSFUL in 20s
+13 actionable tasks: 8 executed, 2 from cache, 3 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/home/vzc1/.gradle/wrapper/dists/gradle-9.6.1-bin/4ticwg1pgcbps2hj28r8so764/gradle-9.6.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+[standalone-client-link] content cache MISS (receipt/output unavailable: ENOENT)
+[standalone-client-link] javac -cp /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/teavm-core-0.13.1-eagler.jar:/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/teavm-jso-impl-0.13.1-eagler.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-gradle-plugin/0.13.1/73e1559947be72c69baaa0bffc55aff45c6a911a/teavm-gradle-plugin-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-tooling/0.13.1/350a42a84851087a1896bd6ef4608bff6d07fe7e/teavm-tooling-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-core/0.13.1/6e57a36241f4eab12e892a5b3496d01d7cb751d4/teavm-core-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-impl/0.13.1/e790b4598465b0008078ff2790cceafe280e4654/teavm-jso-impl-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-apis/0.13.1/4ba2e03d62d0029b669876b4f5aafe4e184998fe/teavm-jso-apis-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-interop/0.13.1/73e85dd04c2b27bae0301add1729d50434fc5ea/teavm-interop-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-api/0.13.1/28677e191c11ede110ad1748a052cd18a25b5d/teavm-metaprogramming-api-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-commons/0.13.1/20f0ca058ba290048d2a17e9f5014a2ec90539b0/teavm-relocated-libs-asm-commons-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-util/0.13.1/e0cc59407083aa266185f9c5c4f59d5a04c1d6b7/teavm-relocated-libs-asm-util-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-hppc/0.13.1/d7b3043e84b9202a5f252df6322271a30de3a5a3/teavm-relocated-libs-hppc-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-rhino/0.13.1/c6b7703825bcae8794359e8f1cbe342816116762/teavm-relocated-libs-rhino-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso/0.13.1/302ac974df830ff778d80d89293ba675174eb6f5/teavm-jso-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-analysis/0.13.1/65ac69292aa28307f73a61c149da3f877ba5426b/teavm-relocated-libs-asm-analysis-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-tree/0.13.1/d709372e6eb5f80877b7f505f1f02a916af6b1cb/teavm-relocated-libs-asm-tree-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm/0.13.1/f746b39e4d2db6e5dac979cba0b630fc358770a1/teavm-relocated-libs-asm-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-wasm-gc-deobfuscator/0.13.1/a051bbecce343f66a74739b0260abc03956ae83/teavm-wasm-gc-deobfuscator-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-commons-io/0.13.1/8aec42811000fabc73b2d097483a40b59248e299/teavm-relocated-libs-commons-io-0.13.1.jar -d /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/generated/standalone-linker /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/StandaloneTeaVMLinker.java
+[standalone-client-link] /home/vzc1/actions-runner/actions-runner/_work/_tool/node/24.22.2/x64/bin/node /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/run-memory-capped.js --limit-mib 13312 --log-file /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/generated/client-precise-link.log java -XX:+UnlockExperimentalVMOptions -XX:+UseCompactObjectHeaders -Xmx11264m -Xss2m -XX:MaxMetaspaceSize=256m -XX:+UseParallelGC -XX:ParallelGCThreads=4 -cp /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/generated/standalone-linker:/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/teavm-core-0.13.1-eagler.jar:/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/teavm-jso-impl-0.13.1-eagler.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-gradle-plugin/0.13.1/73e1559947be72c69baaa0bffc55aff45c6a911a/teavm-gradle-plugin-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-tooling/0.13.1/350a42a84851087a1896bd6ef4608bff6d07fe7e/teavm-tooling-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-core/0.13.1/6e57a36241f4eab12e892a5b3496d01d7cb751d4/teavm-core-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-impl/0.13.1/e790b4598465b0008078ff2790cceafe280e4654/teavm-jso-impl-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso-apis/0.13.1/4ba2e03d62d0029b669876b4f5aafe4e184998fe/teavm-jso-apis-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-interop/0.13.1/73e85dd04c2b27bae0301add1729d50434fc5ea/teavm-interop-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-metaprogramming-api/0.13.1/28677e191c11ede110ad1748a052cd18a25b5d/teavm-metaprogramming-api-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-commons/0.13.1/20f0ca058ba290048d2a17e9f5014a2ec90539b0/teavm-relocated-libs-asm-commons-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-util/0.13.1/e0cc59407083aa266185f9c5c4f59d5a04c1d6b7/teavm-relocated-libs-asm-util-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-hppc/0.13.1/d7b3043e84b9202a5f252df6322271a30de3a5a3/teavm-relocated-libs-hppc-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-rhino/0.13.1/c6b7703825bcae8794359e8f1cbe342816116762/teavm-relocated-libs-rhino-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-jso/0.13.1/302ac974df830ff778d80d89293ba675174eb6f5/teavm-jso-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-analysis/0.13.1/65ac69292aa28307f73a61c149da3f877ba5426b/teavm-relocated-libs-asm-analysis-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm-tree/0.13.1/d709372e6eb5f80877b7f505f1f02a916af6b1cb/teavm-relocated-libs-asm-tree-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-asm/0.13.1/f746b39e4d2db6e5dac979cba0b630fc358770a1/teavm-relocated-libs-asm-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-wasm-gc-deobfuscator/0.13.1/a051bbecce343f66a74739b0260abc03956ae83/teavm-wasm-gc-deobfuscator-0.13.1.jar:/home/vzc1/.gradle/caches/modules-2/files-2.1/org.teavm/teavm-relocated-libs-commons-io/0.13.1/8aec42811000fabc73b2d097483a40b59248e299/teavm-relocated-libs-commons-io-0.13.1.jar StandaloneTeaVMLinker /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/generated/client-program.classpath net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/generated/teavm/wasm-gc-standalone classes.wasm FULL false
+[memory-cap] limit=13312 MiB metric=rss command=java
+[standalone-teavm] requestedOptimization=FULL effectiveOptimization=FULL dependencyAnalysis=precise strict=true obfuscated=false
+INFO: Running TeaVM
+[ember] reflection list: 16 classes, 1057 fields
+[standalone-teavm] phase=DEPENDENCY_ANALYSIS workItems=0
+EAGLER_WASMGC_STUB: com.twelvemonkeys.imageio.spi.ImageReaderSpiBase -> MISSING superclass javax.imageio.spi.ImageReaderSpi (submitting synthetic class)
+EAGLER_WASMGC_STUB: com.twelvemonkeys.imageio.ImageReaderBase -> MISSING superclass javax.imageio.ImageReader (submitting synthetic class)
+EAGLER_UNSUPPORTED_STRIP java.util.Date.toString (removed @UnsupportedOn)
+EAGLER_WASMGC_STUB: squeek.appleskin.client.REITooltipPlugin -> MISSING interface me.shedaniel.rei.api.client.plugins.REIClientPlugin (submitting synthetic interface)
+EAGLER_WASMGC_STUB: io.github.sjouwer.gammautils.compat.SodiumConfigBuilder -> MISSING interface net.caffeinemc.mods.sodium.api.config.ConfigEntryPoint (submitting synthetic interface)
+[standalone-teavm] progress=8838/0
+EAGLER_WASMGC_STUB: me.cominixo.betterf3.libs.nightconfig.core.file.WriteAsyncFileConfig$WriteCompletedHandler -> MISSING interface java.nio.channels.CompletionHandler (submitting synthetic interface)
+[standalone-teavm] phase=COMPILING workItems=1000
+[standalone-teavm] progress=0/1000
+[standalone-teavm] progress=100/1000
+[standalone-teavm] progress=200/1000
+[standalone-teavm] progress=300/1000
+[standalone-teavm] progress=400/1000
+[standalone-teavm] progress=500/1000
+[standalone-teavm] progress=600/1000
+[standalone-teavm] progress=700/1000
+[standalone-teavm] progress=800/1000
+EAGLER_WASMGC_PHANTOM_ROOT org.quiltmc.loader.api.ModContainer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.quiltmc.loader.api.ModMetadata classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.teavm.platform.PlatformClass classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.teavm.platform.PlatformObject classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT javax.imageio.ImageTypeSpecifier classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.awt.image.BufferedImage classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT javax.imageio.ImageReadParam classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.awt.image.WritableRaster classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT javax.imageio.metadata.IIOMetadata classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT me.cominixo.betterf3.libs.nightconfig.core.utils.WriterSupplier classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.ShortBuffer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.LongBuffer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.DoubleBuffer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.time.OffsetDateTime classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT me.cominixo.betterf3.libs.nightconfig.json.FancyJsonWriter classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.server.level.ServerEntity classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.util.debug.DebugValueSource$Registration classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.permission.v1.PermissionNode classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.reflect.TypeParameter classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.lang.annotation.RetentionPolicy classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.lang.annotation.ElementType classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT javax.annotation.meta.When classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.io.ObjectOutput classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.io.ObjectInput classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.io.ObjectOutputStream classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.DensityFunction$FunctionContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.DensityFunction$ContextProvider classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.DensityFunction$Visitor classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.blending.Blender classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.NoiseChunk classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.chunk.ChunkGeneratorStructureState classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.biome.Climate$TargetPoint classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.AxisAngle4d classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Quaterniondc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix3dc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix4x3fc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix4dc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Quaterniond classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix4d classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix3d classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix4x3f classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.IntUnaryOperator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.util.LongSummaryStatistics classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Reference2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Reference2ShortFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Object2ShortFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.Short2ObjectFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.Short2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.Int2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Reference2LongFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.Long2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Reference2CharFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Object2CharFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.chars.Char2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2ObjectFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Object2DoubleFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.Double2ObjectFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.Double2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Object2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.util.stream.IntStream$IntMapMultiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.util.stream.LongStream$LongMapMultiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.Int2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2IntFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.Int2ShortFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.Short2IntFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.Int2CharFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.chars.Char2IntFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.Int2FloatFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2IntFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.Double2IntFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.client.multiplayer.chat.report.ReportEnvironment classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.client.multiplayer.chat.report.ReportingContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.IntObjectBiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.core.dispenser.BlockSource classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Vector2d classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Vector4dc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Vector4ic classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Vector2dc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix3x2dc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix4x3dc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix4x3d classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Vector4d classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.core.Cloner$Factory classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.core.RegistrySetBuilder$PatchedRegistries classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.time.chrono.Era classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.time.OffsetTime classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.collect.ImmutableEnumMap$1 classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.util.BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.loader.api.metadata.version.VersionInterval classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.json.JSONPointer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.apache.logging.log4j.message.MessageFactory classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.apache.logging.log4j.message.EntryMessage classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.apache.logging.log4j.message.FlowMessageFactory classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.file.WatchEvent$Modifier classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.collect.DiscreteDomain classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.collect.BoundType classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.lang.reflect.AnnotatedType classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT dev.isxander.yacl3.config.v2.api.autogen.OptionAccess classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT dev.isxander.yacl3.config.v2.impl.autogen.OptionAccessImpl classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT dev.isxander.yacl3.config.v2.impl.ConfigClassHandlerImpl$CategoryAndGroups classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.networking.v1.ServerConfigurationNetworking$Context classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.io.FileDescriptor classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.carver.CarvingContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.chunk.CarvingMask classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.carver.WorldCarver$CarveSkipChecker classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking$Context classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.client.model.loading.v1.ExtraModelKey classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.collect.ImmutableSetMultimap classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2LongFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.Long2ShortFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.Short2LongFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.Long2CharFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.chars.Char2LongFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2LongFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.Long2DoubleFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.Double2LongFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.base.Equivalence$Wrapper classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.apache.logging.log4j.LogBuilder classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.DoubleUnaryOperator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.mojang.serialization.Decoder$Terminal classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.mojang.serialization.Decoder$Boxed classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.mojang.serialization.Decoder$Simple classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.DoubleConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.DoublePredicate classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.material.FlowingFluid$SpreadContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.ClipBlockStateContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.quiltmc.loader.api.Version$Semantic classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.biome.Climate$DistanceMetric classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.item.crafting.PlacementInfo classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.client.renderer.block.dispatch.VariantMutator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.server.jsonrpc.methods.IpBanlistService$IpBan classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.server.jsonrpc.methods.BanlistService$UserBan classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.LongPredicate classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.apache.commons.lang3.function.FailableBiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.apache.commons.lang3.function.FailableBiFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.util.concurrent.ProgressivePromise classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2ShortFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.Short2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2IntFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.ints.Int2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2LongFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.Long2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2CharFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.chars.Char2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2FloatFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2DoubleFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.Double2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2ObjectFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.Boolean2ReferenceFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.Reference2BooleanFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.storage.PlayerDataStorage classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.channel.ChannelProgressivePromise classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.client.rendering.v1.SubmitRenderPhase classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.DensityFunctions$Spline$Point classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.WorldgenRandom$Algorithm classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.mixin.MixinEnvironment$Phase classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.IMixinInternal classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.util.ReEntranceLock classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.IClassProvider classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.IClassBytecodeProvider classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.ITransformerProvider classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.IClassTracker classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.IMixinAuditTrail classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.IFeatureValidator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.service.IAdviceProvider classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.launch.platform.container.IContainerHandle classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.spongepowered.asm.mixin.MixinEnvironment$CompatibilityLevel classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.LongUnaryOperator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT me.cominixo.betterf3.libs.nightconfig.core.EnumGetMethod classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.util.concurrent.AsyncFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.util.concurrent.FutureCallback classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.lax1dude.eaglercraft.v1_8.internal.vfs2.VFSIterator2 classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.hash.Funnel classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Vector4i classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Vector2L classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix2fc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT org.joml.Matrix2dc classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.server.jsonrpc.internalapi.MinecraftApi classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.server.jsonrpc.methods.ClientInfo classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT squeek.appleskin.shadowed.blue.endless.jankson.api.DeserializerFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.api.DeserializerFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.channels.GatheringByteChannel classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.channels.ScatteringByteChannel classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.channel.socket.InternetProtocolFamily classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.channel.socket.SocketProtocolFamily classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.channels.SocketChannel classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.channel.socket.SocketChannelConfig classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.util.internal.IntegerHolder classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.chunk.status.WorldGenContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.util.StaticCache2D classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.buffer.SwappedByteBuf classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.ByteBinaryOperator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.FloatBinaryOperator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.ByteUnaryOperator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.ObjectByteBiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.LongFloatBiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2ShortFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.Short2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2CharFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.chars.Char2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2FloatFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.bytes.Byte2DoubleFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.Double2ByteFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2ShortFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.Short2FloatFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2CharFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.chars.Char2FloatFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.floats.Float2DoubleFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.doubles.Double2FloatFunction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.channel.DefaultFileRegion classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.booleans.BooleanComparator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.entity.raid.Raid$RaiderType classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT eu.pb4.placeholders.api.parsers.WrappedText classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.storage.loot.LootPool$Builder classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.item.crafting.RecipeManager$ServerDisplayInfo classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT eu.pb4.placeholders.api.PlaceholderContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue$Consumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue$WaitStrategy classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue$ExitCondition classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.fabricmc.fabric.api.resource.v1.DataResourceStore$Key classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.nio.file.attribute.UserPrincipalLookupService classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.objects.ObjectFloatBiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.advancements.AdvancementRewards$Builder classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.mojang.brigadier.context.ContextChain$Stage classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.commands.execution.ExecutionContext classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.commands.execution.Frame classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.commands.execution.EntryAction classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.commands.execution.ChainModifiers classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.ShortUnaryOperator classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.entity.ai.village.poi.PoiRecord classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.shorts.ShortSet classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.scores.PlayerTeam$Packed classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.scores.Objective$Packed classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.chunk.ProtoChunk classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.chunk.ChunkAccess$PackedTicks classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.BelowZeroRetrogen classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT it.unimi.dsi.fastutil.longs.LongObjectBiConsumer classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT com.google.common.collect.ImmutableEnumSet$1 classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.scores.Score$Packed classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.commands.execution.TraceCallbacks classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.gameevent.GameEventListenerRegistry$ListenerVisitor classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.gametest.framework.GameTestSequence classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate$Palette classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.world.level.gameevent.GameEventListener$DeliveryMode classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT net.minecraft.stats.ServerRecipeBook$Packed classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_ROOT java.net.SocketTimeoutException classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_CATCH runtime-instanceof (non-native) for catch type java.net.SocketTimeoutException
+EAGLER_WASMGC_PHANTOM_ROOT java.lang.reflect.InaccessibleObjectException classReader=false parent=n/a
+EAGLER_WASMGC_PHANTOM_CATCH runtime-instanceof (non-native) for catch type java.lang.reflect.InaccessibleObjectException
+EAGLER_WASMGC_PHANTOM_CATCH runtime-instanceof (non-native) for catch type java.lang.reflect.InaccessibleObjectException
+EAGLER_WASMGC_PHANTOM_CATCH runtime-instanceof (non-native) for catch type java.lang.reflect.InaccessibleObjectException
+EAGLER_WASMGC_PHANTOM_CATCH runtime-instanceof (non-native) for catch type java.lang.reflect.InaccessibleObjectException
+EAGLER_SPLIT: SKIP net.minecraft.world.level.block.Blocks::<clinit> nodes=77464 stmts=4 (has 10 locals)
+EAGLER_SPLIT: SKIP net.minecraft.world.item.Items::<clinit> nodes=52739 stmts=4 (has 14 locals)
+EAGLER_SPLIT: SPLIT @teavm.initReflection nodes=1202686 stmts=22517 -> 119 sub-functions
+EAGLER_SPLIT: SKIP net.minecraft.sounds.SoundEvents::<clinit> nodes=33844 stmts=4 (has 2 locals)
+EAGLER_SPLIT: SKIP net.minecraft.world.entity.EntityTypes::<clinit> nodes=20451 stmts=4 (has 10 locals)
+EAGLER_SPLIT: SKIP net.lax1dude.eaglercraft.v1_8.teavmcompat.dfu.EaglerDfuMetadataInstaller::<clinit> nodes=22148 stmts=2120 (has 99 locals)
+EAGLER_SPLIT: SKIP net.minecraft.client.animation.definitions.CopperGolemAnimation::<clinit> nodes=24543 stmts=4 (has 13 locals)
+EAGLER_SPLIT: SKIP net.minecraft.util.datafix.fixes.BlockStateData::bootstrap3_1 nodes=53457 stmts=4 (has 8 locals)
+EAGLER_SPLIT: SKIP net.minecraft.util.datafix.fixes.BlockStateData::bootstrap3_2 nodes=129242 stmts=4 (has 8 locals)
+EAGLER_SPLIT: SKIP net.minecraft.util.datafix.fixes.BlockStateData::bootstrap6 nodes=20091 stmts=4 (has 9 locals)
+EAGLER_SPLIT: SKIP net.minecraft.util.datafix.fixes.BlockStateData::bootstrap8 nodes=48954 stmts=4 (has 9 locals)
+EAGLER_SPLIT: SKIP net.minecraft.util.datafix.fixes.BlockStateData::bootstrapA nodes=38198 stmts=4 (has 7 locals)
+EAGLER_SPLIT: SKIP net.minecraft.util.datafix.fixes.BlockStateData::bootstrapC nodes=24576 stmts=4 (has 8 locals)
+EAGLER_SPLIT: SPLIT teavm@initializer nodes=1068331 stmts=307998 -> 106 sub-functions
+INFO: Output file built with warnings
+INFO: Classes compiled: 41307
+INFO: Methods compiled: 231684
+WARNING: Class org.apache.logging.log4j.core.config.Configurator was not found
+    at randommcsomethin.fallingleaves.init.Config.init(Config.java:62)
+    at randommcsomethin.fallingleaves.FallingLeavesClient.onInitializeClient(FallingLeavesClient.java:24)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.QuiltLoader was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.<init>(QuiltMod.java:27)
+    at com.terraformersmc.modmenu.ModMenu.onInitializeClient(ModMenu.java:125)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method javax.imageio.spi.ImageReaderSpi.<init>(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;)V was not found
+    at com.twelvemonkeys.imageio.spi.ImageReaderSpiBase.<init>(ImageReaderSpiBase.java:44)
+    at com.twelvemonkeys.imageio.plugins.webp.WebPImageReaderSpi.<init>(WebPImageReaderSpi.java:49)
+    at java.lang.reflect.Constructor.newInstance
+    at com.google.gson.internal.bind.TypeAdapters.javaTimeTypeAdapterFactory(TypeAdapters.java:954)
+    at com.google.gson.GsonBuilder.createFactories(GsonBuilder.java:979)
+    at com.google.gson.GsonBuilder.<clinit>(GsonBuilder.java:125)
+    at net.minecraft.server.players.CachedUserNameToIdResolver.<init>(CachedUserNameToIdResolver.java:46)
+    at net.minecraft.server.Services.create(Services.java:27)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:386)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method javax.imageio.ImageReader.<init>(Ljavax/imageio/spi/ImageReaderSpi;)V was not found
+    at com.twelvemonkeys.imageio.ImageReaderBase.<init>(ImageReaderBase.java:86)
+    at com.twelvemonkeys.imageio.plugins.webp.WebPImageReader.<init>(WebPImageReader.java:89)
+    at java.lang.reflect.Constructor.newInstance
+    at com.google.gson.internal.bind.TypeAdapters.javaTimeTypeAdapterFactory(TypeAdapters.java:954)
+    at com.google.gson.GsonBuilder.createFactories(GsonBuilder.java:979)
+    at com.google.gson.GsonBuilder.<clinit>(GsonBuilder.java:125)
+    at net.minecraft.server.players.CachedUserNameToIdResolver.<init>(CachedUserNameToIdResolver.java:46)
+    at net.minecraft.server.Services.create(Services.java:27)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:386)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class javax.imageio.stream.ImageInputStream was not found
+    at com.twelvemonkeys.imageio.spi.ReaderWriterProviderInfo.<init>(ReaderWriterProviderInfo.java:52)
+    at com.twelvemonkeys.imageio.plugins.webp.WebPProviderInfo.<init>(WebPProviderInfo.java:41)
+    at com.twelvemonkeys.imageio.plugins.webp.WebPImageReaderSpi.<init>(WebPImageReaderSpi.java:49)
+    at java.lang.reflect.Constructor.newInstance
+    at com.google.gson.internal.bind.TypeAdapters.javaTimeTypeAdapterFactory(TypeAdapters.java:954)
+    at com.google.gson.GsonBuilder.createFactories(GsonBuilder.java:979)
+    at com.google.gson.GsonBuilder.<clinit>(GsonBuilder.java:125)
+    at net.minecraft.server.players.CachedUserNameToIdResolver.<init>(CachedUserNameToIdResolver.java:46)
+    at net.minecraft.server.Services.create(Services.java:27)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:386)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.awt.Desktop was not found
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager.openUrl(ModrinthUpdateManager.java:434)
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager.maybeOpenAutoUpdateLink(ModrinthUpdateManager.java:238)
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager.lambda$refresh$0(ModrinthUpdateManager.java:93)
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager$refresh$lambda$_2_0.run(ModrinthUpdateManager.java:85)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.awt.Desktop was not found
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager.openUrl(ModrinthUpdateManager.java:435)
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager.maybeOpenAutoUpdateLink(ModrinthUpdateManager.java:238)
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager.lambda$refresh$0(ModrinthUpdateManager.java:93)
+    at me.cutebow.client_side_anchors.update.ModrinthUpdateManager$refresh$lambda$_2_0.run(ModrinthUpdateManager.java:85)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.ModContainer was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.getSha512Hash(QuiltMod.java:91)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.getModHashes(UpdateCheckerUtil.java:154)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.checkForUpdates0(UpdateCheckerUtil.java:95)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates$lambda$_2_0.run(UpdateCheckerUtil.java:50)
+    at net.minecraft.TracingExecutor.lambda$wrapUnnamed$0(TracingExecutor.java:91)
+    at net.minecraft.TracingExecutor$wrapUnnamed$lambda$_4_0.run(TracingExecutor.java:87)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.ModContainer was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.getSha512Hash(QuiltMod.java:93)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.getModHashes(UpdateCheckerUtil.java:154)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.checkForUpdates0(UpdateCheckerUtil.java:95)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates$lambda$_2_0.run(UpdateCheckerUtil.java:50)
+    at net.minecraft.TracingExecutor.lambda$wrapUnnamed$0(TracingExecutor.java:91)
+    at net.minecraft.TracingExecutor$wrapUnnamed$lambda$_4_0.run(TracingExecutor.java:87)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.ModContainer was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.getSha512Hash(QuiltMod.java:91)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.getModHashes(UpdateCheckerUtil.java:154)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.checkForUpdates0(UpdateCheckerUtil.java:95)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates$lambda$_2_0.run(UpdateCheckerUtil.java:50)
+    at net.minecraft.TracingExecutor.lambda$wrapUnnamed$0(TracingExecutor.java:91)
+    at net.minecraft.TracingExecutor$wrapUnnamed$lambda$_4_0.run(TracingExecutor.java:87)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.lang.reflect.Method.getParameters()[Ljava/lang/reflect/Parameter; was not found
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.MarshallerImpl.serialize(MarshallerImpl.java:337)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.Jankson.toJson(Jankson.java:313)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ShulkerBoxTooltipConfigSerializer.serialize(ShulkerBoxTooltipConfigSerializer.java:60)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.saveToFile(ConfigurationHandler.java:57)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.register(ConfigurationHandler.java:21)
+    at com.misterpemodder.shulkerboxtooltip.ShulkerBoxTooltip.init(ShulkerBoxTooltip.java:53)
+    at com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl.onInitialize(ShulkerBoxTooltipImpl.java:14)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.lang.reflect.Parameter was not found
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.MarshallerImpl.serialize(MarshallerImpl.java:351)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.Jankson.toJson(Jankson.java:313)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ShulkerBoxTooltipConfigSerializer.serialize(ShulkerBoxTooltipConfigSerializer.java:60)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.saveToFile(ConfigurationHandler.java:57)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.register(ConfigurationHandler.java:21)
+    at com.misterpemodder.shulkerboxtooltip.ShulkerBoxTooltip.init(ShulkerBoxTooltip.java:53)
+    at com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl.onInitialize(ShulkerBoxTooltipImpl.java:14)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.lang.reflect.Method.getParameters()[Ljava/lang/reflect/Parameter; was not found
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.serialize(MarshallerImpl.java:337)
+    at squeek.appleskin.shadowed.blue.endless.jankson.Jankson.toJson(Jankson.java:313)
+    at squeek.appleskin.ModConfig.save(ModConfig.java:44)
+    at squeek.appleskin.ModConfig.load(ModConfig.java:57)
+    at squeek.appleskin.ModConfig.init(ModConfig.java:28)
+    at squeek.appleskin.AppleSkin.onInitializeClient(AppleSkin.java:22)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.lang.reflect.Parameter was not found
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.serialize(MarshallerImpl.java:351)
+    at squeek.appleskin.shadowed.blue.endless.jankson.Jankson.toJson(Jankson.java:313)
+    at squeek.appleskin.ModConfig.save(ModConfig.java:44)
+    at squeek.appleskin.ModConfig.load(ModConfig.java:57)
+    at squeek.appleskin.ModConfig.init(ModConfig.java:28)
+    at squeek.appleskin.AppleSkin.onInitializeClient(AppleSkin.java:22)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.lang.reflect.Method.getParameters()[Ljava/lang/reflect/Parameter; was not found
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.POJODeserializer.deserializersFor(POJODeserializer.java:255)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:212)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:184)
+    at squeek.appleskin.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:278)
+    at squeek.appleskin.ModConfig.load(ModConfig.java:53)
+    at squeek.appleskin.ModConfig.init(ModConfig.java:28)
+    at squeek.appleskin.AppleSkin.onInitializeClient(AppleSkin.java:22)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.lang.reflect.Parameter was not found
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.POJODeserializer.deserializersFor(POJODeserializer.java:257)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:212)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:184)
+    at squeek.appleskin.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:278)
+    at squeek.appleskin.ModConfig.load(ModConfig.java:53)
+    at squeek.appleskin.ModConfig.init(ModConfig.java:28)
+    at squeek.appleskin.AppleSkin.onInitializeClient(AppleSkin.java:22)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.lang.reflect.Method.getParameters()[Ljava/lang/reflect/Parameter; was not found
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.POJODeserializer.deserializersFor(POJODeserializer.java:255)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:212)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:184)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:278)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ShulkerBoxTooltipConfigSerializer.deserialize(ShulkerBoxTooltipConfigSerializer.java:74)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.loadFromFile(ConfigurationHandler.java:27)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.register(ConfigurationHandler.java:20)
+    at com.misterpemodder.shulkerboxtooltip.ShulkerBoxTooltip.init(ShulkerBoxTooltip.java:53)
+    at com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl.onInitialize(ShulkerBoxTooltipImpl.java:14)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.lang.reflect.Parameter was not found
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.POJODeserializer.deserializersFor(POJODeserializer.java:257)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:212)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:184)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:278)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ShulkerBoxTooltipConfigSerializer.deserialize(ShulkerBoxTooltipConfigSerializer.java:74)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.loadFromFile(ConfigurationHandler.java:27)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.register(ConfigurationHandler.java:20)
+    at com.misterpemodder.shulkerboxtooltip.ShulkerBoxTooltip.init(ShulkerBoxTooltip.java:53)
+    at com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl.onInitialize(ShulkerBoxTooltipImpl.java:14)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.net.http.HttpRequest$BodyPublishers.ofString(Ljava/lang/String;)Ljava/net/http/HttpRequest$BodyPublisher; was not found
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.getCurrentVersions(UpdateCheckerUtil.java:185)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.lambda$checkForUpdates0$1(UpdateCheckerUtil.java:97)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_2.call(UpdateCheckerUtil.java:97)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_2.call(UpdateCheckerUtil.java:97)
+    at java.util.concurrent.FutureTask.run(TFutureTask.java:42)
+    at java.util.concurrent.Executors$InlineScheduledExecutorService.schedule(TExecutors.java:147)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.reschedule(YggdrasilServicesKeyInfo.java:101)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:91)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.net.http.HttpRequest$BodyPublishers.ofString(Ljava/lang/String;)Ljava/net/http/HttpRequest$BodyPublisher; was not found
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.getUpdatedVersions(UpdateCheckerUtil.java:254)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.lambda$checkForUpdates0$2(UpdateCheckerUtil.java:98)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_3.call(UpdateCheckerUtil.java:98)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_3.call(UpdateCheckerUtil.java:98)
+    at java.util.concurrent.FutureTask.run(TFutureTask.java:42)
+    at java.util.concurrent.Executors$InlineScheduledExecutorService.schedule(TExecutors.java:147)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.reschedule(YggdrasilServicesKeyInfo.java:101)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:91)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.lang.reflect.Method.getParameters()[Ljava/lang/reflect/Parameter; was not found
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.impl.POJODeserializer.deserializersFor(POJODeserializer.java:255)
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:208)
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:180)
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:256)
+    at me.shedaniel.autoconfig.serializer.JanksonConfigSerializer.deserialize(JanksonConfigSerializer.java:74)
+    at me.shedaniel.autoconfig.ConfigManager.load(ConfigManager.java:92)
+    at me.shedaniel.autoconfig.ConfigManager.<init>(ConfigManager.java:53)
+    at me.shedaniel.autoconfig.AutoConfig.register(AutoConfig.java:58)
+    at visuality.config.VisualityClothConfig.init(VisualityClothConfig.java:129)
+    at visuality.VisualityMod.<clinit>(VisualityMod.java:11)
+    at net.emberclient.fabric.EmberGenerated.createEntry(EmberGenerated.java:178)
+    at net.emberclient.fabric.EmberFabric.instance(EmberFabric.java:175)
+    at net.emberclient.fabric.EmberFabric.entrypoints(EmberFabric.java:149)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:161)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.lang.reflect.Parameter was not found
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.impl.POJODeserializer.deserializersFor(POJODeserializer.java:257)
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:208)
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:180)
+    at me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:256)
+    at me.shedaniel.autoconfig.serializer.JanksonConfigSerializer.deserialize(JanksonConfigSerializer.java:74)
+    at me.shedaniel.autoconfig.ConfigManager.load(ConfigManager.java:92)
+    at me.shedaniel.autoconfig.ConfigManager.<init>(ConfigManager.java:53)
+    at me.shedaniel.autoconfig.AutoConfig.register(AutoConfig.java:58)
+    at visuality.config.VisualityClothConfig.init(VisualityClothConfig.java:129)
+    at visuality.VisualityMod.<clinit>(VisualityMod.java:11)
+    at net.emberclient.fabric.EmberGenerated.createEntry(EmberGenerated.java:178)
+    at net.emberclient.fabric.EmberFabric.instance(EmberFabric.java:175)
+    at net.emberclient.fabric.EmberFabric.entrypoints(EmberFabric.java:149)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:161)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.Version$Semantic was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates0(QuiltLoaderUpdateChecker.java:79)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates(QuiltLoaderUpdateChecker.java:31)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.lambda$checkForUpdates0$0(UpdateCheckerUtil.java:81)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_1.run(UpdateCheckerUtil.java:77)
+    at java.util.concurrent.FutureTask$RunnableAdapter.call(TFutureTask.java:120)
+    at java.util.concurrent.FutureTask.run(TFutureTask.java:42)
+    at java.util.concurrent.Executors$InlineScheduledExecutorService.schedule(TExecutors.java:147)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.reschedule(YggdrasilServicesKeyInfo.java:101)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:91)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.Version$Semantic was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates0(QuiltLoaderUpdateChecker.java:84)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates(QuiltLoaderUpdateChecker.java:31)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.lambda$checkForUpdates0$0(UpdateCheckerUtil.java:81)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_1.run(UpdateCheckerUtil.java:77)
+    at java.util.concurrent.FutureTask$RunnableAdapter.call(TFutureTask.java:120)
+    at java.util.concurrent.FutureTask.run(TFutureTask.java:42)
+    at java.util.concurrent.Executors$InlineScheduledExecutorService.schedule(TExecutors.java:147)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.reschedule(YggdrasilServicesKeyInfo.java:101)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:91)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.Version$Semantic was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates0(QuiltLoaderUpdateChecker.java:86)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates(QuiltLoaderUpdateChecker.java:31)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.lambda$checkForUpdates0$0(UpdateCheckerUtil.java:81)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_1.run(UpdateCheckerUtil.java:77)
+    at java.util.concurrent.FutureTask$RunnableAdapter.call(TFutureTask.java:120)
+    at java.util.concurrent.FutureTask.run(TFutureTask.java:42)
+    at java.util.concurrent.Executors$InlineScheduledExecutorService.schedule(TExecutors.java:147)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.reschedule(YggdrasilServicesKeyInfo.java:101)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:91)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.QuiltLoader was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.getCurrentVersion(QuiltLoaderUpdateChecker.java:110)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates0(QuiltLoaderUpdateChecker.java:95)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates(QuiltLoaderUpdateChecker.java:31)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.lambda$checkForUpdates0$0(UpdateCheckerUtil.java:81)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_1.run(UpdateCheckerUtil.java:77)
+    at java.util.concurrent.FutureTask$RunnableAdapter.call(TFutureTask.java:120)
+    at java.util.concurrent.FutureTask.run(TFutureTask.java:42)
+    at java.util.concurrent.Executors$InlineScheduledExecutorService.schedule(TExecutors.java:147)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.reschedule(YggdrasilServicesKeyInfo.java:101)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:91)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.Version$Semantic was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.isNewer(QuiltLoaderUpdateChecker.java:106)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates0(QuiltLoaderUpdateChecker.java:96)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker.checkForUpdates(QuiltLoaderUpdateChecker.java:31)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil.lambda$checkForUpdates0$0(UpdateCheckerUtil.java:81)
+    at com.terraformersmc.modmenu.util.UpdateCheckerUtil$checkForUpdates0$lambda$_3_1.run(UpdateCheckerUtil.java:77)
+    at java.util.concurrent.FutureTask$RunnableAdapter.call(TFutureTask.java:120)
+    at java.util.concurrent.FutureTask.run(TFutureTask.java:42)
+    at java.util.concurrent.Executors$InlineScheduledExecutorService.schedule(TExecutors.java:147)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.reschedule(YggdrasilServicesKeyInfo.java:101)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo$1.run(YggdrasilServicesKeyInfo.java:91)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.Version$Semantic was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker$QuiltLoaderUpdateInfo.getUpdateChannel(QuiltLoaderUpdateChecker.java:136)
+    at com.terraformersmc.modmenu.util.mod.Mod.hasUpdate(Mod.java:129)
+    at com.terraformersmc.modmenu.config.ModMenuConfig$Sorting.lambda$static$1(ModMenuConfig.java:81)
+    at com.terraformersmc.modmenu.config.ModMenuConfig$Sorting$<clinit>$lambda$_7_1.apply(ModMenuConfig.java:81)
+    at com.terraformersmc.modmenu.config.ModMenuConfig$Sorting$<clinit>$lambda$_7_1.apply(ModMenuConfig.java:81)
+    at java.util.Comparator.lambda$comparing$7(TComparator.java:103)
+    at java.util.Comparator$comparing$lambda$_9_0.compare(TComparator.java:102)
+    at java.util.Arrays.merge(TArrays.java:1003)
+    at java.util.Arrays.sort(TArrays.java:971)
+    at java.util.Collections.sort(TCollections.java:217)
+    at java.time.format.SimpleDateTimeTextProvider$LocaleStore.<init>(SimpleDateTimeTextProvider.java:344)
+    at java.time.format.DateTimeFormatterBuilder.appendText(DateTimeFormatterBuilder.java:736)
+    at java.time.format.DateTimeFormatter.<clinit>(DateTimeFormatter.java:625)
+    at net.minecraft.util.Util.<clinit>(Util.java:109)
+    at net.minecraft.client.main.Main.main(Main.java:230)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.ModMetadata was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.getAuthors(QuiltMod.java:36)
+    at com.terraformersmc.modmenu.util.mod.ModSearch.authorMatches(ModSearch.java:93)
+    at com.terraformersmc.modmenu.util.mod.ModSearch.passesFilters(ModSearch.java:65)
+    at com.terraformersmc.modmenu.util.mod.ModSearch.lambda$search$0(ModSearch.java:26)
+    at com.terraformersmc.modmenu.util.mod.ModSearch$search$lambda$_2_0.apply(ModSearch.java:24)
+    at com.terraformersmc.modmenu.util.mod.ModSearch$search$lambda$_2_0.apply(ModSearch.java:24)
+    at java.util.stream.impl.MappingStreamImpl.lambda$wrap$0(TMappingStreamImpl.java:31)
+    at java.util.stream.impl.MappingStreamImpl$wrap$lambda$_1_0.test(TMappingStreamImpl.java:31)
+    at java.util.stream.impl.FlatMappingStreamImpl.next(TFlatMappingStreamImpl.java:70)
+    at java.util.stream.impl.SimpleStreamImpl.collect(TSimpleStreamImpl.java:240)
+    at net.minecraft.commands.arguments.item.ItemPredicateArgument.<clinit>(ItemPredicateArgument.java:66)
+    at net.minecraft.server.commands.ClearInventoryCommands.register(ClearInventoryCommands.java:42)
+    at net.minecraft.commands.Commands.<init>(Commands.java:195)
+    at net.minecraft.commands.Commands.validate(Commands.java:524)
+    at net.minecraft.server.Bootstrap.validate(Bootstrap.java:148)
+    at net.minecraft.client.main.Main.main(Main.java:153)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.ModMetadata was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.getAuthors(QuiltMod.java:42)
+    at com.terraformersmc.modmenu.util.mod.ModSearch.authorMatches(ModSearch.java:93)
+    at com.terraformersmc.modmenu.util.mod.ModSearch.passesFilters(ModSearch.java:65)
+    at com.terraformersmc.modmenu.util.mod.ModSearch.lambda$search$0(ModSearch.java:26)
+    at com.terraformersmc.modmenu.util.mod.ModSearch$search$lambda$_2_0.apply(ModSearch.java:24)
+    at com.terraformersmc.modmenu.util.mod.ModSearch$search$lambda$_2_0.apply(ModSearch.java:24)
+    at java.util.stream.impl.MappingStreamImpl.lambda$wrap$0(TMappingStreamImpl.java:31)
+    at java.util.stream.impl.MappingStreamImpl$wrap$lambda$_1_0.test(TMappingStreamImpl.java:31)
+    at java.util.stream.impl.FlatMappingStreamImpl.next(TFlatMappingStreamImpl.java:70)
+    at java.util.stream.impl.SimpleStreamImpl.collect(TSimpleStreamImpl.java:240)
+    at net.minecraft.commands.arguments.item.ItemPredicateArgument.<clinit>(ItemPredicateArgument.java:66)
+    at net.minecraft.server.commands.ClearInventoryCommands.register(ClearInventoryCommands.java:42)
+    at net.minecraft.commands.Commands.<init>(Commands.java:195)
+    at net.minecraft.commands.Commands.validate(Commands.java:524)
+    at net.minecraft.server.Bootstrap.validate(Bootstrap.java:148)
+    at net.minecraft.client.main.Main.main(Main.java:153)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.Version$Semantic was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltLoaderUpdateChecker$QuiltLoaderUpdateInfo.getUpdateMessage(QuiltLoaderUpdateChecker.java:126)
+    at com.terraformersmc.modmenu.gui.widget.DescriptionListWidget.rebuildUI(DescriptionListWidget.java:126)
+    at com.terraformersmc.modmenu.gui.widget.DescriptionListWidget.updateSelectedMod(DescriptionListWidget.java:269)
+    at com.terraformersmc.modmenu.gui.widget.DescriptionListWidget.<init>(DescriptionListWidget.java:56)
+    at com.terraformersmc.modmenu.gui.ModsScreen.init(ModsScreen.java:250)
+    at net.minecraft.client.gui.screens.Screen.rebuildWidgets(Screen.java:345)
+    at net.minecraft.client.gui.screens.Screen.repositionElements(Screen.java:439)
+    at net.minecraft.client.gui.screens.Screen.init(Screen.java:330)
+    at net.minecraft.client.gui.Gui.setScreen(Gui.java:269)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:677)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method com.twelvemonkeys.imageio.plugins.webp.WebPImageReaderSpi.createReaderInstance()Ljavax/imageio/ImageReader; was not found
+    at dev.isxander.yacl3.gui.image.impl.AnimatedDynamicTextureImage.createWEBPSupplier(AnimatedDynamicTextureImage.java:141)
+    at dev.isxander.yacl3.gui.image.impl.AnimatedDynamicTextureImage.lambda$createWEBPFromTexture$0(AnimatedDynamicTextureImage.java:107)
+    at dev.isxander.yacl3.gui.image.impl.AnimatedDynamicTextureImage$createWEBPFromTexture$lambda$_4_0.prepareImage(AnimatedDynamicTextureImage.java:103)
+    at dev.isxander.yacl3.gui.image.ImageRendererManager.safelyPrepareFactory(ImageRendererManager.java:117)
+    at dev.isxander.yacl3.gui.image.YACLImageReloadListener.lambda$prepare$5(YACLImageReloadListener.java:64)
+    at dev.isxander.yacl3.gui.image.YACLImageReloadListener$lambda$prepare$2$lambda$_9_2.get(YACLImageReloadListener.java:63)
+    at dev.isxander.yacl3.gui.image.YACLImageReloadListener$lambda$prepare$2$lambda$_9_2.get(YACLImageReloadListener.java:63)
+    at java.util.concurrent.CompletableFuture.lambda$supplyAsync$0(TCompletableFuture.java:95)
+    at java.util.concurrent.CompletableFuture$supplyAsync$lambda$_6_0.run(TCompletableFuture.java:93)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class javax.imageio.ImageIO was not found
+    at dev.isxander.yacl3.gui.image.impl.AnimatedDynamicTextureImage.createGIFSupplier(AnimatedDynamicTextureImage.java:117)
+    at dev.isxander.yacl3.gui.image.impl.AnimatedDynamicTextureImage.lambda$createGIFFromTexture$0(AnimatedDynamicTextureImage.java:94)
+    at dev.isxander.yacl3.gui.image.impl.AnimatedDynamicTextureImage$createGIFFromTexture$lambda$_2_0.prepareImage(AnimatedDynamicTextureImage.java:90)
+    at dev.isxander.yacl3.gui.image.ImageRendererManager.safelyPrepareFactory(ImageRendererManager.java:117)
+    at dev.isxander.yacl3.gui.image.YACLImageReloadListener.lambda$prepare$5(YACLImageReloadListener.java:64)
+    at dev.isxander.yacl3.gui.image.YACLImageReloadListener$lambda$prepare$2$lambda$_9_2.get(YACLImageReloadListener.java:63)
+    at dev.isxander.yacl3.gui.image.YACLImageReloadListener$lambda$prepare$2$lambda$_9_2.get(YACLImageReloadListener.java:63)
+    at java.util.concurrent.CompletableFuture.lambda$supplyAsync$0(TCompletableFuture.java:95)
+    at java.util.concurrent.CompletableFuture$supplyAsync$lambda$_6_0.run(TCompletableFuture.java:93)
+    at java.util.concurrent.Executors$InlineExecutorService.execute(TExecutors.java:110)
+    at com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo.get(YggdrasilServicesKeyInfo.java:84)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:39)
+    at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.<init>(YggdrasilAuthenticationService.java:25)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:385)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Field java.lang.Character$UnicodeBlock.BASIC_LATIN was not found
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.api.Escaper.<clinit>(Escaper.java:36)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonPrimitive.toJson(JsonPrimitive.java:241)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:45)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonPrimitive.toJson(JsonPrimitive.java:203)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:38)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ShulkerBoxTooltipConfigSerializer.serialize(ShulkerBoxTooltipConfigSerializer.java:60)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.saveToFile(ConfigurationHandler.java:57)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.register(ConfigurationHandler.java:21)
+    at com.misterpemodder.shulkerboxtooltip.ShulkerBoxTooltip.init(ShulkerBoxTooltip.java:53)
+    at com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl.onInitialize(ShulkerBoxTooltipImpl.java:14)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.lang.Character$UnicodeBlock was not found
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.api.Escaper.escapeString(Escaper.java:96)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.api.Escaper.escapeString(Escaper.java:43)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonPrimitive.toJson(JsonPrimitive.java:241)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:45)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonPrimitive.toJson(JsonPrimitive.java:203)
+    at com.misterpemodder.shulkerboxtooltip.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:38)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ShulkerBoxTooltipConfigSerializer.serialize(ShulkerBoxTooltipConfigSerializer.java:60)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.saveToFile(ConfigurationHandler.java:57)
+    at com.misterpemodder.shulkerboxtooltip.impl.config.ConfigurationHandler.register(ConfigurationHandler.java:21)
+    at com.misterpemodder.shulkerboxtooltip.ShulkerBoxTooltip.init(ShulkerBoxTooltip.java:53)
+    at com.misterpemodder.shulkerboxtooltip.fabric.ShulkerBoxTooltipImpl.onInitialize(ShulkerBoxTooltipImpl.java:14)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_0.accept(EmberFabric.java:192)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class org.quiltmc.loader.api.ModMetadata was not found
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.getContributors(QuiltMod.java:63)
+    at com.terraformersmc.modmenu.util.mod.quilt.QuiltMod.getCredits(QuiltMod.java:74)
+    at com.terraformersmc.modmenu.gui.widget.DescriptionListWidget.rebuildUI(DescriptionListWidget.java:218)
+    at com.terraformersmc.modmenu.gui.widget.DescriptionListWidget.updateSelectedMod(DescriptionListWidget.java:269)
+    at com.terraformersmc.modmenu.gui.widget.DescriptionListWidget.<init>(DescriptionListWidget.java:56)
+    at com.terraformersmc.modmenu.gui.ModsScreen.init(ModsScreen.java:250)
+    at net.minecraft.client.gui.screens.Screen.rebuildWidgets(Screen.java:345)
+    at net.minecraft.client.gui.screens.Screen.repositionElements(Screen.java:439)
+    at net.minecraft.client.gui.screens.Screen.init(Screen.java:330)
+    at net.minecraft.client.gui.Gui.setScreen(Gui.java:269)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:677)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.io.Reader.nullReader()Ljava/io/Reader; was not found
+    at org.quiltmc.parsers.json.gson.GsonReader.<init>(GsonReader.java:35)
+    at dev.isxander.yacl3.config.v2.impl.serializer.GsonConfigSerializer.loadSafely(GsonConfigSerializer.java:114)
+    at dev.isxander.yacl3.config.v2.impl.ConfigClassHandlerImpl.load(ConfigClassHandlerImpl.java:200)
+    at dev.isxander.yacl3.platform.PlatformEntrypoint.onInitializeClient(PlatformEntrypoint.java:13)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.io.Writer.nullWriter()Ljava/io/Writer; was not found
+    at org.quiltmc.parsers.json.gson.GsonWriter.<init>(GsonWriter.java:31)
+    at dev.isxander.yacl3.config.v2.impl.serializer.GsonConfigSerializer.save(GsonConfigSerializer.java:55)
+    at dev.isxander.yacl3.config.v2.impl.ConfigClassHandlerImpl.save(ConfigClassHandlerImpl.java:234)
+    at dev.isxander.yacl3.config.v2.impl.ConfigClassHandlerImpl.load(ConfigClassHandlerImpl.java:218)
+    at dev.isxander.yacl3.platform.PlatformEntrypoint.onInitializeClient(PlatformEntrypoint.java:13)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method net.minecraft.client.Minecraft.setScreen(Lnet/minecraft/client/gui/screens/Screen;)V was not found
+    at dzwdz.chat_heads.config.MissingClothConfigScreen.lambda$init$2(MissingClothConfigScreen.java:46)
+    at dzwdz.chat_heads.config.MissingClothConfigScreen$init$lambda$_1_2.onPress(MissingClothConfigScreen.java:45)
+    at net.minecraft.client.gui.components.Button.onPress(Button.java:41)
+    at net.minecraft.client.gui.components.AbstractButton.keyPressed(AbstractButton.java:66)
+    at net.minecraft.client.gui.components.events.ContainerEventHandler.keyPressed(ContainerEventHandler.java:84)
+    at net.minecraft.client.gui.screens.Screen.keyPressed(Screen.java:126)
+    at net.minecraft.client.KeyboardHandler.mixinextras$bridge$keyPressed$43(-1)
+    at net.minecraft.client.KeyboardHandler$keyPress$lambda$_12_0.call(KeyboardHandler.java:485)
+    at net.minecraft.client.KeyboardHandler$keyPress$lambda$_12_0.call(KeyboardHandler.java:485)
+    at net.minecraft.client.KeyboardHandler.wrapOperation$beo000$fabric-screen-api-v1$invokeKeyPressedEvents(KeyboardHandler.java:1316)
+    at net.minecraft.client.KeyboardHandler.keyPress(KeyboardHandler.java:485)
+    at net.minecraft.client.KeyboardHandler.lambda$setup$0(KeyboardHandler.java:653)
+    at net.minecraft.client.KeyboardHandler$setup$lambda$_18_4.handleEscape(KeyboardHandler.java:648)
+    at net.lax1dude.eaglercraft.v1_8.internal.PlatformInput$12.handleEvent(PlatformInput.java:583)
+    at net.lax1dude.eaglercraft.v1_8.internal.PlatformInput$12.handleEvent(PlatformInput.java:541)
+    at net.lax1dude.eaglercraft.v1_8.internal.PlatformInput$12.handleEvent$exported$0
+WARNING: Field java.lang.Character$UnicodeBlock.BASIC_LATIN was not found
+    at squeek.appleskin.shadowed.blue.endless.jankson.api.Escaper.<clinit>(Escaper.java:36)
+    at squeek.appleskin.shadowed.blue.endless.jankson.JsonPrimitive.toJson(JsonPrimitive.java:241)
+    at squeek.appleskin.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:45)
+    at squeek.appleskin.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:53)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.POJODeserializer.unpackObject(POJODeserializer.java:85)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:284)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:184)
+    at squeek.appleskin.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:278)
+    at squeek.appleskin.ModConfig.load(ModConfig.java:53)
+    at squeek.appleskin.ModConfig.init(ModConfig.java:28)
+    at squeek.appleskin.AppleSkin.onInitializeClient(AppleSkin.java:22)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.lang.Character$UnicodeBlock was not found
+    at squeek.appleskin.shadowed.blue.endless.jankson.api.Escaper.escapeString(Escaper.java:96)
+    at squeek.appleskin.shadowed.blue.endless.jankson.api.Escaper.escapeString(Escaper.java:43)
+    at squeek.appleskin.shadowed.blue.endless.jankson.JsonPrimitive.toJson(JsonPrimitive.java:241)
+    at squeek.appleskin.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:45)
+    at squeek.appleskin.shadowed.blue.endless.jankson.JsonElement.toJson(JsonElement.java:53)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.POJODeserializer.unpackObject(POJODeserializer.java:85)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:284)
+    at squeek.appleskin.shadowed.blue.endless.jankson.impl.MarshallerImpl.marshall(MarshallerImpl.java:184)
+    at squeek.appleskin.shadowed.blue.endless.jankson.Jankson.fromJson(Jankson.java:278)
+    at squeek.appleskin.ModConfig.load(ModConfig.java:53)
+    at squeek.appleskin.ModConfig.init(ModConfig.java:28)
+    at squeek.appleskin.AppleSkin.onInitializeClient(AppleSkin.java:22)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric$startClient$lambda$_12_1.accept(EmberFabric.java:193)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:163)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Class java.nio.channels.AsynchronousFileChannel was not found
+    at me.cominixo.betterf3.libs.nightconfig.core.file.WriteAsyncFileConfig.save(WriteAsyncFileConfig.java:121)
+    at me.cominixo.betterf3.libs.nightconfig.core.file.WriteAsyncFileConfig.save(WriteAsyncFileConfig.java:88)
+    at me.cominixo.betterf3.libs.nightconfig.core.file.AutosaveFileConfig.save(AutosaveFileConfig.java:57)
+    at me.cominixo.betterf3.libs.nightconfig.core.file.AutosaveFileConfig.set(AutosaveFileConfig.java:22)
+    at me.cominixo.betterf3.libs.nightconfig.core.Config.set(Config.java:27)
+    at me.cominixo.betterf3.config.ModConfigFile.lambda$static$0(ModConfigFile.java:44)
+    at me.cominixo.betterf3.config.ModConfigFile$<clinit>$lambda$_11_0.run(ModConfigFile.java:32)
+    at me.cominixo.betterf3.config.gui.modules.ModulesScreen.onClose(ModulesScreen.java:137)
+    at net.lax1dude.eaglercraft.v1_8.touch_gui.TouchControls26.onStart(TouchControls26.java:159)
+    at net.lax1dude.eaglercraft.v1_8.touch_gui.TouchControls26.update(TouchControls26.java:92)
+    at net.minecraft.client.Minecraft.run(Minecraft.java:882)
+    at net.minecraft.client.main.Main.main(Main.java:278)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.awt.Color.getRGB()I was not found
+    at dev.isxander.yacl3.config.v2.impl.serializer.GsonConfigSerializer$ColorTypeAdapter.serialize(GsonConfigSerializer.java:200)
+    at dev.isxander.yacl3.config.v2.impl.serializer.GsonConfigSerializer$ColorTypeAdapter.serialize(GsonConfigSerializer.java:192)
+    at com.google.gson.internal.bind.TreeTypeAdapter.write(TreeTypeAdapter.java:108)
+    at com.google.gson.Gson$FutureTypeAdapter.write(Gson.java:1251)
+    at com.google.gson.Gson.toJson(Gson.java:665)
+    at com.google.gson.Gson.toJson(Gson.java:620)
+    at com.google.gson.Gson.toJson(Gson.java:591)
+    at me.shedaniel.autoconfig.serializer.GsonConfigSerializer.serialize(GsonConfigSerializer.java:66)
+    at me.shedaniel.autoconfig.ConfigManager.save(ConfigManager.java:83)
+    at me.shedaniel.autoconfig.ConfigManager.<init>(ConfigManager.java:54)
+    at me.shedaniel.autoconfig.AutoConfig.register(AutoConfig.java:58)
+    at visuality.config.VisualityClothConfig.init(VisualityClothConfig.java:129)
+    at visuality.VisualityMod.<clinit>(VisualityMod.java:11)
+    at net.emberclient.fabric.EmberGenerated.createEntry(EmberGenerated.java:178)
+    at net.emberclient.fabric.EmberFabric.instance(EmberFabric.java:175)
+    at net.emberclient.fabric.EmberFabric.entrypoints(EmberFabric.java:149)
+    at net.emberclient.fabric.EmberFabric.invoke(EmberFabric.java:161)
+    at net.emberclient.fabric.EmberFabric.startClient(EmberFabric.java:192)
+    at net.fabricmc.loader.impl.game.minecraft.Hooks.startClient(Hooks.java:28)
+    at net.minecraft.client.Minecraft.<init>(Minecraft.java:408)
+    at net.minecraft.client.main.Main.main(Main.java:263)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.awt.Color.<init>(IZ)V was not found
+    at dev.isxander.yacl3.config.v2.impl.serializer.GsonConfigSerializer$ColorTypeAdapter.deserialize(GsonConfigSerializer.java:195)
+    at dev.isxander.yacl3.config.v2.impl.serializer.GsonConfigSerializer$ColorTypeAdapter.deserialize(GsonConfigSerializer.java:192)
+    at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:95)
+    at com.google.gson.Gson$FutureTypeAdapter.read(Gson.java:1246)
+    at net.minecraft.util.GsonHelper.fromJson(GsonHelper.java:437)
+    at net.minecraft.util.GsonHelper.parse(GsonHelper.java:480)
+    at net.minecraft.DetectedVersion.tryDetectVersion(DetectedVersion.java:54)
+    at net.minecraft.SharedConstants.tryDetectVersion(SharedConstants.java:194)
+    at net.minecraft.client.main.Main.main(Main.java:54)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+WARNING: Method java.awt.Color.<init>(IZ)V was not found
+    at dev.isxander.yacl3.gui.AbstractWidget.multiplyColor(AbstractWidget.java:110)
+    at dev.isxander.yacl3.gui.controllers.TickBoxController$TickBoxControllerElement.extractValueText(TickBoxController.java:66)
+    at dev.isxander.yacl3.gui.controllers.ControllerWidget.extractRenderState(ControllerWidget.java:50)
+    at dev.isxander.yacl3.gui.OptionListWidget$OptionEntry.extractContent(OptionListWidget.java:349)
+    at net.minecraft.client.gui.components.AbstractSelectionList.extractItem(AbstractSelectionList.java:360)
+    at net.minecraft.client.gui.components.AbstractSelectionList.extractListItems(AbstractSelectionList.java:349)
+    at net.minecraft.client.gui.components.AbstractSelectionList.extractWidgetRenderState(AbstractSelectionList.java:213)
+    at net.minecraft.client.gui.components.AbstractWidget.extractRenderState(AbstractWidget.java:59)
+    at com.terraformersmc.modmenu.gui.ModsScreen.extractRenderState(ModsScreen.java:308)
+    at net.minecraft.client.gui.screens.Screen.extractRenderStateWithTooltipAndSubtitles(Screen.java:108)
+    at net.minecraft.client.gui.screens.LoadingOverlay.extractRenderState(LoadingOverlay.java:79)
+    at net.minecraft.client.gui.Gui.extractRenderState(Gui.java:161)
+    at net.minecraft.client.renderer.GameRenderer.extract(GameRenderer.java:449)
+    at net.minecraft.client.Minecraft.renderFrame(Minecraft.java:1460)
+    at net.minecraft.client.Minecraft.runTick(Minecraft.java:1359)
+    at net.minecraft.client.Minecraft.run(Minecraft.java:890)
+    at net.minecraft.client.main.Main.main(Main.java:278)
+    at net.lax1dude.eaglercraft.v1_8.internal.teavm.ClientMain._main(ClientMain.java:508)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.clientMain(MainClass.java:38)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main(MainClass.java:31)
+    at org.teavm.runtime.Fiber.runMain
+    at org.teavm.runtime.Fiber.lambda$startMain$0(Fiber.java:428)
+    at org.teavm.runtime.Fiber$startMain$lambda$_41_0.run(Fiber.java:428)
+    at org.teavm.runtime.Fiber.start(Fiber.java:437)
+    at org.teavm.runtime.Fiber.start(Fiber.java:424)
+    at org.teavm.runtime.Fiber.startMain(Fiber.java:428)
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller
+    at net.lax1dude.eaglercraft.v1_8.internal.wasm_gc_teavm.MainClass.main_$caller$exported$0
+[memory-cap] peak child-tree RSS=12057 MiB
+[memory-cap] wall time=2413.9 s
+[standalone-client-link] verified content receipt written key=aced4dc3bcd438ae8937cda21d3180788542259c5ee026b2a8477687754c33ce
+[standalone-client-link] runtime=/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/generated/teavm/wasm-gc/classes.wasm-runtime.js bytes=13984 sha256=1e80092312d7bfe6efa74f8bb372d5521bc0549dcfbf384f25a145261a80d124 source=/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/wasm-toolchain/teavm-eagler-patch/teavm-core-0.13.1-eagler.jar
+[standalone-client-link] artifact=/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/generated/teavm/wasm-gc-standalone/classes.wasm
+[standalone-client-link] bytes=166196325 sha256=191a04dc6d6917fc81a304c9ad669f4906cbc946d056d685040935acfabd015b
+[standalone-client-link] installed=/home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/generated/teavm/wasm-gc/classes.wasm
+[memory-cap] peak child-tree RSS=12196 MiB
+[memory-cap] wall time=2436.9 s
+[single-html] Reusing source-fresh precise mesh-worker.wasm (18,084,021 bytes)
+[single-html] Reusing source-fresh precise server-worker.wasm (43,402,071 bytes)
+[single-html] Gradle heap limit: 11264 MiB (process cap: 13312 MiB)
+[single-html] ./gradlew :target_lwjgl_desktop:buildAssetsEPK --console=plain --no-daemon --max-workers=1 -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs=-Xmx11264m -Xss4m -XX:MaxMetaspaceSize=768m -XX:+UseG1GC
+[memory-cap] limit=13312 MiB metric=rss command=./gradlew
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/home/vzc1/.gradle/wrapper/dists/gradle-9.6.1-bin/4ticwg1pgcbps2hj28r8so764/gradle-9.6.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :platform:compileJava UP-TO-DATE
+> Task :platform:processResources NO-SOURCE
+> Task :platform:classes UP-TO-DATE
+> Task :platform:jar UP-TO-DATE
+> Task :game:compileJava UP-TO-DATE
+> Task :game:processResources UP-TO-DATE
+> Task :game:classes UP-TO-DATE
+> Task :game:jar UP-TO-DATE
+> Task :platform-lwjgl:compileJava FROM-CACHE
+> Task :platform-lwjgl:processResources NO-SOURCE
+> Task :platform-lwjgl:classes UP-TO-DATE
+> Task :platform-lwjgl:jar
+> Task :target_lwjgl_desktop:compileJava FROM-CACHE
+> Task :target_lwjgl_desktop:processResources NO-SOURCE
+> Task :target_lwjgl_desktop:classes UP-TO-DATE
+
+> Task :target_lwjgl_desktop:buildAssetsEPK
+packed 20971 files (23643 kB) -> /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_lwjgl_desktop/build/epk/assets.epk (8616 kB)
+verify OK: 20971 entries round-tripped with exact membership
+excluded 6 web-unreachable assets (2268 bytes): [assets/minecraft/textures/gui/sprites/icon/new_realm.png, assets/minecraft/textures/gui/sprites/realm_status/closed.png, assets/minecraft/textures/gui/sprites/realm_status/expired.png, assets/minecraft/textures/gui/sprites/realm_status/expires_soon.png, assets/minecraft/textures/gui/sprites/realm_status/expires_soon.png.mcmeta, assets/minecraft/textures/gui/sprites/realm_status/open.png]
+
+BUILD SUCCESSFUL in 10s
+9 actionable tasks: 2 executed, 2 from cache, 5 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.1/userguide/configuration_cache_enabling.html
+[memory-cap] peak child-tree RSS=1091 MiB
+[memory-cap] wall time=11.0 s
+[single-html] Installed source-matched assets.epk (8,822,838 bytes)
+[single-html] bash wasm-toolchain/deploy_wasm_web.sh
+[memory-cap] limit=13312 MiB metric=rss command=bash
+[deploy_wasm_web] deployed -> /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/web
+[deploy_wasm_web] build id: f43c1b0c7c23a96d
+total 148
+drwxr-xr-x 3 vzc1 vzc1  4096 Oct 30 16:30 .
+drwxr-xr-x 7 vzc1 vzc1  4096 Oct 30 15:49 ..
+lrwxrwxrwx 1 vzc1 vzc1    89 Oct 30 16:30 assets.epk -> /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm/build/web/assets.epk
+lrwxrwxrwx 1 vzc1 vzc1   119 Oct 30 16:30 classes.wasm -> /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc/build/generated/teavm/wasm-gc/classes.wasm
+-rw-r--r-- 1 vzc1 vzc1 13984 Oct 30 16:30 classes.wasm-runtime.js
+-rw-r--r-- 1 vzc1 vzc1 11851 Oct 30 16:30 favicon.png
+-rw-r--r-- 1 vzc1 vzc1 79352 Oct 30 16:30 index.html
+drwxr-xr-x 2 vzc1 vzc1  4096 Oct 30 16:30 lang
+lrwxrwxrwx 1 vzc1 vzc1   128 Oct 30 16:30 mesh-worker.wasm -> /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc_mesh/build/generated/teavm/wasm-gc/mesh-worker.wasm
+lrwxrwxrwx 1 vzc1 vzc1   132 Oct 30 16:30 server-worker.wasm -> /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm_wasm_gc_server/build/generated/teavm/wasm-gc/server-worker.wasm
+lrwxrwxrwx 1 vzc1 vzc1    89 Oct 30 16:30 sounds.epk -> /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/target_teavm/build/web/sounds.epk
+-rw-r--r-- 1 vzc1 vzc1  5265 Oct 30 16:30 worker-bootstrap.js
+[memory-cap] peak child-tree RSS=27 MiB
+[memory-cap] wall time=0.4 s
+[single-html] bash wasm-toolchain/precompress-web.sh
+[memory-cap] limit=13312 MiB metric=rss command=bash
+[precompress] q11 mesh-worker.wasm: 18084021 -> 2277221 bytes, 29.65s
+[precompress] q11 assets.epk: 8822838 -> 8485719 bytes, 11.51s
+[precompress] q11 server-worker.wasm: 43402071 -> 7667075 bytes, 75.59s
+[precompress] q11 classes.wasm-runtime.js: 13984 -> 4344 bytes, 0.01s
+[precompress] q11 sounds.epk: 25921893 -> 25921938 bytes, 37.04s
+[precompress] q11 classes.wasm: 166196325 -> 20565434 bytes, 249.95s
+[precompress] 6 files, 3 jobs, 253.70s total
+[memory-cap] peak child-tree RSS=1026 MiB
+[memory-cap] wall time=253.7 s
+[single-html] Reusing content-verified q11 classes.wasm.br
+[single-html] Reusing content-verified q11 mesh-worker.wasm.br
+[single-html] Reusing content-verified q11 server-worker.wasm.br
+[single-html] size breakdown:
+  Wasm raw:        166,196,325 B
+  Wasm Brotli:     20,565,434 B
+  Mesh Wasm raw:   18,084,021 B
+  Mesh Wasm Brotli:2,277,221 B
+  Server Wasm raw: 43,402,071 B
+  Server Wasm Br:  7,667,075 B
+  assets.epk:      8,822,838 B
+  sounds.epk:      25,921,893 B
+  music.epk:       0 B (omitted by --without-music)
+  output HTML:     87,459,966 B (87.46 MB)
+[single-html] wrote /home/vzc1/actions-runner/actions-runner/_work/ember-client/ember-client/out/ember-client-26.2.html
+[music-pack] wrote /home/vzc1/actions-runner/actions-runner/_work/_temp/ws/eaglercraft-26.2-optional-music.zip
+[music-pack] 92 unchanged OGG files, 40,663,396 bytes
+total 85420
+drwxr-xr-x  2 vzc1 vzc1     4096 Oct 30 16:34 .
+drwxr-xr-x 11 vzc1 vzc1     4096 Oct 30 15:49 ..
+-rw-r--r--  1 vzc1 vzc1 87459966 Oct 30 16:34 ember-client-26.2.html

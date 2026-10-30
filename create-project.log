@@ -1,0 +1,52 @@
+PROGRESS stage=verify-inputs elapsed_seconds=0
+Source extraction: Java heap limit 4.0 GiB; system reserve retained.
+PROGRESS stage=extract-skeleton elapsed_seconds=0
+PROGRESS stage=decompile elapsed_seconds=0
+PROGRESS stage=apply-source-patches elapsed_seconds=33
+PROGRESS stage=write-receipt elapsed_seconds=39
+{
+  "tool":"eaglercraft-26.2-java-cli",
+  "tool_version":"0.1.0-u2",
+  "command":"create-dev",
+  "status":"dev-workspace-ready",
+  "patch_apply_status":"applied",
+  "official_client_jar":"/home/vzc1/actions-runner/actions-runner/_work/_temp/inputs/client-26.2.jar",
+  "official_client_jar_size":39193383,
+  "official_client_jar_sha1":"2dc72797acbc1b63fc16a11c4ac393605f453754",
+  "official_client_jar_sha256":"40896ee9f1e2bec3c934daac7e93d41e9e3d9c2f8ae0ca366d52ffbfd1afa290",
+  "vineflower":"/home/vzc1/actions-runner/actions-runner/_work/_temp/inputs/kit/inputs/vineflower-1.12.0.jar",
+  "vineflower_sha256":"1dfcfe974395734fa467ce620661c7623d05ba83670de0529b1fbd63ff548b9d",
+  "vineflower_version":"1.12.0",
+  "java17":"/home/vzc1/actions-runner/actions-runner/_work/_tool/Java_Temurin-Hotspot_jdk/17.0.21-9/x64/bin/java",
+  "java17_sha256":"a2195ae9f8a91b82f53df7e1d1b9a650937ebbabbf67d0240c6378b4fbd9990b",
+  "java17_modules_sha256":"fcdfc72acc1ec5e8542fc2170c587ef23edbbdeddcbf435f169d270e02469d7c",
+  "java_version":"openjdk version \"17.0.21\" 2026-10-20",
+  "vineflower_flags":["--log-level=warn","-dgs=1","-rsy=1"],
+  "environment":{"LANG":"C","LC_ALL":"C","TZ":"UTC"},
+  "removed_environment_options":["JAVA_TOOL_OPTIONS","JDK_JAVA_OPTIONS","_JAVA_OPTIONS"],
+  "baseline_java_file_count":7055,
+  "baseline_manifest_sha256":"747714ab16c5c0618c10096d9d243ac4d35356dde617603e97b19dd76acb882b",
+  "patch_bundle":"/home/vzc1/actions-runner/actions-runner/_work/_temp/inputs/kit/source-patch-bundle.zip",
+  "patch_bundle_sha256":"1d7de4b80e60e1dd8516ad658c644dacac51ea5e8e042fa50e4a935be8af8631",
+  "project_skeleton":"/home/vzc1/actions-runner/actions-runner/_work/_temp/inputs/kit/project-skeleton-v5-teavm-runtime-verified.zip",
+  "project_skeleton_sha256":"b4aaa8441cd90b77e9f3a9d687a00b29327b291233d605cf3b7bea5c0f573044",
+  "project_skeleton_file_count":814,
+  "project_skeleton_manifest_sha256":"02c5006f0d750ed7b7687381f733b17fc5c04ea645fc0358b9b3ad8c6bd2316a",
+  "resource_overlay":"/home/vzc1/actions-runner/actions-runner/_work/_temp/inputs/kit/inputs/resource-overlay-normal.zip",
+  "resource_overlay_sha256":"2ba7e3376891c64f8bf57f3687e05b8dbe1971a75475b6825449e5e5f96d71f3",
+  "external_resource_root":"/home/vzc1/actions-runner/actions-runner/_work/_temp/inputs/kit/inputs/resources",
+  "resource_base_file_count":19497,
+  "resource_base_total_bytes":14915354,
+  "resource_base_tree_sha256":"c340d58c3759c0a2596c423441ce29cdc40c27fab3cb833641d3d6b03fd9b04a",
+  "resource_final_file_count":19515,
+  "resource_final_total_bytes":17581948,
+  "resource_final_tree_sha256":"ced3f0610dbfb18f8ecebfee5501df0da0036b8ad64ba7beb93f592aa9a1a8df",
+  "resource_operation_count":131,
+  "resource_add_count":64,
+  "resource_external_count":6,
+  "final_java_file_count":7146,
+  "final_manifest_sha256":"69ffffa75610659b728421d182b2d6196b921ed6a7972a429707a27881d55f15",
+  "patch_counts":{"add":94,"modify":577,"delete":3},
+  "elapsed_seconds":38.84,
+  "timeout_seconds":900
+}
