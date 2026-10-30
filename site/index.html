@@ -328,9 +328,14 @@
 <script>
 (function () {
   "use strict";
+  // A clean copy of this page, used to make the offline launcher download.
+  var PRISTINE = typeof window.EMBER_GAME === "string" ? "" : "<!doctype html>\n" + document.documentElement.outerHTML;
   var S = window.SITE || {};
   S.mods = S.mods || []; S.servers = S.servers || []; S.credits = S.credits || [];
   var mods = S.mods.map(function (m) { return Object.assign({ listed: true, icon: "", url: "", categories: [] }, m); });
+  // The offline launcher carries its mod list (and the game) inside the file.
+  if (Array.isArray(window.EMBER_MODS) && window.EMBER_MODS.length) mods = window.EMBER_MODS;
+  var OFFLINE = typeof window.EMBER_GAME === "string";
   var $ = function (id) { return document.getElementById(id); };
   var store = {
     get: function (k, d) { try { var v = localStorage.getItem("ember." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -345,10 +350,43 @@
   $("brandName").textContent = S.name || "Ember";
   $("brandVer").textContent = S.version || "";
   $("wordmark").textContent = S.name || "Ember";
-  document.querySelectorAll("[data-play]").forEach(function (a) { a.href = game; });
+  document.querySelectorAll("[data-play]").forEach(function (a) { a.href = OFFLINE ? "#play" : game; });
+
+  // Starts the game inside this page (offline launcher). Same setup as play.html.
+  function startGame(html) {
+    if (!/[?&](meshworkers|singlethread|nomesh)/.test(location.search)) {
+      var mem = navigator.deviceMemory || 8;
+      var cap = mem <= 2 ? 1 : mem <= 4 ? 2 : 4;
+      window.eaglercraftXOpts = window.eaglercraftXOpts || {};
+      window.eaglercraftXOpts.meshWorkerCount = Math.max(1, Math.min(cap, (navigator.hardwareConcurrency || 4) - 2));
+    }
+    var orig = Element.prototype.requestPointerLock;
+    if (orig && !orig.__ember) {
+      var raw = true;
+      var patched = function () {
+        var el = this;
+        if (!raw) return orig.call(el);
+        try {
+          var p = orig.call(el, { unadjustedMovement: true });
+          if (p && typeof p.catch === "function") return p.catch(function () { raw = false; return orig.call(el); });
+          return p;
+        } catch (e) { raw = false; return orig.call(el); }
+      };
+      patched.__ember = true;
+      Element.prototype.requestPointerLock = patched;
+    }
+    document.open(); document.write(html); document.close();
+  }
+  if (OFFLINE) {
+    $("dl").hidden = true;   // this file already is the offline launcher
+    document.querySelectorAll("[data-play]").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); setTimeout(function () { startGame(window.EMBER_GAME); }, 50); });
+    });
+  }
   $("dl").href = game;
   $("dl").setAttribute("download", (S.fullName || "Ember").replace(/\s+/g, "-") + "-" + (S.version || "") + ".html");
-  // The game is stored in pieces; join them into one file that works offline.
+  // "Download offline" saves this whole launcher (mods, wardrobe, servers) with the game
+  // inside it, as one file that works without the website.
   $("dl").addEventListener("click", function (e) {
     e.preventDefault();
     var btn = this, label = btn.lastChild, oldText = label.textContent;
@@ -356,16 +394,41 @@
     function load(src, ok, bad) { var s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = bad; document.head.appendChild(s); }
     function finish(t) { label.textContent = t; setTimeout(function () { label.textContent = oldText; delete btn.dataset.busy; }, 2500); }
     function failed() { window.__emberParts = null; finish("Download failed"); }
+    // Safe inside a <script> tag: no "<" characters left in the text.
+    function js(v) { return JSON.stringify(v).replace(/</g, "\\u003c"); }
+    // Mod icons come from Modrinth; copy them into the file so they show offline too.
+    function inlineIcons(list, done) {
+      var out = list.map(function (m) { return Object.assign({}, m); }), left = 0;
+      out.forEach(function (m) {
+        if (!m.icon || /^data:/.test(m.icon)) return;
+        left++;
+        fetch(m.icon).then(function (r) { return r.ok ? r.blob() : null; }).then(function (b) {
+          if (!b) return null;
+          return new Promise(function (res) { var fr = new FileReader(); fr.onload = function () { res(fr.result); }; fr.onerror = function () { res(null); }; fr.readAsDataURL(b); });
+        }).catch(function () { return null; }).then(function (d) { if (d) m.icon = d; if (--left === 0) done(out); });
+      });
+      if (left === 0) done(out);
+    }
+    function save(gameHtml) {
+      label.textContent = "Packing…";
+      inlineIcons(mods, function (modList) {
+        var site = Object.assign({}, S, { mods: [] });
+        var data = "<script>window.SITE=" + js(site) + ";window.EMBER_MODS=" + js(modList) + ";window.EMBER_GAME=" + js(gameHtml) + ";<\/script>";
+        var page = PRISTINE.replace(/<script src="site-config\.js"><\/script>/, function () { return data; });
+        var blob = new Blob([page], { type: "text/html" });
+        var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+        a.download = (S.fullName || "Ember").replace(/\s+/g, "-") + "-" + (S.version || "") + ".html";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 60000);
+        finish("Downloaded");
+      });
+    }
     load("game-parts.js", function () {
       var parts = window.EMBER_PARTS || []; window.__emberParts = [];
       (function next(i) {
         if (i === parts.length) {
-          var blob = new Blob([window.__emberParts.join("")], { type: "text/html" });
-          window.__emberParts = null;
-          var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
-          a.download = btn.getAttribute("download"); document.body.appendChild(a); a.click(); a.remove();
-          setTimeout(function () { URL.revokeObjectURL(a.href); }, 60000);
-          finish("Downloaded");
+          var html = window.__emberParts.join(""); window.__emberParts = null;
+          save(html);
           return;
         }
         label.textContent = "Preparing " + Math.round(i / parts.length * 100) + "%";
@@ -529,7 +592,10 @@
       el.className = "step" + (done[s.id] ? " done" : "");
       el.innerHTML = '<span class="box"></span>' + esc(s.label);
       if (s.go) el.addEventListener("click", function () { show(s.go); });
-      else { el.href = game; el.style.color = "inherit"; el.addEventListener("click", recordPlay); }
+      else {
+        el.href = OFFLINE ? "#play" : game; el.style.color = "inherit"; el.addEventListener("click", recordPlay);
+        if (OFFLINE) el.addEventListener("click", function (e) { e.preventDefault(); setTimeout(function () { startGame(window.EMBER_GAME); }, 50); });
+      }
       wrap.appendChild(el);
     });
     if (steps.every(function (s) { return done[s.id]; })) $("setupPanel").hidden = true;

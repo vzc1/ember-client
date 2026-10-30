@@ -29,6 +29,26 @@ loader = '''<script>
   function next(i) {
     if (i === PARTS.length) {
       var html = window.__emberParts.join("");
+      // Raw mouse input (no Windows pointer acceleration/smoothing) for smoother aiming.
+      // Falls back to normal pointer lock where the browser doesn't support it.
+      (function () {
+        var orig = Element.prototype.requestPointerLock;
+        if (!orig || orig.__ember) return;
+        var raw = true;
+        var patched = function () {
+          var el = this;
+          if (!raw) return orig.call(el);
+          try {
+            var p = orig.call(el, { unadjustedMovement: true });
+            if (p && typeof p.catch === "function") {
+              return p.catch(function (e) { raw = false; return orig.call(el); });
+            }
+            return p;
+          } catch (e) { raw = false; return orig.call(el); }
+        };
+        patched.__ember = true;
+        Element.prototype.requestPointerLock = patched;
+      })();
       // Start all chunk builders at once instead of one, so turning fast doesn't stall.
       if (!/[?&](meshworkers|singlethread|nomesh)/.test(location.search)) {
         window.eaglercraftXOpts = window.eaglercraftXOpts || {};
